@@ -1,0 +1,341 @@
+<!-- カウントダウンセクション -->
+<section class="countdown-section">
+    <div class="countdown-container">
+        <h2 class="countdown-title">創作展まで</h2>
+        <div class="countdown-display" id="countdown">
+            <div class="countdown-item">
+                <span class="countdown-number" id="days">--</span>
+                <span class="countdown-label">日</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="hours">--</span>
+                <span class="countdown-label">時間</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="minutes">--</span>
+                <span class="countdown-label">分</span>
+            </div>
+            <div class="countdown-separator">:</div>
+            <div class="countdown-item">
+                <span class="countdown-number" id="seconds">--</span>
+                <span class="countdown-label">秒</span>
+            </div>
+        </div>
+        <div class="event-info">
+            <p class="event-date">
+                2025年<span class="br-sp"></span>9月13日(土) - 9月14日(日)
+            </p>
+            <p class="event-time">開場時間：8:20～15:30（予定）</p>
+            <p class="event-location">@東京都立小石川中等教育学校</p>
+        </div>
+    </div>
+</section>
+
+<script>
+    // カウントダウン機能
+    function updateCountdown(): void {
+        // 戻り値の型をvoidに明示
+        // 創作展開始日時（2025年9月13日 8:30）
+        const eventDate = new Date("2025-09-13T08:30:00");
+        const now = new Date();
+        const timeDifference = eventDate.getTime() - now.getTime(); // getTime() でミリ秒に変換して計算
+
+        // 各要素を取得し、nullチェックを行う
+        const daysElement = document.getElementById("days");
+        const hoursElement = document.getElementById("hours");
+        const minutesElement = document.getElementById("minutes");
+        const secondsElement = document.getElementById("seconds");
+
+        // すべての要素が存在するか確認
+        if (
+            !daysElement ||
+            !hoursElement ||
+            !minutesElement ||
+            !secondsElement
+        ) {
+            console.error("カウントダウン表示に必要な要素が見つかりません。");
+            return; // 要素が見つからない場合は処理を中断
+        }
+
+        if (timeDifference > 0) {
+            const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            const minutes = Math.floor(
+                (timeDifference % (1000 * 60 * 60)) / (1000 * 60),
+            );
+            const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            daysElement.textContent = days.toString().padStart(2, "0");
+            hoursElement.textContent = hours.toString().padStart(2, "0");
+            minutesElement.textContent = minutes.toString().padStart(2, "0");
+            secondsElement.textContent = seconds.toString().padStart(2, "0");
+        } else {
+            // イベント開始後の表示
+            daysElement.textContent = "00";
+            hoursElement.textContent = "00";
+            minutesElement.textContent = "00";
+            secondsElement.textContent = "00";
+            // イベントが終了したらインターバルを停止することも検討
+            // clearInterval(intervalId); // 例えば、intervalIdをグローバルまたはクロージャで保持している場合
+        }
+    }
+
+    // 1秒ごとにカウントダウンを更新
+    const intervalId = setInterval(updateCountdown, 1000);
+
+    // 初回ロード時に一度更新
+    updateCountdown();
+</script>
+
+<style>
+    /* カウントダウンセクション */
+    .countdown-section {
+        padding: 5rem 2rem;
+        text-align: center;
+        background: #f0f4f8;
+        margin: 0 0 2rem 0;
+        position: relative;
+        overflow: hidden;
+        border: 1px solid rgba(26, 54, 93, 0.2);
+        box-shadow: 0 5px 15px rgba(26, 54, 93, 0.1);
+    }
+
+    .countdown-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(52, 73, 94, 0.1),
+            transparent
+        );
+        /* animation: slideShine 3s ease-in-out infinite; */
+    }
+
+    @keyframes slideShine {
+        0% {
+            left: -100%;
+        }
+
+        100% {
+            left: 100%;
+        }
+    }
+
+    .countdown-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 2;
+    }
+
+    .countdown-title {
+        font-family: "Exo 2", sans-serif;
+        font-size: 2.5rem;
+        font-weight: 300;
+        letter-spacing: 4px;
+        margin-bottom: 3rem;
+        color: #1a365d;
+    }
+
+    .countdown-display {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+    }
+
+    .countdown-item {
+        background: #ffffff;
+        border: 2px solid rgba(26, 54, 93, 0.3);
+        border-radius: 20px;
+        padding: 2rem 1.5rem;
+        min-width: 120px;
+        position: relative;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 15px rgba(26, 54, 93, 0.1);
+    }
+
+    .countdown-item:hover {
+        transform: scale(1.05);
+        border-color: rgba(26, 54, 93, 0.5);
+        box-shadow: 0 10px 30px rgba(26, 54, 93, 0.2);
+    }
+
+    .countdown-number {
+        font-family: "Orbitron", monospace;
+        font-size: 3rem;
+        font-weight: 700;
+        display: block;
+        color: #2c3e50;
+        text-shadow: 0 0 20px rgba(52, 73, 94, 0.4);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%,
+        100% {
+            transform: scale(1);
+        }
+
+        50% {
+            transform: scale(1.05);
+        }
+    }
+
+    .countdown-label {
+        font-family: "Exo 2", sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        color: #34495e;
+        letter-spacing: 2px;
+        margin-top: 0.5rem;
+        display: block;
+    }
+
+    .countdown-separator {
+        font-family: "Orbitron", monospace;
+        font-size: 2.5rem;
+        font-weight: 300;
+        color: #34495e;
+        /* animation: blink 2s ease-in-out infinite; */
+    }
+
+    @keyframes blink {
+        0%,
+        50% {
+            opacity: 1;
+        }
+
+        51%,
+        100% {
+            opacity: 0.3;
+        }
+    }
+
+    /* レスポンシブ対応 */
+    @media (max-width: 768px) {
+        .countdown-section {
+            padding: 3rem 1rem;
+            margin: 1rem 0;
+        }
+
+        .countdown-title {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+        }
+
+        .countdown-display {
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .countdown-item {
+            min-width: 80px;
+            padding: 1.5rem 1rem;
+            border-radius: 15px;
+        }
+
+        .countdown-number {
+            font-size: 2rem;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .countdown-separator {
+            font-size: 2rem;
+        }
+
+        .event-date {
+            font-size: 1.2rem;
+        }
+
+        .event-time {
+            font-size: 1rem;
+        }
+
+        .event-location {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .countdown-section {
+            padding: 2rem 0.5rem;
+            margin: 0.5rem 0;
+        }
+
+        .countdown-title {
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 1.5rem;
+        }
+
+        .countdown-display {
+            gap: 0.3rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            min-width: 60px;
+            padding: 1rem 0.5rem;
+            border-radius: 10px;
+        }
+
+        .countdown-number {
+            font-size: 1.5rem;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            letter-spacing: 0.5px;
+        }
+
+        .countdown-separator {
+            font-size: 1.5rem;
+        }
+
+        .event-date {
+            font-size: 1rem;
+        }
+
+        .event-time {
+            font-size: 0.9rem;
+        }
+
+        .event-location {
+            font-size: 0.9rem;
+        }
+    }
+
+    /* スマホ用改行制御 */
+    .br-sp {
+        display: none;
+    }
+
+    @media (max-width: 600px) {
+        .br-sp {
+            display: block;
+            width: 100%;
+            height: 0;
+            line-height: 0;
+            margin: 0;
+            padding: 0;
+        }
+    }
+</style>

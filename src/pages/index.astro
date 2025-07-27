@@ -1,16 +1,203 @@
 ---
+import "../style/style.css";
+import "../style/toppage.css";
+import "../style/particle.css";
 
+import FloatingMenu from "../components/floating_menu.astro";
+import Footer from "../components/footer.astro";
+
+import Countdown from "../components/countdown.astro";
+
+const PageTitle = "創作展 - ここから広がる無限の創造";
 ---
 
-<html lang="en">
+<html lang="ja">
 	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>{PageTitle}</title>
+		<!-- cssを読み込む -->
+		<link rel="icon" type="image/png" href="/favicon.png" />
 	</head>
+
 	<body>
-		<h1>Astro</h1>
+		<!-- パーティクル背景 -->
+		<div class="particles" id="particles"></div>
+
+		<!-- メインヒーローセクション -->
+		<section class="hero">
+			<div class="logo">第93回 創作展</div>
+			<div class="hero-img-topright">
+				<img
+					src="../../public/img/hero_image/ThemeBanner.png"
+					alt="創作展の様子2"
+					class="slider-image topright"
+				/>
+				<img
+					src="../../public/img/hero_image/EventWeekBoard.jpg"
+					alt="イベント週間ボード"
+					class="slider-image topright"
+				/>
+			</div>
+			<div class="hero-img-bottomleft">
+				<img
+					src="../../public/img/hero_image/HomeObj.png"
+					alt="創作展の様子1"
+					class="slider-image bottomleft"
+				/>
+				<img
+					src="../../public/img/hero_image/HikariniwaPanel.jpg"
+					alt="ひかり庭パネル"
+					class="slider-image bottomleft"
+				/>
+			</div>
+			<div class="theme-container">
+				<div class="decoration-circle"></div>
+				<div class="decoration-triangle"></div>
+				<div class="decoration-square"></div>
+				<div class="decoration-triangle"></div>
+				<div class="decoration-hexagon"></div>
+				<div class="decoration-diamond"></div>
+				<div class="decoration-star"></div>
+				<div class="decoration-wave"></div>
+				<div class="decoration-hexagon"></div>
+				<div class="decoration-diamond"></div>
+				<div class="decoration-star"></div>
+				<div class="decoration-wave"></div>
+				<div class="decoration-circle decoration-top-left"></div>
+				<div class="decoration-triangle decoration-top-left"></div>
+				<div class="decoration-square decoration-top-left"></div>
+				<div class="decoration-hexagon decoration-top-left"></div>
+				<div class="decoration-diamond decoration-bottom-right"></div>
+				<div class="decoration-star decoration-bottom-right"></div>
+				<div class="decoration-wave decoration-bottom-right"></div>
+				<div class="decoration-circle decoration-bottom-right"></div>
+				<div class="decoration-triangle decoration-bottom-right"></div>
+				<div class="decoration-square decoration-bottom-right"></div>
+				<div class="decoration-hexagon decoration-bottom-right"></div>
+				<h1 class="theme">
+					<span>こ</span><span>こ</span><span>か</span><span>ら</span
+					><span>広</span><span>が</span><span>る</span><br /><span
+						>無</span
+					><span>限</span><span>の</span><span>創</span><span>造</span
+					>
+				</h1>
+			</div>
+			<p class="subtitle">9/13~9/14@東京都立小石川中等教育学校</p>
+		</section>
+
+		<Countdown />
+
+		<!-- ナビゲーションセクション -->
+		<section class="nav-container fade-in">
+			<h2 class="nav-section-title">メニュー</h2>
+			<div class="nav-grid">
+				<a class="nav-card" href="page/about/">
+					<span class="nav-icon">🎨</span>
+					<h3 class="nav-title">創作展とは？</h3>
+					<p class="nav-description">
+						初めての方に向けて、私たちの学校の文化祭「創作展」についてご説明します。
+					</p>
+				</a>
+
+				<div class="nav-card disabled">
+					<span class="nav-icon">🖼️</span>
+					<h3 class="nav-title">展示内容紹介</h3>
+					<p class="nav-description">
+						各クラス・部活動の展示の内容をご覧いただけます。
+					</p>
+					<div class="preparing-badge">準備中</div>
+				</div>
+
+				<div class="nav-card disabled">
+					<span class="nav-icon">📅</span>
+					<h3 class="nav-title">タイムスケジュール</h3>
+					<p class="nav-description">
+						公演等のタイムスケジュールはこちら。
+					</p>
+					<div class="preparing-badge">準備中</div>
+				</div>
+
+				<a class="nav-card" href="page/lottery/">
+					<span class="nav-icon">🎫</span>
+					<h3 class="nav-title">抽選申し込み</h3>
+					<p class="nav-description">
+						5・6年生の劇は事前申し込み制となっております。詳しくはこちらをご覧ください。
+					</p>
+				</a>
+
+				<a class="nav-card" href="page/notice/">
+					<span class="nav-icon">📋</span>
+					<h3 class="nav-title">来校時のご注意</h3>
+					<p class="nav-description">
+						ご来校の際の注意事項、アクセス方法、校内地図などをご覧いただけます。
+					</p>
+				</a>
+			</div>
+		</section>
+
+		<!--お知らせセクション-->
+		<section class="notice-section fade-in">
+			<h2 class="notice-title">お知らせ</h2>
+			<div class="notice-container">
+				<div class="notice-list">
+					<div class="notice-item">
+						<h3 class="notice-heading">創作展HPを公開しました！</h3>
+						<div class="notice-date">2025/07/16</div>
+						<p class="notice-content">
+							今年の創作展は9月13日(土)と14日(日)に開催されます。皆様のご来場をお待ちしております。
+						</p>
+					</div>
+				</div>
+				<!-- もっと見る -->
+				<a href="page/news/" class="more-notice"> もっと見る </a>
+			</div>
+		</section>
+
+		<!-- フッター -->
+		<div id="footer-placeholder"></div>
+
+		<!-- 浮遊メニュー -->
+		<div id="floating-menu-placeholder"></div>
+
+		<FloatingMenu />
+		<Footer />
+
+		<script>
+			// 初期化
+			document.addEventListener("DOMContentLoaded", () => {
+
+				const topImages = document.querySelectorAll(
+					".slider-image.topright",
+				);
+				const bottomImages = document.querySelectorAll(
+					".slider-image.bottomleft",
+				);
+				// クラスの初期化は不要（HTMLで付けないため）
+
+				setTimeout(() => {
+					// 4枚すべてにshow-onceを付与
+					topImages[0].classList.add("show-once", "active");
+					bottomImages[0].classList.add("show-once", "active");
+					topImages[1].classList.add("show-once");
+					bottomImages[1].classList.add("show-once");
+					let showFirst = true;
+					setInterval(() => {
+						showFirst = !showFirst;
+						if (showFirst) {
+							topImages[0].classList.add("active");
+							bottomImages[0].classList.add("active");
+							topImages[1].classList.remove("active");
+							bottomImages[1].classList.remove("active");
+						} else {
+							topImages[0].classList.remove("active");
+							bottomImages[0].classList.remove("active");
+							topImages[1].classList.add("active");
+							bottomImages[1].classList.add("active");
+						}
+					}, 3000);
+				}, 1400);
+			});
+		</script>
 	</body>
 </html>

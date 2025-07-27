@@ -1,0 +1,20 @@
+---
+import SubPageLayout from "../../layouts/SubPageLayout.astro";
+const PageTitle = "お知らせ";
+---
+
+<SubPageLayout PageTitle={PageTitle}>
+    <!--お知らせセクション-->
+    <section class="notice-section">
+        <!-- <h2 class="notice-title">お知らせ</h2> -->
+        <div class="notice-list fade-in">
+            <div class="notice-item">
+                <h3 class="notice-heading">創作展HPを公開しました！</h3>
+                <div class="notice-date">2025/07/16</div>
+                <p class="notice-content">
+                    今年の創作展は9月13日(土)と14日(日)に開催されます。皆様のご来場をお待ちしております。
+                </p>
+            </div>
+        </div>
+    </section>
+</SubPageLayout>

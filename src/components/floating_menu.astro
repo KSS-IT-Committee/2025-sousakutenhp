@@ -1,0 +1,150 @@
+---
+
+---
+
+<!-- フローティングメニュー（PC） -->
+<div class="floating-menu" id="floating-menu">
+    <a href="/" class="floating-menu-item">トップ</a>
+    <a href="/page/about/" class="floating-menu-item">創作展とは？</a>
+    <!-- <a href="/page/exhibition/" class="floating-menu-item">展示内容紹介</a>
+    <a href="/page/schedule/" class="floating-menu-item">タイムスケジュール</a> -->
+    <a href="/page/lottery/" class="floating-menu-item">抽選申し込み</a>
+    <a href="/page/notice/" class="floating-menu-item">来校時のご注意</a>
+</div>
+
+<!-- モバイルメニュー -->
+<div class="mobile-menu-toggle" id="mobile-menu-toggle">メニュー</div>
+<div class="mobile-menu" id="mobileMenu">
+    <a href="/" class="mobile-menu-item">トップ</a>
+    <a href="/page/about/" class="mobile-menu-item">創作展とは？</a>
+    <!-- <a href="/page/exhibition/" class="mobile-menu-item">展示内容紹介</a>
+    <a href="/page/schedule/" class="mobile-menu-item">タイムスケジュール</a> -->
+    <a href="/page/lottery/" class="mobile-menu-item">抽選申し込み</a>
+    <a href="/page/notice/" class="mobile-menu-item">来校時のご注意</a>
+</div>
+
+<script>
+    // モバイルメニューの切り替え
+    function toggleMobileMenu() {
+        const menu = document.getElementById("mobileMenu");
+        console.log("Toggling mobile menu visibility");
+        if (!menu) return; // メニューが存在しない場合は何もしない
+
+        if (menu.classList.contains("show")) {
+            // 閉じるときはアニメーション
+
+            menu.classList.remove("show");
+
+            menu.classList.add("hide");
+
+            menu.addEventListener("animationend", function handler() {
+                menu.classList.remove("hide");
+
+                menu.style.display = "none";
+
+                menu.removeEventListener("animationend", handler);
+            });
+        } else {
+            // 開くとき
+
+            menu.style.display = "block";
+
+            menu.classList.add("show");
+
+            menu.classList.remove("hide");
+        }
+    }
+
+    // ページがトップページかどうかを判定
+    function isTopPage(): boolean {
+        return (
+            window.location.pathname === "/" ||
+            window.location.pathname === "/index.html"
+        );
+    }
+
+    // スクロール時のメニュー表示制御
+    function handleScroll(): void {
+        const scrollPosition = window.scrollY;
+        const triggerHeight = window.innerHeight; // 画面の高さ分スクロールしたらメニューを表示
+
+        const floatingMenu = document.querySelector(".floating-menu");
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+
+        if (floatingMenu && mobileMenuToggle) {
+            if (isTopPage()) {
+                // トップページの場合のみスクロールで表示制御
+                if (scrollPosition > triggerHeight) {
+                    floatingMenu.classList.add("show");
+                    mobileMenuToggle.classList.add("show");
+                } else {
+                    floatingMenu.classList.remove("show");
+                    mobileMenuToggle.classList.remove("show");
+                }
+            } else {
+                // トップページ以外は常に表示
+                floatingMenu.classList.add("show");
+                mobileMenuToggle.classList.add("show");
+            }
+        }
+    }
+
+    // 初期化時にメニューを表示
+    function initializeMenu() {
+        const floatingMenu = document.querySelector(".floating-menu");
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+        //console.log(isTopPage());
+
+        if (floatingMenu && mobileMenuToggle && !isTopPage()) {
+            // トップページ以外は最初から表示
+            //console.log('show');
+            floatingMenu.classList.add("show");
+            mobileMenuToggle.classList.add("show");
+        }
+    }
+
+    // スクロールイベントリスナーを追加
+    window.addEventListener("scroll", handleScroll);
+
+    document.addEventListener("click", function (event: MouseEvent) {
+        const menu = document.getElementById("mobileMenu");
+        const toggle = document.querySelector(".mobile-menu-toggle");
+        // event.target が Node型であるとTypeScriptに伝える
+        const clickedElement = event.target as Node;
+        if (menu && toggle) {
+            // ★ 既存のチェックを継続し、どちらかがnullなら実行しない
+            if (
+                !menu.contains(clickedElement) &&
+                !toggle.contains(clickedElement) &&
+                menu.classList.contains("show")
+            ) {
+                toggleMobileMenu();
+            }
+        }
+    });
+
+    // ★ ここにモバイルメニューのトグルボタンへのイベントリスナーを追加！
+    const mobileMenuToggleButton =
+        document.getElementById("mobile-menu-toggle");
+    if (mobileMenuToggleButton) {
+        // 要素が存在するか確認
+        mobileMenuToggleButton.addEventListener("click", toggleMobileMenu);
+    }
+
+    // フローティングメニューの読み込み完了を監視
+    function waitForFloatingMenu() {
+        const floatingMenu = document.querySelector(".floating-menu");
+        const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
+
+        if (floatingMenu && mobileMenuToggle) {
+            // 要素が存在する場合は初期化
+            initializeMenu();
+        } else {
+            // 要素が存在しない場合は少し待ってから再試行
+            setTimeout(waitForFloatingMenu, 100);
+        }
+    }
+
+    // DOM読み込み完了時にフローティングメニューの読み込み完了を待つ
+    document.addEventListener("DOMContentLoaded", waitForFloatingMenu);
+</script>

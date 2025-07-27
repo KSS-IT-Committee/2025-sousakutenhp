@@ -1,0 +1,129 @@
+/* 固定ヘッダー */
+.header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    color: #2c3e50;
+    z-index: 999;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 10px rgba(26, 54, 93, 0.1);
+    border-bottom: 1px solid rgba(26, 54, 93, 0.1);
+}
+
+/* ロゴ */
+.header-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1a365d;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.header-logo:hover {
+    transform: scale(1.1);
+    color: #2c3e50;
+}
+
+/* 通常ナビゲーション（PC用）
+.header-nav {
+    display: flex;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+.nav-item a:hover {
+    color: #1a365d;
+}
+
+/* ハンバーガーアイコン */
+/* .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    z-index: 1001;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: #2c3e50;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* ハンバーガーが開いたとき */
+/* .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translateY(8px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translateY(-8px);
+} */
+
+/* /*スライドメニュー
+.slide-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(15px);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    padding: 4rem 2rem;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.slide-menu ul {
+    list-style: none;
+    padding: 0;
+}
+
+.slide-menu li {
+    margin-bottom: 1.5rem;
+}
+
+.slide-menu a {
+    text-decoration: none;
+    color: #111;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+/* 表示時 */
+/* .slide-menu.show {
+    right: 0;
+} */ 
+
+/* レスポンシブ */
+/* @media screen and (max-width: 768px) {
+    .header-nav {
+        display: none;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+} */
