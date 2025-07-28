@@ -71,9 +71,8 @@ body {
 }
 
 #footer-placeholder {
-    position: sticky;
-    top: 100vh;
-    top: 100dvh;
+    /* sticky設定を削除してフッターを常に表示 */
+    margin-top: auto;
 }
 
 .footer-content {

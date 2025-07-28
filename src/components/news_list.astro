@@ -1,0 +1,16 @@
+---
+const { title, date, description } = Astro.props;
+const DateString = new Date(date).toISOString().split("T")[0];
+---
+
+
+    <div class="notice-list fade-in">
+        <div class="notice-item">
+            <h3 class="notice-heading">{title}</h3>
+            <div class="notice-date">{DateString}</div>
+            <p class="notice-content">
+                {description}
+            </p>
+        </div>
+    </div>
+

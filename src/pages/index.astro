@@ -8,6 +8,9 @@ import Footer from "../components/footer.astro";
 
 import Countdown from "../components/countdown.astro";
 
+import NewsList from "../components/news_list.astro";
+const allPosts = await Astro.glob("./page/news/*.md");
+
 const PageTitle = "創作展 - ここから広がる無限の創造";
 ---
 
@@ -29,24 +32,24 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 			<div class="logo">第93回 創作展</div>
 			<div class="hero-img-topright">
 				<img
-					src="../../public/img/hero_image/ThemeBanner.png"
+					src="/img/hero_image/ThemeBanner.png"
 					alt="創作展の様子2"
 					class="slider-image topright"
 				/>
 				<img
-					src="../../public/img/hero_image/EventWeekBoard.jpg"
+					src="/img/hero_image/EventWeekBoard.jpg"
 					alt="イベント週間ボード"
 					class="slider-image topright"
 				/>
 			</div>
 			<div class="hero-img-bottomleft">
 				<img
-					src="../../public/img/hero_image/HomeObj.png"
+					src="/img/hero_image/HomeObj.png"
 					alt="創作展の様子1"
 					class="slider-image bottomleft"
 				/>
 				<img
-					src="../../public/img/hero_image/HikariniwaPanel.jpg"
+					src="/img/hero_image/HikariniwaPanel.jpg"
 					alt="ひかり庭パネル"
 					class="slider-image bottomleft"
 				/>
@@ -140,7 +143,7 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 		<section class="notice-section fade-in">
 			<h2 class="notice-title">お知らせ</h2>
 			<div class="notice-container">
-				<div class="notice-list">
+				<!-- <div class="notice-list">
 					<div class="notice-item">
 						<h3 class="notice-heading">創作展HPを公開しました！</h3>
 						<div class="notice-date">2025/07/16</div>
@@ -148,14 +151,20 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 							今年の創作展は9月13日(土)と14日(日)に開催されます。皆様のご来場をお待ちしております。
 						</p>
 					</div>
-				</div>
+				</div> -->
+				{
+					allPosts.map((post) => (
+						<NewsList
+							title={post.frontmatter.title}
+							date={post.frontmatter.pubDate}
+							description={post.frontmatter.description}
+						/>
+					))
+				}
 				<!-- もっと見る -->
 				<a href="page/news/" class="more-notice"> もっと見る </a>
 			</div>
 		</section>
-
-		<!-- フッター -->
-		<div id="footer-placeholder"></div>
 
 		<!-- 浮遊メニュー -->
 		<div id="floating-menu-placeholder"></div>
@@ -166,7 +175,6 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 		<script>
 			// 初期化
 			document.addEventListener("DOMContentLoaded", () => {
-
 				const topImages = document.querySelectorAll(
 					".slider-image.topright",
 				);

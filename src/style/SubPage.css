@@ -1,5 +1,15 @@
 body {
     padding-top: 100px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content {
+    flex: 1;
+    /* フッターが見えるようにmin-heightを削除 */
+    padding-bottom: 2rem;
+    /* コンテンツとフッターの間にスペースを追加 */
 }
 
 /* お知らせページのスタイル */
