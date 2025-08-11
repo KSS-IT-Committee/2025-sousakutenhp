@@ -1,171 +1,162 @@
 ---
 import SubPageLayout from "../../layouts/SubPageLayout.astro";
-const PageTitle= "来校時のご注意";
+const PageTitle = "来校時のご注意";
 ---
 
-
 <SubPageLayout PageTitle={PageTitle}>
-
-
-        <!-- 来場について -->
-        <div class="notice-content fade-in">
-            <section class="content-section">
-                <div class="notice-section">
-                    <h4>創作展の公開時間</h4>
-                    <div class="schedule-info">
-                        <div class="date-info">
-                            <strong>9月13日（土）・14日（日）</strong>
-                        </div>
-                        <div class="time-info">
-                            <strong>公開時間：8時20分～15時30分</strong>
-                            <p class="note">
-                                ※今後変更の可能性がございます。最新情報をご確認ください。
-                            </p>
-                        </div>
-                        <div class="performance-info">
-                            <strong
-                                >クラス演劇の第一公演開始時間：8時45分</strong
-                            >
-                        </div>
+    <!-- 来場について -->
+    <div class="notice-content fade-in">
+        <section class="content-section">
+            <div class="notice-section">
+                <h4>創作展の公開時間</h4>
+                <div class="schedule-info">
+                    <div class="date-info">
+                        <strong>9月13日（土）・14日（日）</strong>
                     </div>
-                </div>
-
-                <div class="notice-section">
-                    <h4>来場時のご準備</h4>
-                    <div class="required-items">
-                        <p>
-                            <strong class="highlight-text"
-                                >ご来場の際は公共交通機関をご利用ください。</strong
-                            >
-                        </p>
-                        <div class="transport-button-container">
-                            <a href="#access" class="transport-button"
-                                >路線案内はこちら</a
-                            >
-                        </div>
-                        <p>
-                            <strong class="highlight-text"
-                                >当日は以下のものをご持参ください：</strong
-                            >
-                        </p>
-                        <ul class="required-list">
-                            <li>上履き</li>
-                            <li>土足を入れる袋</li>
-                            <li>飲みもの</li>
-                            <li>スマートフォン</li>
-                        </ul>
-                        <p>※学校所有のスリッパをお貸しすることはできません。</p>
-                    </div>
-                </div>
-
-                <div class="notice-section">
-                    <h4>校内での注意事項</h4>
-                    <div class="rules">
-                        <ul>
-                            <li>
-                                <strong class="highlight-text"
-                                    >校内は原則飲食禁止</strong
-                                >ですが、熱中症予防のための水分補給は可能です。
-                            </li>
-                            <li>
-                                <strong class="highlight-text"
-                                    >校内に設置されている自動販売機の使用は、本校関係者に限定</strong
-                                >させていただきます。
-                            </li>
-                            <li>
-                                <strong class="highlight-text"
-                                    >無断で校内を撮影・録画することはおやめください。</strong
-                                >
-                            </li>
-                        </ul>
-                        <p class="help-info">
-                            その他お困りのことがございましたら、<strong
-                                class="highlight-text"
-                                >左袖に「行事運営」と書かれた黒いポロシャツを着ている生徒</strong
-                            >にお尋ねください。
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-            <!-- アクセス -->
-            <section class="content-section" id="access">
-                <h3>アクセス</h3>
-
-                <div class="school-info">
-                    <h4>東京都立小石川中等教育学校</h4>
-                    <div class="address-info">
-                        <p>
-                            <strong>住所：</strong>〒113-0021
-                            東京都文京区本駒込2-29-29
-                        </p>
-                        <p><strong>電話：</strong>03-3946-7171</p>
-                        <p><strong>FAX：</strong>03-3946-7397</p>
+                    <div class="time-info">
+                        <strong>公開時間：8時20分～15時30分</strong>
                         <p class="note">
-                            ※電話受付時間は、平日の午前8時30分から午後5時までです。
+                            ※今後変更の可能性がございます。最新情報をご確認ください。
                         </p>
                     </div>
-                </div>
-
-                <div class="access-info">
-                    <h4>路線案内</h4>
-                    <div class="station-list">
-                        <div class="station-item">
-                            <span class="station-name"
-                                >都営三田線「千石」駅</span
-                            >
-                            <span class="walk-time">徒歩3分</span>
-                        </div>
-                        <div class="station-item">
-                            <span class="station-name"
-                                >山手線/都営三田線「巣鴨」駅</span
-                            >
-                            <span class="walk-time">徒歩10分</span>
-                        </div>
-                        <div class="station-item">
-                            <span class="station-name"
-                                >山手線/東京メトロ南北線「駒込」駅</span
-                            >
-                            <span class="walk-time">徒歩13分</span>
-                        </div>
+                    <div class="performance-info">
+                        <strong>クラス演劇の第一公演開始時間：8時45分</strong>
                     </div>
                 </div>
+            </div>
 
-                <div class="map-section">
-                    <h4>周辺マップ</h4>
-                    <div class="surrounding-map">
-                        <img
-                            src="../../../public/img/map.png"
-                            alt="周辺地図"
-                            class="surrounding-map-img"
-                        />
-                    </div>
-                </div>
-
-                <div class="map-section">
-                    <h4>Google Map</h4>
-                    <div class="google-map-embed">
-                        <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6882.626340341176!2d139.74320717578988!3d35.72909627257185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188dbc69412373%3A0xa298d48c4b89a22f!2z5p2x5Lqs6YO956uL5bCP55-z5bed5Lit562J5pWZ6IKy5a2m5qCh!5e1!3m2!1sja!2sjp!4v1751183672126!5m2!1sja!2sjp"
-                            width="100%"
-                            height="450"
-                            style="border:0;"
-                            allowfullscreen=""
-                            loading="lazy"
-                            referrerpolicy="no-referrer-when-downgrade"
-                        ></iframe>
-                    </div>
-                    <div class="google-map-link">
-                        <a
-                            href="https://maps.google.com/?q=東京都立小石川中等教育学校"
-                            target="_blank"
-                            class="map-link"
+            <div class="notice-section">
+                <h4>来場時のご準備</h4>
+                <div class="required-items">
+                    <p>
+                        <strong class="highlight-text"
+                            >ご来場の際は公共交通機関をご利用ください。</strong
                         >
-                            Google Mapで見る
-                        </a>
+                    </p>
+                    <div class="transport-button-container">
+                        <a href="#access" class="transport-button"
+                            >路線案内はこちら</a
+                        >
+                    </div>
+                    <p>
+                        <strong class="highlight-text"
+                            >当日は以下のものをご持参ください：</strong
+                        >
+                    </p>
+                    <ul class="required-list">
+                        <li>上履き</li>
+                        <li>土足を入れる袋</li>
+                        <li>飲みもの</li>
+                        <li>スマートフォン</li>
+                    </ul>
+                    <p>※学校所有のスリッパをお貸しすることはできません。</p>
+                </div>
+            </div>
+
+            <div class="notice-section">
+                <h4>校内での注意事項</h4>
+                <div class="rules">
+                    <ul>
+                        <li>
+                            <strong class="highlight-text"
+                                >校内は原則飲食禁止</strong
+                            >ですが、熱中症予防のための水分補給は可能です。
+                        </li>
+                        <li>
+                            <strong class="highlight-text"
+                                >校内に設置されている自動販売機の使用は、本校関係者に限定</strong
+                            >させていただきます。
+                        </li>
+                        <li>
+                            <strong class="highlight-text"
+                                >無断で校内を撮影・録画することはおやめください。</strong
+                            >
+                        </li>
+                    </ul>
+                    <p class="help-info">
+                        その他お困りのことがございましたら、<strong
+                            class="highlight-text"
+                            >左袖に「行事運営」と書かれた黒いポロシャツを着ている生徒</strong
+                        >にお尋ねください。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- アクセス -->
+        <section class="content-section" id="access">
+            <h3>アクセス</h3>
+
+            <div class="school-info">
+                <h4>東京都立小石川中等教育学校</h4>
+                <div class="address-info">
+                    <p>
+                        <strong>住所：</strong>〒113-0021
+                        東京都文京区本駒込2-29-29
+                    </p>
+                    <p><strong>電話：</strong>03-3946-7171</p>
+                    <p><strong>FAX：</strong>03-3946-7397</p>
+                    <p class="note">
+                        ※電話受付時間は、平日の午前8時30分から午後5時までです。
+                    </p>
+                </div>
+            </div>
+
+            <div class="access-info">
+                <h4>路線案内</h4>
+                <div class="station-list">
+                    <div class="station-item">
+                        <span class="station-name">都営三田線「千石」駅</span>
+                        <span class="walk-time">徒歩3分</span>
+                    </div>
+                    <div class="station-item">
+                        <span class="station-name"
+                            >山手線/都営三田線「巣鴨」駅</span
+                        >
+                        <span class="walk-time">徒歩10分</span>
+                    </div>
+                    <div class="station-item">
+                        <span class="station-name"
+                            >山手線/東京メトロ南北線「駒込」駅</span
+                        >
+                        <span class="walk-time">徒歩13分</span>
                     </div>
                 </div>
-            </section>
-        </div>
+            </div>
 
+            <div class="map-section">
+                <h4>周辺マップ</h4>
+                <div class="surrounding-map">
+                    <img
+                        src="/img/map.png"
+                        alt="周辺地図"
+                        class="surrounding-map-img"
+                    />
+                </div>
+            </div>
+
+            <div class="map-section">
+                <h4>Google Map</h4>
+                <div class="google-map-embed">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6882.626340341176!2d139.74320717578988!3d35.72909627257185!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188dbc69412373%3A0xa298d48c4b89a22f!2z5p2x5Lqs6YO956uL5bCP55-z5bed5Lit562J5pWZ6IKy5a2m5qCh!5e1!3m2!1sja!2sjp!4v1751183672126!5m2!1sja!2sjp"
+                        width="100%"
+                        height="450"
+                        style="border:0;"
+                        allowfullscreen=""
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+                <div class="google-map-link">
+                    <a
+                        href="https://maps.google.com/?q=東京都立小石川中等教育学校"
+                        target="_blank"
+                        class="map-link"
+                    >
+                        Google Mapで見る
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
 </SubPageLayout>
