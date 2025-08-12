@@ -9,6 +9,8 @@ import Footer from "../components/footer.astro";
 import Countdown from "../components/countdown.astro";
 
 import NewsList from "../components/news_list.astro";
+
+import KonamiEasterEgg from "../components/KonamiEasterEgg.jsx";
 const allPosts = await Astro.glob("./page/news/*.md");
 
 const PageTitle = "創作展 - ここから広がる無限の創造";
@@ -171,7 +173,7 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 
 		<FloatingMenu />
 		<Footer />
-
+		<KonamiEasterEgg client:load />
 		<script>
 			// 初期化
 			document.addEventListener("DOMContentLoaded", () => {
