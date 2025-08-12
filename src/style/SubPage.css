@@ -68,6 +68,33 @@ body {
     background: #2c5282;
 }
 
+/* SubPage用 h1 下線デザイン */
+.subpage-title,
+.main-content h1 {
+    display: inline-block;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    /* color: #2c3e50; */
+    border-bottom: 3px solid #0077b6;
+    padding-bottom: 0.3em;
+    margin-bottom: 1.2em;
+    /* background: linear-gradient(90deg, #e0f7fa 0%, #fff 100%); */
+    box-decoration-break: clone;
+    width: 200px;
+}
+
+@media (max-width: 600px) {
+
+    .subpage-title,
+    .main-content h1 {
+        font-size: 1.3rem;
+        padding-bottom: 0.2em;
+        margin-bottom: 0.8em;
+        border-bottom-width: 2px;
+    }
+}
+
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
 

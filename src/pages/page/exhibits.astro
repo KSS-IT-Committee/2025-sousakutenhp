@@ -1,0 +1,127 @@
+---
+import SubPageLayout from "../../layouts/SubPageLayout.astro";
+import ExhibitsList from "../../components/exhibits_list.astro";
+import "../../style/exhibits.css";
+
+const risshiExhibits = await Astro.glob("./exhibits/risshi/*.md");
+const kaitakuExhibits = await Astro.glob("./exhibits/kaitaku/*.md");
+const sousakuExhibits = await Astro.glob("./exhibits/sousaku/*.md");
+const clubExhibits = await Astro.glob("./exhibits/club/*.md");
+const othersExhibits = await Astro.glob("./exhibits/others/*.md");
+
+const PageTitle = "出展団体紹介";
+---
+
+<SubPageLayout PageTitle={PageTitle}>
+    <div class="content-container fade-in">
+        <div class="exhibits-section">
+            <div class="exhibits-section-title">
+                <h1>立志部門</h1>
+                <p>1・2年生が展示を行います。</p>
+            </div>
+            <div class="exhibits-list">
+                {
+                    risshiExhibits.map((exhibit) => (
+                        <ExhibitsList
+                            title={exhibit.frontmatter.title}
+                            name={exhibit.frontmatter.name}
+                            url={exhibit.url}
+                            backgroundColor={
+                                exhibit.frontmatter.backgroundColor
+                                    ? exhibit.frontmatter.backgroundColor
+                                    : "white"
+                            }
+                        />
+                    ))
+                }
+            </div>
+        </div>
+        <div class="exhibits-section">
+            <div class="exhibits-section-title">
+                <h1>開拓部門</h1>
+                <p>3・4年生が演劇を行います。</p>
+            </div>
+            <div class="exhibits-list">
+                {
+                    kaitakuExhibits.map((exhibit) => (
+                        <ExhibitsList
+                            title={exhibit.frontmatter.title}
+                            name={exhibit.frontmatter.name}
+                            url={exhibit.url}
+                            backgroundColor={
+                                exhibit.frontmatter.backgroundColor
+                                    ? exhibit.frontmatter.backgroundColor
+                                    : "white"
+                            }
+                        />
+                    ))
+                }
+            </div>
+        </div>
+        <div class="exhibits-section">
+            <div class="exhibits-section-title">
+                <h1>創作部門</h1>
+                <p>5・6年生が演劇を行います。</p>
+            </div>
+            <div class="exhibits-list">
+                {
+                    sousakuExhibits.map((exhibit) => (
+                        <ExhibitsList
+                            title={exhibit.frontmatter.title}
+                            name={exhibit.frontmatter.name}
+                            url={exhibit.url}
+                            backgroundColor={
+                                exhibit.frontmatter.backgroundColor
+                                    ? exhibit.frontmatter.backgroundColor
+                                    : "white"
+                            }
+                        />
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="exhibits-section">
+            <div class="exhibits-section-title">
+                <h1>部活動団体</h1>
+                <p>部活動による公演や展示です。</p>
+            </div>
+            <div class="exhibits-list">
+                {
+                    clubExhibits.map((exhibit) => (
+                        <ExhibitsList
+                            title={exhibit.frontmatter.title}
+                            name={exhibit.frontmatter.name}
+                            room={exhibit.frontmatter.room}
+                            url={exhibit.url}
+                            backgroundColor={
+                                exhibit.frontmatter.backgroundColor
+                                    ? exhibit.frontmatter.backgroundColor
+                                    : "white"
+                            }
+                        />
+                    ))
+                }
+            </div>
+        </div>
+
+        <div class="exhibits-section">
+            <div class="exhibits-section-title">
+                <h1>その他</h1>
+                <p>その他の団体による企画です。</p>
+            </div>
+            <div class="exhibits-list">
+                {
+                    othersExhibits.map((exhibit) => (
+                        <ExhibitsList
+                            title={exhibit.frontmatter.title}
+                            name={exhibit.frontmatter.name}
+                            room={exhibit.frontmatter.room}
+                            url={exhibit.url}
+                        />
+                    ))
+                }
+            </div>
+        </div>
+    </div>
+</SubPageLayout>

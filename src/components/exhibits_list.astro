@@ -1,0 +1,29 @@
+---
+const { title, name, room, url, backgroundColor } = Astro.props as {
+    title: string;
+    name: string;
+    room: string;
+    url: string;
+    backgroundColor: keyof typeof colorcode;
+};
+const colorcode = {
+    yellow: "#fff9a7",
+    blue: "#add8e6",
+    red: "#ffcccb",
+    white: "#ffffff",
+};
+---
+
+<a href={url} class="exhibits-item" style={`--backgroundColor:${colorcode[backgroundColor]}`}>
+    <h2 set:html={title} />
+    <hr />
+    <p class="exhibits-item-name">{name}</p>
+    <!-- もし room が存在したら -->
+    {
+        room && (
+            <>
+                <p>@{room}</p>
+            </>
+        )
+    }
+</a>

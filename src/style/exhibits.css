@@ -1,0 +1,94 @@
+/* exhibits 一覧ページ用スタイル */
+
+.exhibits-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+}
+
+.exhibits-item {
+    background: #fff;
+    border: 2px solid #c2c2c2;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 1.5rem 1rem;
+    transition: box-shadow 0.2s, border-color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    color: #2c3e50;
+    text-decoration: none;
+    --accent: #ffffff;
+    
+    transition: 0.2s ease;
+}
+
+.exhibits-item:visited {
+    color: #2c3e50;
+}
+
+.exhibits-item:hover {
+    border-color: #0077b6;
+    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.10);
+    text-decoration: none;
+    --accent: var(--backgroundColor);
+    /* background: linear-gradient(to bottom, #ffffff 40%, var(--accent)); */
+    transform: translateY(-4px);
+
+}
+
+.exhibits-item h2 {
+    margin-bottom: 1.2em;
+    min-height: 2.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    word-break: break-word;
+    font-size: 1.05rem;
+    /* デフォルト */
+}
+
+.exhibits-item p {
+    margin-bottom: 0.2em;
+}
+
+.exhibits-item p:last-child {
+    margin-bottom: 0;
+}
+
+.exhibits-item hr {
+    width: 100%;
+    margin: 0.4em auto;
+    border: none;
+    border-top: 3px solid #c2c2c2;
+
+
+    /* opacity: 0.9; */
+}
+
+.exhibits-item-name {
+    font-size: 1rem;
+    /* 太く */
+    font-weight: bold;
+}
+
+@media (max-width: 1024px) {
+    .exhibits-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .exhibits-list {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .exhibits-item {
+        padding: 1rem 0.5rem;
+    }
+}
