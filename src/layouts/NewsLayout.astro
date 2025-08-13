@@ -1,0 +1,13 @@
+---
+import SubPageLayout from "./SubPageLayout.astro";
+
+const { frontmatter } = Astro.props;
+---
+
+<SubPageLayout PageTitle={`【お知らせ】${frontmatter.title}`}>
+    <section class="content-container fade-in">
+        <div class="exhibits-detail-content">
+            <slot />
+        </div>
+    </section>
+</SubPageLayout>

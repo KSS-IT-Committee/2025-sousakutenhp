@@ -3,6 +3,7 @@
   "type": "module",
   "version": "0.0.1",
   "scripts": {
+    "prebuild": "node src/scripts/generate-robots.mjs",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
@@ -17,5 +18,8 @@
     "framer-motion": "^12.23.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
+  },
+  "devDependencies": {
+    "dotenv": "^17.2.1"
   }
 }
