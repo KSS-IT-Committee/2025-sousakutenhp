@@ -15,7 +15,9 @@ const { PageTitle } = Astro.props;
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>{PageTitle} - 創作展</title>
+        <title
+            set:html={`${PageTitle.replace(/<\/?[^>]+(>|$)/g, "")} - 創作展`}
+        />
         <!-- cssを読み込む -->
 
         <link rel="icon" type="image/png" href="/favicon.png" />
@@ -23,7 +25,7 @@ const { PageTitle } = Astro.props;
 
     <body>
         <Header />
-        <div class="page-title">{PageTitle}</div>
+        <div class="page-title" set:html={PageTitle} />
 
         <main class="main-content">
             <slot />

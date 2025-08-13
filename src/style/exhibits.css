@@ -21,7 +21,7 @@
     color: #2c3e50;
     text-decoration: none;
     --accent: #ffffff;
-    
+
     transition: 0.2s ease;
 }
 
@@ -91,4 +91,44 @@
     .exhibits-item {
         padding: 1rem 0.5rem;
     }
+}
+
+.exhibits-detail-content {
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    padding: 0 auto;
+    max-width: 420px;
+
+}
+
+.exhibits-back-link {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: 0.5rem 1rem;
+    /* background: #0077b6; */
+    color: #2c3e50;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.exhibits-back-link:hover {
+    color: #0077b6;
+}
+
+.exhibits-detail-content p {
+    display: inline-block;
+    /* width: 40%; */
+    text-align: center;
+    margin: 0.5rem 2rem;
+}
+
+.exhibits-detail-room {
+    display: inline-block;
+    text-align: center;
+}
+
+.exhibits-detail-description {
+    margin: 2rem 0;
 }

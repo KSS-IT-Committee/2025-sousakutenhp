@@ -1,0 +1,25 @@
+---
+import SubPageLayout from "./SubPageLayout.astro";
+import "../style/exhibits.css";
+
+const { frontmatter } = Astro.props;
+---
+
+<SubPageLayout PageTitle={frontmatter.title}>
+    <a
+        href="/page/exhibits"
+        class="exhibits-back-link"
+        style="margin-left: 30px;">⇦団体一覧へ戻る</a
+    >
+    <section class="content-container fade-in">
+        <div class="exhibits-detail-content">
+            <h2>【{frontmatter.name}】</h2>
+            <div class="exhibits-detail-description">
+                <hr />
+                <slot />
+                <hr />
+            </div>
+            <div class="exhibits-detail-room">@ {frontmatter.room}</div>
+        </div>
+    </section>
+</SubPageLayout>
