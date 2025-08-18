@@ -167,4 +167,32 @@ const PageTitle = "出展団体紹介";
             </div>
         </div>
     </div>
+    
+    <script>
+        // Scroll-triggered animations for exhibits sections
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create an Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // When the element comes into view
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                        // Once animated, we can stop observing
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                // Trigger when 20% of the element is visible
+                threshold: 0.2,
+                // Start observing slightly before the element comes into view
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            // Observe all exhibits sections
+            const sections = document.querySelectorAll('.exhibits-section');
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
 </SubPageLayout>
