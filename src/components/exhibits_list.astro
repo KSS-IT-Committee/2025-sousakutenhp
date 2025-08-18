@@ -2,7 +2,7 @@
 const { title, name, room, url, backgroundColor } = Astro.props as {
     title: string;
     name: string;
-    room?: string; // Make room optional
+    room: string;
     url: string;
     backgroundColor: keyof typeof colorcode;
 };
