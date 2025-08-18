@@ -13,13 +13,26 @@ const PageTitle = "出展団体紹介";
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-    <div class="content-container fade-in">
-        <div class="exhibits-section">
-            <div class="exhibits-section-title">
-                <h1>立志部門</h1>
-                <p>1・2年生が展示を行います。</p>
+    <div class="exhibits-container fade-in">
+        <!-- Page Introduction -->
+        <div class="exhibits-intro">
+            <p class="intro-text">
+                創作展では、各学年・部活動による個性豊かな展示・公演が行われます。
+                ぜひお気に入りの企画を見つけてください。
+            </p>
+        </div>
+
+        <!-- 立志部門 -->
+        <section class="exhibits-section risshi-section">
+            <div class="section-header">
+                <div class="section-icon">🎨</div>
+                <div class="section-content">
+                    <h2 class="section-title">立志部門</h2>
+                    <p class="section-description">1・2年生による展示企画</p>
+                    <div class="section-badge">展示</div>
+                </div>
             </div>
-            <div class="exhibits-list">
+            <div class="exhibits-grid">
                 {
                     risshiExhibits.map((exhibit) => (
                         <ExhibitsList
@@ -35,13 +48,19 @@ const PageTitle = "出展団体紹介";
                     ))
                 }
             </div>
-        </div>
-        <div class="exhibits-section">
-            <div class="exhibits-section-title">
-                <h1>開拓部門</h1>
-                <p>3・4年生が演劇を行います。</p>
+        </section>
+
+        <!-- 開拓部門 -->
+        <section class="exhibits-section kaitaku-section">
+            <div class="section-header">
+                <div class="section-icon">🎭</div>
+                <div class="section-content">
+                    <h2 class="section-title">開拓部門</h2>
+                    <p class="section-description">3・4年生による演劇公演</p>
+                    <div class="section-badge">演劇</div>
+                </div>
             </div>
-            <div class="exhibits-list">
+            <div class="exhibits-grid">
                 {
                     kaitakuExhibits.map((exhibit) => (
                         <ExhibitsList
@@ -57,13 +76,19 @@ const PageTitle = "出展団体紹介";
                     ))
                 }
             </div>
-        </div>
-        <div class="exhibits-section">
-            <div class="exhibits-section-title">
-                <h1>創作部門</h1>
-                <p>5・6年生が演劇を行います。</p>
+        </section>
+
+        <!-- 創作部門 -->
+        <section class="exhibits-section sousaku-section">
+            <div class="section-header">
+                <div class="section-icon">🎪</div>
+                <div class="section-content">
+                    <h2 class="section-title">創作部門</h2>
+                    <p class="section-description">5・6年生による演劇公演</p>
+                    <div class="section-badge">演劇</div>
+                </div>
             </div>
-            <div class="exhibits-list">
+            <div class="exhibits-grid">
                 {
                     sousakuExhibits.map((exhibit) => (
                         <ExhibitsList
@@ -79,14 +104,19 @@ const PageTitle = "出展団体紹介";
                     ))
                 }
             </div>
-        </div>
+        </section>
 
-        <div class="exhibits-section">
-            <div class="exhibits-section-title">
-                <h1>部活動団体</h1>
-                <p>部活動による公演や展示です。</p>
+        <!-- 部活動団体 -->
+        <section class="exhibits-section club-section">
+            <div class="section-header">
+                <div class="section-icon">🏛️</div>
+                <div class="section-content">
+                    <h2 class="section-title">部活動団体</h2>
+                    <p class="section-description">部活動による公演・展示</p>
+                    <div class="section-badge">部活</div>
+                </div>
             </div>
-            <div class="exhibits-list">
+            <div class="exhibits-grid">
                 {
                     clubExhibits.map((exhibit) => (
                         <ExhibitsList
@@ -103,14 +133,19 @@ const PageTitle = "出展団体紹介";
                     ))
                 }
             </div>
-        </div>
+        </section>
 
-        <div class="exhibits-section">
-            <div class="exhibits-section-title">
-                <h1>その他</h1>
-                <p>その他の団体による企画です。</p>
+        <!-- その他 -->
+        <section class="exhibits-section others-section">
+            <div class="section-header">
+                <div class="section-icon">✨</div>
+                <div class="section-content">
+                    <h2 class="section-title">その他</h2>
+                    <p class="section-description">その他の団体による企画</p>
+                    <div class="section-badge">その他</div>
+                </div>
             </div>
-            <div class="exhibits-list">
+            <div class="exhibits-grid">
                 {
                     othersExhibits.map((exhibit) => (
                         <ExhibitsList
@@ -121,6 +156,14 @@ const PageTitle = "出展団体紹介";
                         />
                     ))
                 }
+            </div>
+        </section>
+
+        <!-- Footer Note -->
+        <div class="exhibits-footer">
+            <div class="footer-note">
+                <p>※ 各展示・公演の詳細は、各団体のページをご覧ください。</p>
+                <p>※ 公演時間や展示内容は変更される場合があります。</p>
             </div>
         </div>
     </div>

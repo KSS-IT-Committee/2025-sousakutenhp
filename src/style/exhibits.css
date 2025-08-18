@@ -1,28 +1,167 @@
-/* exhibits 一覧ページ用スタイル */
+/* Enhanced Exhibits Page Styles */
 
-.exhibits-list {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2rem;
-    margin: 2rem 0;
+/* Main Container */
+.exhibits-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem;
 }
 
+/* Page Introduction */
+.exhibits-intro {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(26, 54, 93, 0.05) 0%, rgba(74, 144, 226, 0.05) 100%);
+    border-radius: 20px;
+    border: 1px solid rgba(26, 54, 93, 0.1);
+}
+
+.intro-text {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    line-height: 1.8;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* Section Styling */
+.exhibits-section {
+    margin-bottom: 4rem;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(26, 54, 93, 0.08);
+    border: 1px solid rgba(26, 54, 93, 0.1);
+    transition: all 0.3s ease;
+}
+
+.exhibits-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(26, 54, 93, 0.12);
+}
+
+/* Section Headers */
+.section-header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid rgba(26, 54, 93, 0.1);
+}
+
+.section-icon {
+    font-size: 3rem;
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+    border-radius: 20px;
+    border: 2px solid rgba(26, 54, 93, 0.1);
+    flex-shrink: 0;
+}
+
+.section-content {
+    flex: 1;
+}
+
+.section-title {
+    font-family: 'Exo 2', sans-serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a365d;
+    margin: 0 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+
+.section-description {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin: 0 0 1rem 0;
+    font-weight: 400;
+}
+
+.section-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: linear-gradient(135deg, #4A90E2 0%, #7BB3F0 100%);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(74, 144, 226, 0.3);
+}
+
+/* Department-specific styling */
+.risshi-section .section-badge {
+    background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+}
+
+.kaitaku-section .section-badge {
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.sousaku-section .section-badge {
+    background: linear-gradient(135deg, #ef4444 0%, #f87171 100%);
+    box-shadow: 0 2px 8px rgba(239, 68, 68, 0.3);
+}
+
+.club-section .section-badge {
+    background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 100%);
+    box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+}
+
+.others-section .section-badge {
+    background: linear-gradient(135deg, #6b7280 0%, #9ca3af 100%);
+    box-shadow: 0 2px 8px rgba(107, 114, 128, 0.3);
+}
+
+/* Exhibits Grid */
+.exhibits-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+/* Individual Exhibit Cards */
 .exhibits-item {
-    background: #fff;
-    border: 2px solid #c2c2c2;
+    background: #ffffff;
+    border: 2px solid #e2e8f0;
     border-radius: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    padding: 1.5rem 1rem;
-    transition: box-shadow 0.2s, border-color 0.2s;
+    padding: 1.5rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
     color: #2c3e50;
     text-decoration: none;
-    --accent: #ffffff;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+}
 
-    transition: 0.2s ease;
+.exhibits-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--backgroundColor, #4A90E2) 0%, rgba(74, 144, 226, 0.6) 100%);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.exhibits-item:hover::before {
+    transform: scaleX(1);
 }
 
 .exhibits-item:visited {
@@ -30,105 +169,232 @@
 }
 
 .exhibits-item:hover {
-    border-color: #0077b6;
-    box-shadow: 0 4px 16px rgba(0, 119, 182, 0.10);
-    text-decoration: none;
-    --accent: var(--backgroundColor);
-    /* background: linear-gradient(to bottom, #ffffff 40%, var(--accent)); */
+    border-color: var(--backgroundColor, #4A90E2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
     transform: translateY(-4px);
-
+    text-decoration: none;
 }
 
 .exhibits-item h2 {
-    margin-bottom: 1.2em;
-    min-height: 2.8em;
+    margin-bottom: 1rem;
+    min-height: 3em;
     display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     text-align: center;
     word-break: break-word;
-    font-size: 1.05rem;
-    /* デフォルト */
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1a365d;
+    line-height: 1.4;
+}
+
+.exhibits-item hr {
+    width: 100%;
+    margin: 0.8rem auto;
+    border: none;
+    border-top: 2px solid #e2e8f0;
+    opacity: 0.6;
+}
+
+.exhibits-item-name {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #374151;
+    margin-bottom: 0.5rem;
 }
 
 .exhibits-item p {
-    margin-bottom: 0.2em;
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    color: #6b7280;
 }
 
 .exhibits-item p:last-child {
     margin-bottom: 0;
 }
 
-.exhibits-item hr {
-    width: 100%;
-    margin: 0.4em auto;
-    border: none;
-    border-top: 3px solid #c2c2c2;
-
-
-    /* opacity: 0.9; */
+/* Footer Note */
+.exhibits-footer {
+    margin-top: 3rem;
+    text-align: center;
 }
 
-.exhibits-item-name {
-    font-size: 1rem;
-    /* 太く */
-    font-weight: bold;
+.footer-note {
+    background: linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(251, 191, 36, 0.1) 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid rgba(245, 158, 11, 0.2);
 }
 
-@media (max-width: 1024px) {
-    .exhibits-list {
+.footer-note p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+    color: #92400e;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .exhibits-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (max-width: 600px) {
-    .exhibits-list {
-        grid-template-columns: 1fr;
+@media (max-width: 768px) {
+    .exhibits-container {
+        padding: 1rem;
+    }
+    
+    .exhibits-section {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .section-header {
+        flex-direction: column;
+        text-align: center;
         gap: 1rem;
     }
-
-    .exhibits-item {
-        padding: 1rem 0.5rem;
+    
+    .section-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
+    
+    .section-title {
+        font-size: 1.5rem;
+    }
+    
+    .section-description {
+        font-size: 1rem;
+    }
+    
+    .exhibits-grid {
+        grid-template-columns: repeat(1, 1fr);
+        gap: 1rem;
+    }
+    
+    .exhibits-intro {
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .intro-text {
+        font-size: 1rem;
     }
 }
 
-.exhibits-detail-content {
-    text-align: center;
-    align-items: center;
-    margin: 0 auto;
-    padding: 0 auto;
-    max-width: 420px;
-
+@media (max-width: 480px) {
+    .exhibits-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .exhibits-item {
+        padding: 1.2rem;
+    }
+    
+    .exhibits-item h2 {
+        font-size: 1rem;
+        min-height: 2.5em;
+    }
+    
+    .section-title {
+        font-size: 1.3rem;
+    }
+    
+    .section-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
 }
 
-.exhibits-back-link {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: 0.5rem 1rem;
-    /* background: #0077b6; */
-    color: #2c3e50;
-    border-radius: 4px;
-    text-decoration: none;
-    transition: background 0.2s;
+/* Animation Enhancements */
+.exhibits-section {
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0; /* Start invisible */
+    transform: translateY(30px); /* Start below final position */
 }
 
-.exhibits-back-link:hover {
-    color: #0077b6;
+.exhibits-section:nth-child(2) { animation-delay: 0.5s; }
+.exhibits-section:nth-child(3) { animation-delay: 1.0s; }
+.exhibits-section:nth-child(4) { animation-delay: 1.5s; }
+.exhibits-section:nth-child(5) { animation-delay: 2.0s; }
+.exhibits-section:nth-child(6) { animation-delay: 2.5s; }
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
-.exhibits-detail-content p {
-    display: inline-block;
-    /* width: 40%; */
-    text-align: center;
-    margin: 0.5rem 2rem;
+/* Hover effects for section icons */
+.section-icon {
+    transition: all 0.3s ease;
 }
 
-.exhibits-detail-room {
-    display: inline-block;
-    text-align: center;
+.exhibits-section:hover .section-icon {
+    transform: scale(1.1) rotate(5deg);
+    box-shadow: 0 4px 16px rgba(26, 54, 93, 0.15);
+}
+
+/* Enhanced card hover effects */
+.exhibits-item {
+    position: relative;
+}
+
+.exhibits-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-radius: 16px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.exhibits-item:hover::after {
+    opacity: 1;
+}
+
+/* Color scheme variations for different sections */
+.risshi-section .exhibits-item:hover {
+    border-color: #10b981;
+    box-shadow: 0 8px 32px rgba(16, 185, 129, 0.15);
+}
+
+.kaitaku-section .exhibits-item:hover {
+    border-color: #f59e0b;
+    box-shadow: 0 8px 32px rgba(245, 158, 11, 0.15);
+}
+
+.sousaku-section .exhibits-item:hover {
+    border-color: #ef4444;
+    box-shadow: 0 8px 32px rgba(239, 68, 68, 0.15);
+}
+
+.club-section .exhibits-item:hover {
+    border-color: #8b5cf6;
+    box-shadow: 0 8px 32px rgba(139, 92, 246, 0.15);
+}
+
+.others-section .exhibits-item:hover {
+    border-color: #6b7280;
+    box-shadow: 0 8px 32px rgba(107, 114, 128, 0.15);
 }
 
 .exhibits-detail-description {
-    margin: 2rem 0;
+    text-align: center;
 }
