@@ -394,3 +394,7 @@
     border-color: #6b7280;
     box-shadow: 0 8px 32px rgba(107, 114, 128, 0.15);
 }
+
+.exhibits-detail-description {
+    text-align: center;
+}
