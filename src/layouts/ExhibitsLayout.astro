@@ -6,20 +6,48 @@ const { frontmatter } = Astro.props;
 ---
 
 <SubPageLayout PageTitle={frontmatter.title}>
-    <a
-        href="/page/exhibits"
-        class="exhibits-back-link"
-        style="margin-left: 30px;">⇦団体一覧へ戻る</a
-    >
-    <section class="content-container fade-in">
-        <div class="exhibits-detail-content">
-            <h2>【{frontmatter.name}】</h2>
-            <div class="exhibits-detail-description">
-                <hr />
-                <slot />
-                <hr />
-            </div>
-            <div class="exhibits-detail-room">@ {frontmatter.room}</div>
+    <div class="exhibits-detail-container fade-in">
+        <!-- Back Navigation -->
+        <div class="back-navigation">
+            <a href="/page/exhibits" class="back-link">
+                <span class="back-icon">←</span>
+                <span class="back-text">団体一覧へ戻る</span>
+            </a>
         </div>
-    </section>
+
+        <!-- Main Content Card -->
+        <div class="exhibits-detail-card">
+            <!-- Header Section -->
+            <div class="exhibits-detail-header">
+                <div class="exhibits-detail-title-section">
+                    <h1 class="exhibits-detail-title">{frontmatter.title}</h1>
+                    <div class="exhibits-detail-subtitle">【{frontmatter.name}】</div>
+                </div>
+                <div class="exhibits-detail-meta">
+                    <div class="exhibits-detail-room">
+                        <span class="room-icon">📍</span>
+                        <span class="room-text">{frontmatter.room}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Section -->
+            <div class="exhibits-detail-body">
+                <div class="exhibits-detail-content">
+                    <slot />
+                </div>
+            </div>
+
+            <!-- Footer Section -->
+            <div class="exhibits-detail-footer">
+                <div class="exhibits-detail-divider"></div>
+                <div class="exhibits-detail-actions">
+                    <a href="/page/exhibits" class="action-link">
+                        <span class="action-icon">🏛️</span>
+                        <span class="action-text">他の展示を見る</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 </SubPageLayout>
