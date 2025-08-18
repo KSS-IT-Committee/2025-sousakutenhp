@@ -511,11 +511,11 @@
 
 /* Content Section */
 .exhibits-detail-body {
-    padding: 3rem 2.5rem;
-    min-height: 150px; /* Approximately 5-6 lines of text */
+    padding: 2rem 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    /* Remove fixed min-height to allow dynamic sizing */
 }
 
 .exhibits-detail-content {
@@ -597,8 +597,8 @@
     }
     
     .exhibits-detail-body {
-        padding: 2rem 1.5rem;
-        min-height: 120px;
+        padding: 1.5rem 1.5rem;
+        /* Remove fixed min-height for dynamic sizing */
     }
     
     .exhibits-detail-content {
@@ -624,8 +624,8 @@
     }
     
     .exhibits-detail-body {
-        padding: 1.5rem 1rem;
-        min-height: 100px;
+        padding: 1rem 1rem;
+        /* Remove fixed min-height for dynamic sizing */
     }
     
     .exhibits-detail-content {
