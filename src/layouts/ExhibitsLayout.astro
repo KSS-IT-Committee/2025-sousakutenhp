@@ -6,46 +6,70 @@ const { frontmatter } = Astro.props;
 ---
 
 <SubPageLayout PageTitle={frontmatter.title}>
-    <div class="exhibits-detail-container fade-in">
-        <!-- Back Navigation -->
-        <div class="back-navigation">
-            <a href="/page/exhibits" class="back-link">
-                <span class="back-icon">←</span>
-                <span class="back-text">団体一覧へ戻る</span>
-            </a>
-        </div>
-
-        <!-- Main Content Card -->
-        <div class="exhibits-detail-card">
-            <!-- Header Section -->
-            <div class="exhibits-detail-header">
-                <div class="exhibits-detail-title-section">
+    <section class="hero">
+        <div class="theme-container">
+            <div class="decoration-circle"></div>
+            <div class="decoration-triangle"></div>
+            <div class="decoration-square"></div>
+            <div class="decoration-triangle"></div>
+            <div class="decoration-hexagon"></div>
+            <div class="decoration-diamond"></div>
+            <div class="decoration-star"></div>
+            <div class="decoration-wave"></div>
+            <div class="decoration-hexagon"></div>
+            <div class="decoration-diamond"></div>
+            <div class="decoration-star"></div>
+            <div class="decoration-wave"></div>
+            <div class="decoration-circle decoration-top-left"></div>
+            <div class="decoration-triangle decoration-top-left"></div>
+            <div class="decoration-square decoration-top-left"></div>
+            <div class="decoration-hexagon decoration-top-left"></div>
+            <div class="decoration-diamond decoration-bottom-right"></div>
+            <div class="decoration-star decoration-bottom-right"></div>
+            <div class="decoration-wave decoration-bottom-right"></div>
+            <div class="decoration-circle decoration-bottom-right"></div>
+            <div class="decoration-triangle decoration-bottom-right"></div>
+            <div class="decoration-square decoration-bottom-right"></div>
+            <div class="decoration-hexagon decoration-bottom-right"></div>
+            <div class="exhibits-detail-container fade-in">
+                <!-- Back Navigation -->
+                <div class="back-navigation">
+                    <a href="/page/exhibits" class="back-link">
+                    <span class="back-icon">←</span>
+                    <span class="back-text">団体一覧へ戻る</span>
+                    </a>
                 </div>
-                <div class="exhibits-detail-meta">
-                    <div class="exhibits-detail-room">
-                        <span class="room-icon">📍</span>
-                        <span class="room-text">{frontmatter.room}</span>
+                <!-- Main Content Card -->
+                <div class="exhibits-detail-card">
+                    <!-- Header Section -->
+                    <div class="exhibits-detail-header">
+                        <div class="exhibits-detail-title-section">
+                        </div>
+                        <div class="exhibits-detail-meta">
+                            <div class="exhibits-detail-room">
+                                <span class="room-icon">📍</span>
+                                <span class="room-text">{frontmatter.room}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Content Section -->
+                    <div class="exhibits-detail-body">
+                        <div class="exhibits-detail-content">
+                            <slot />
+                        </div>
+                    </div>
+                    <!-- Footer Section -->
+                    <div class="exhibits-detail-footer">
+                        <div class="exhibits-detail-divider"></div>
+                        <div class="exhibits-detail-actions">
+                            <a href="/page/exhibits" class="action-link">
+                            <span class="action-icon">🏛️</span>
+                            <span class="action-text">他の展示を見る</span>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Content Section -->
-            <div class="exhibits-detail-body">
-                <div class="exhibits-detail-content">
-                    <slot />
-                </div>
-            </div>
-
-            <!-- Footer Section -->
-            <div class="exhibits-detail-footer">
-                <div class="exhibits-detail-divider"></div>
-                <div class="exhibits-detail-actions">
-                    <a href="/page/exhibits" class="action-link">
-                        <span class="action-icon">🏛️</span>
-                        <span class="action-text">他の展示を見る</span>
-                    </a>
-                </div>
-            </div>
         </div>
-    </div>
+    </section>
 </SubPageLayout>
