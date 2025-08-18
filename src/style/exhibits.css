@@ -314,13 +314,16 @@
 
 /* Animation Enhancements */
 .exhibits-section {
-    animation: fadeInUp 0.6s ease-out;
+    animation: fadeInUp 0.6s ease-out forwards;
+    opacity: 0; /* Start invisible */
+    transform: translateY(30px); /* Start below final position */
 }
 
-.exhibits-section:nth-child(2) { animation-delay: 0.1s; }
-.exhibits-section:nth-child(3) { animation-delay: 0.2s; }
-.exhibits-section:nth-child(4) { animation-delay: 0.3s; }
-.exhibits-section:nth-child(5) { animation-delay: 0.4s; }
+.exhibits-section:nth-child(2) { animation-delay: 0.5s; }
+.exhibits-section:nth-child(3) { animation-delay: 1.0s; }
+.exhibits-section:nth-child(4) { animation-delay: 1.5s; }
+.exhibits-section:nth-child(5) { animation-delay: 2.0s; }
+.exhibits-section:nth-child(6) { animation-delay: 2.5s; }
 
 @keyframes fadeInUp {
     from {
