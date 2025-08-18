@@ -9,6 +9,9 @@ export default function VoteForm() {
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setuserID] = useState("");
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
+// TODO: UserIDが設定された後にのみ投票できるようにする
+// TODO: SelectedClassをcookieに保存して、ページリロード後も選択を保持する
+
 
     const handleVote = async () => {
         for (let i = 0; i < selectedClass.length; i++) {
