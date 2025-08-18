@@ -398,3 +398,25 @@
 .exhibits-detail-description {
     text-align: center;
 }
+
+/* Custom HR styling for ExhibitsLayout */
+.exhibits-detail-description hr {
+    width: 40%; /* Shorter than full width */
+    margin: 1.5rem auto;
+    border: none;
+    border-top: 2px solid rgba(26, 54, 93, 0.2);
+    opacity: 0.6;
+}
+
+/* Responsive adjustments for detail layout */
+@media (max-width: 768px) {
+    .exhibits-detail-description hr {
+        width: 70%; /* Slightly wider on tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .exhibits-detail-description hr {
+        width: 80%; /* Wider on mobile for better visibility */
+    }
+}
