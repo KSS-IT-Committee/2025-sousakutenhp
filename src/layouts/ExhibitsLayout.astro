@@ -6,7 +6,6 @@ const { frontmatter } = Astro.props;
 ---
 
 <SubPageLayout PageTitle={frontmatter.title}>
-    
     <section class="hero-exhibits">
         <div class="theme-container">
             <div class="decoration-circle"></div>
@@ -36,20 +35,27 @@ const { frontmatter } = Astro.props;
                 <!-- Back Navigation -->
                 <div class="back-navigation">
                     <a href="/page/exhibits" class="back-link">
-                    <span class="back-icon">←</span>
-                    <span class="back-text">団体一覧へ戻る</span>
+                        <span class="back-icon">←</span>
+                        <span class="back-text">団体一覧へ戻る</span>
                     </a>
                 </div>
                 <!-- Main Content Card -->
                 <div class="exhibits-detail-card">
                     <!-- Header Section -->
                     <div class="exhibits-detail-header">
-                        <div class="exhibits-detail-title-section">
-                        </div>
-                        <div class="exhibits-detail-meta">
-                            <div class="exhibits-detail-room">
+                        <div
+                            class="exhibits-detail-meta exhibits-detail-meta-vertical"
+                        >
+                            <div class="exhibits-detail-name-no-bg">
+                                <span class="name-text">{frontmatter.name}</span>
+                            </div>
+                            <div
+                                class="exhibits-detail-room"
+                                style="margin-top:0.5rem;"
+                            >
                                 <span class="room-icon">📍</span>
-                                <span class="room-text">{frontmatter.room}</span>
+                                <span class="room-text">{frontmatter.room}</span
+                                >
                             </div>
                         </div>
                     </div>
@@ -64,13 +70,12 @@ const { frontmatter } = Astro.props;
                         <div class="exhibits-detail-divider"></div>
                         <div class="exhibits-detail-actions">
                             <a href="/page/exhibits" class="action-link">
-                            <span class="action-icon">🏛️</span>
-                            <span class="action-text">他の展示を見る</span>
+                                <span class="action-icon">🏛️</span>
+                                <span class="action-text">他の展示を見る</span>
                             </a>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
