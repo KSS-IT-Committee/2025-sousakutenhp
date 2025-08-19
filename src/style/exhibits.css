@@ -477,6 +477,17 @@
     border: 2px solid #f2b705;
 }
 
+.exhibits-detail-name{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid #f2b705;
+}
+
 .room-icon {
     font-size: 1.1rem;
 }
