@@ -653,7 +653,7 @@
 .hero-exhibits .theme-container {
     opacity: 0;
     transform: translateY(50px) scale(0.9);
-    animation: heroThemeIn 1.2s ease-out 0.8s forwards;
+    animation: heroThemeIn 0.8s ease-out 0.4s forwards;
 }
 
 
