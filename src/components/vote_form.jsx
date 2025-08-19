@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient"; // Supabaseクライアントのインポート
 import { CookiesProvider, useCookies } from "react-cookie";
+
 
 
 export default function VoteForm() {
@@ -12,7 +13,28 @@ export default function VoteForm() {
     // TODO: UserIDが設定された後にのみ投票できるようにする
     // TODO: SelectedClassをcookieに保存して、ページリロード後も選択を保持する
 
+    useEffect(() => {
+        if (cookies.userID != null) {
+            setuserID(cookies.userID);
+            setInputUserID(cookies.userID);
+        }
+        if (cookies.selectedClass != null) {
+            try {
+                // cookieが配列で保存されている場合
+                let arr = cookies.selectedClass;
+                if (typeof arr === "string") {
+                    arr = JSON.parse(arr);
+                }
+                if (Array.isArray(arr)) {
+                    setSelectedClass(arr);
+                }
+            } catch (e) {
+                // パース失敗時は何もしない
+            }
+        }
+    }, [cookies.userID, cookies.selectedClass]);
 
+    
     const handleVote = async () => {
 
         for (let i = 0; i < selectedClass.length; i++) {
@@ -71,6 +93,8 @@ export default function VoteForm() {
                 }
 
             }
+
+            setCookie("selectedClass", selectedClass, { path: "/" });
 
         }
 
@@ -243,18 +267,7 @@ export default function VoteForm() {
 
             </div>
             {message && <p className="mt-2">{message}</p>}
-            {selectedClass && selectedClass.length > 0 && (
-                <div className="mt-2">
-                    <h4>あなたの投票内容</h4>
-                    <ul>
-                        {selectedClass.map((classId, index) => (
-                            <li key={index}>
-                                部門{index + 1}: {classId}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
+
         </div>
     );
 }
