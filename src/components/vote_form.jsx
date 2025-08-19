@@ -9,24 +9,72 @@ export default function VoteForm() {
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setuserID] = useState("");
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
-// TODO: UserIDが設定された後にのみ投票できるようにする
-// TODO: SelectedClassをcookieに保存して、ページリロード後も選択を保持する
+    // TODO: UserIDが設定された後にのみ投票できるようにする
+    // TODO: SelectedClassをcookieに保存して、ページリロード後も選択を保持する
 
 
     const handleVote = async () => {
+
         for (let i = 0; i < selectedClass.length; i++) {
-            const res = await supabase.from("votes").insert({
-                class_id: selectedClass[i],
-                category_id: i + 1,
-                cookie_id: userID,
-            });
+            //すでに投票されているか確認
+            const { data, error } = await supabase
+                .from("votes")
+                .select('user_id')
+                .eq('user_id', cookies.userID ? Number(cookies.userID) : userID)
+                .eq('category_id', i + 1)
+                .limit(1);
+            console.log(`部門${i + 1}のSELECT結果:`, data);
+            setMessage(""); // メッセージをリセット
+            if (error) {
+                setMessage(`部門${i + 1}のSELECT時にエラーが発生しました: ${error.message}`);
+            }
+            else if (data && data.length > 0) {
+                if (selectedClass[i] == 0) {
+                    //投票を削除
+                    const { res, error } = await supabase.from("votes").delete().eq('user_id', Number(userID)).eq('category_id', i + 1);
+                    if (error) {
+                        setMessage(`部門${i + 1}のDELETE時にエラーが発生しました: ${error.message}`);
+                    } else {
+                        setMessage("投票DELETE完了しました！");
+                    }
+                }
+                else {
+
+                    // 投票を更新
+                    const { res, error } = await supabase.from("votes").update({
+                        class_id: selectedClass[i],
+                        category_id: i + 1,
+                        user_id: userID,
+                    }).eq('user_id', Number(userID)).eq('category_id', i + 1);
+
+                    if (error) {
+                        setMessage(`部門${i + 1}のUPDATE時にエラーが発生しました: ${error.message}`);
+                    } else {
+                        setMessage("投票UPDATE完了しました！");
+                    }
+                }
+
+            }
+            else {
+                if (selectedClass[i] != 0) {
+                    //新たに行を追加
+                    const res = await supabase.from("votes").insert({
+                        class_id: selectedClass[i],
+                        category_id: i + 1,
+                        user_id: userID,
+                    });
+                    if (res.error) {
+                        setMessage(`部門${i + 1}のINSERT時にエラーが発生しました: ${res.error.message}`);
+                    } else {
+                        setMessage("投票INSERT完了しました！");
+                    }
+                }
+
+            }
+
         }
 
-        if (res.error) {
-            setMessage(`エラーが発生しました: ${res.error.message}`);
-        } else {
-            setMessage("投票完了しました！");
-        }
+
     };
 
 
@@ -195,6 +243,18 @@ export default function VoteForm() {
 
             </div>
             {message && <p className="mt-2">{message}</p>}
+            {selectedClass && selectedClass.length > 0 && (
+                <div className="mt-2">
+                    <h4>あなたの投票内容</h4>
+                    <ul>
+                        {selectedClass.map((classId, index) => (
+                            <li key={index}>
+                                部門{index + 1}: {classId}
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 }
