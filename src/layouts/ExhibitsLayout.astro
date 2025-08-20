@@ -47,7 +47,8 @@ const { frontmatter } = Astro.props;
                             class="exhibits-detail-meta exhibits-detail-meta-vertical"
                         >
                             <div class="exhibits-detail-name-no-bg">
-                                <span class="name-text">{frontmatter.name}</span>
+                                <span class="name-text">{frontmatter.name}</span
+                                >
                             </div>
                             <div
                                 class="exhibits-detail-room"
@@ -59,15 +60,22 @@ const { frontmatter } = Astro.props;
                             </div>
                         </div>
                     </div>
+
                     <!-- Content Section -->
                     <div class="exhibits-detail-body">
                         <div class="exhibits-detail-content">
                             <slot />
                         </div>
                     </div>
+                    {
+                        frontmatter.poster ? (
+                            <div class="exhibits-detail-poster">
+                                <img src={frontmatter.poster} />
+                            </div>
+                        ) : null
+                    }
                     <!-- Footer Section -->
                     <div class="exhibits-detail-footer">
-                        <!-- <div class="exhibits-detail-divider"></div> -->
                         <div class="exhibits-detail-actions">
                             <a href="/page/exhibits" class="action-link">
                                 <span class="action-icon">🏛️</span>
