@@ -192,6 +192,7 @@ body {
 .about-link-center {
     text-align: center;
     margin: 1.5em 0;
+    margin-bottom: 3em;
 }
 
 /* 404 Not Foundページ用スタイル */
