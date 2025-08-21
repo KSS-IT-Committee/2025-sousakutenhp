@@ -1,6 +1,6 @@
 ---
 layout: "../../../../layouts/ExhibitsLayout.astro"
-title: "パソコン研究会、攻略しに来ない？"
+title: "パソコン研究会、<br>攻略しに来ない？"
 name: "パソコン研究会"
 room: "第二CALL教室"
 map: ""
