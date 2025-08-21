@@ -46,3 +46,24 @@
 .lottery-section li {
     margin-bottom: 0.3rem;
 }
+
+.lottery-url-inline {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.lottery-url-inline:hover {
+    text-decoration: underline;
+}
+
+
+
+/* 画像上の黒い線を消すための調整 */
+.lottery-description-image {
+    display: block;
+    margin: 1.5rem auto 2em auto;
+
+    width: 80%;
+
+}
+
