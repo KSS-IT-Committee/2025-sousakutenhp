@@ -43,6 +43,16 @@
     margin-bottom: 1rem;
 }
 
+
+@media (max-width: 600px) {
+
+    .lottery-section ul,
+    .lottery-section ol {
+        margin-left: 0.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
 .lottery-section li {
     margin-bottom: 0.3rem;
 }
@@ -56,14 +66,34 @@
     text-decoration: underline;
 }
 
-
-
-/* 画像上の黒い線を消すための調整 */
 .lottery-description-image {
     display: block;
     margin: 1.5rem auto 2em auto;
 
-    width: 80%;
+    width: 100%;
+
 
 }
 
+
+.lottery-people-container {
+    /* 2列×3行 */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.lottery-people-image {
+    width: 80%;
+    /* 中央寄せ */
+    display: block;
+    margin: 0.5rem auto 1em auto;
+}
+
+
+@media(max-width: 600px) {
+    .lottery-people-image {
+        width: 100%;
+    }
+}
