@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+poster: "/posters/gekibu.png"
 ---
 
 Ｚ世代の子供たち、令和の世では高校生。
