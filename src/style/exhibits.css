@@ -91,6 +91,26 @@
     font-weight: 400;
 }
 
+.section-description-caution {
+    font-size: 1.1rem;
+    color: #de8948;
+    margin: 0 0 1rem 0;
+    font-weight: 400;
+}
+
+.section-description-caution a {
+    font-size: 1.1rem;
+    color: #1f7ac0;
+    margin: 0 0 1rem 0;
+    font-weight: 400;
+}
+
+.section-description-caution a:hover {
+    color: #1f7ac0;
+    text-decoration: underline;
+    
+}
+
 .section-badge {
     display: inline-block;
     padding: 0.4rem 1rem;
