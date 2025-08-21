@@ -1,7 +1,7 @@
 ---
 layout: "../../../../layouts/ExhibitsLayout.astro"
 title: "文芸部"
-name: "文芸部"
+name: "文芸部文芸班"
 room: "第一CALL室"
 map: ""
 sns:
