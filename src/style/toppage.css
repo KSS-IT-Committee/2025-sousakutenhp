@@ -1487,3 +1487,14 @@
         right: 10vw;
     }
 }
+
+
+
+.notice-content a {
+    color: #0070f3;
+    text-decoration: none;
+}
+
+.notice-content a:hover {
+    text-decoration: underline;
+}

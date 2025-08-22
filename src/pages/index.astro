@@ -12,7 +12,12 @@ import NewsList from "../components/news_list.astro";
 
 import KonamiEasterEgg from "../components/KonamiEasterEgg.jsx";
 const allPosts = await Astro.glob("./page/news/*.md");
+const sortedPosts = allPosts.sort((a, b) => {
+	const aDate = new Date(a.frontmatter.pubDate);
+	const bDate = new Date(b.frontmatter.pubDate);
 
+	return bDate.getTime() - aDate.getTime();
+});
 const PageTitle = "創作展 - ここから広がる無限の創造";
 ---
 
@@ -167,13 +172,15 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 					</div>
 				</div> -->
 				{
-					allPosts.map((post) => (
-						<NewsList
-							title={post.frontmatter.title}
-							date={post.frontmatter.pubDate}
-							description={post.frontmatter.description}
-						/>
-					))
+					sortedPosts
+						.slice(0, 3)
+						.map((post) => (
+							<NewsList
+								title={post.frontmatter.title}
+								date={post.frontmatter.pubDate}
+								description={post.frontmatter.description}
+							/>
+						))
 				}
 				<!-- もっと見る -->
 				<a href="page/news/" class="more-notice"> もっと見る </a>
