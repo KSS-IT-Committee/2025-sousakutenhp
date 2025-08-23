@@ -70,7 +70,10 @@ const { frontmatter } = Astro.props;
                     {
                         frontmatter.poster ? (
                             <div class="exhibits-detail-poster">
-                                <img src={frontmatter.poster} />
+                                <img
+                                    src={frontmatter.poster}
+                                    alt="展示ポスター"
+                                />
                             </div>
                         ) : null
                     }
