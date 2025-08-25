@@ -1,7 +1,29 @@
 ---
 import SubPageLayout from "../../layouts/SubPageLayout.astro";
+import "../../style/time_schedule.css";
 const PageTitle = "タイムスケジュール";
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
+  <div class="time-schedule-content">
+    <table class="time-schedule-table">
+      <thead>
+        <tr>
+          <th>時間</th>
+          <th>開拓<br>(3/4年生)</th>
+          <th>創作<br>(5/6年生)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>9:00</td>
+          <td rowspan="2">開拓</td>
+          <td rowspan="2">創作</td>
+        </tr>
+        <tr>
+          <td>10:00</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </SubPageLayout>
