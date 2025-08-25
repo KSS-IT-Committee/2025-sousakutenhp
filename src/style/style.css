@@ -16,6 +16,12 @@ body {
     background: #ffffff;
     color: #2c3e50;
 
+    /* 
+    font-family: "Kosugi Maru", sans-serif;
+    font-weight: 400;
+    font-style: normal; */
+
+
 }
 
 html,
@@ -1045,4 +1051,20 @@ body {
         margin-left: 1rem;
         margin-right: 1rem;
     }
+}
+
+
+
+
+.newtab-icon a[target="_blank"]::after {
+    content: "\f35d";
+    font-family: "Font Awesome 5 Free";
+    font-weight: bold;
+    /*指定しないと表示されない*/
+    padding-left: .3em;
+    /*文字とアイコンの間に隙間*/
+}
+
+.newtab-icon {
+    font-weight: bold;
 }

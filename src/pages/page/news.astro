@@ -2,6 +2,13 @@
 import SubPageLayout from "../../layouts/SubPageLayout.astro";
 import NewsList from "../../components/news_list.astro";
 const allPosts = await Astro.glob("./news/*.md");
+const sortedPosts = allPosts.sort((a, b) => {
+    const aDate = new Date(a.frontmatter.pubDate);
+    const bDate = new Date(b.frontmatter.pubDate);
+
+     return bDate.getTime() - aDate.getTime();
+
+});
 const PageTitle = "お知らせ";
 ---
 
@@ -10,14 +17,13 @@ const PageTitle = "お知らせ";
 
     <section class="notice-section">
         {
-            allPosts.map((post) => (
+            sortedPosts.map((post) => (
                 <NewsList
                     title={post.frontmatter.title}
                     date={post.frontmatter.pubDate}
                     description={post.frontmatter.description}
                 />
-            ))
-        }
+            ))}
     </section>
 
     <!-- <section class="notice-section"> -->

@@ -15,15 +15,15 @@ const PageTitle = "出展団体紹介";
 <SubPageLayout PageTitle={PageTitle}>
     <div class="exhibits-container fade-in">
         <!-- Page Introduction -->
-        <div class="exhibits-intro">
+        <!-- <div class="exhibits-intro">
             <p class="intro-text">
                 創作展では、各学年・部活動による個性豊かな展示・公演が行われます。
                 ぜひお気に入りの企画を見つけてください。
             </p>
-        </div>
+        </div> -->
 
         <!-- 立志部門 -->
-        <section class="exhibits-section risshi-section">
+        <section class="exhibits-section risshi-section" id="risshi">
             <div class="section-header">
                 <div class="section-icon">🎨</div>
                 <div class="section-content">
@@ -51,7 +51,7 @@ const PageTitle = "出展団体紹介";
         </section>
 
         <!-- 開拓部門 -->
-        <section class="exhibits-section kaitaku-section">
+        <section class="exhibits-section kaitaku-section" id="kaitaku">
             <div class="section-header">
                 <div class="section-icon">🎭</div>
                 <div class="section-content">
@@ -79,12 +79,18 @@ const PageTitle = "出展団体紹介";
         </section>
 
         <!-- 創作部門 -->
-        <section class="exhibits-section sousaku-section">
+        <section class="exhibits-section sousaku-section" id="sousaku">
             <div class="section-header">
                 <div class="section-icon">🎪</div>
                 <div class="section-content">
                     <h2 class="section-title">創作部門</h2>
                     <p class="section-description">5・6年生による演劇公演</p>
+                    <p class="section-description-caution">
+                        創作部門の観覧は事前抽選制です。詳しくは<a
+                            href="/page/lottery/">こちら</a
+                        >をご覧ください
+                    </p>
+
                     <div class="section-badge">演劇</div>
                 </div>
             </div>
@@ -107,7 +113,7 @@ const PageTitle = "出展団体紹介";
         </section>
 
         <!-- 部活動団体 -->
-        <section class="exhibits-section club-section">
+        <section class="exhibits-section club-section" id="club">
             <div class="section-header">
                 <div class="section-icon">🏛️</div>
                 <div class="section-content">
@@ -123,6 +129,7 @@ const PageTitle = "出展団体紹介";
                             title={exhibit.frontmatter.title}
                             name={exhibit.frontmatter.name}
                             url={exhibit.url}
+                            room={exhibit.frontmatter.room}
                             backgroundColor={
                                 exhibit.frontmatter.backgroundColor
                                     ? exhibit.frontmatter.backgroundColor
@@ -135,7 +142,7 @@ const PageTitle = "出展団体紹介";
         </section>
 
         <!-- その他 -->
-        <section class="exhibits-section others-section">
+        <section class="exhibits-section others-section" id="others">
             <div class="section-header">
                 <div class="section-icon">✨</div>
                 <div class="section-content">

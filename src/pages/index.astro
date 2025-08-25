@@ -12,7 +12,12 @@ import NewsList from "../components/news_list.astro";
 
 import KonamiEasterEgg from "../components/KonamiEasterEgg.jsx";
 const allPosts = await Astro.glob("./page/news/*.md");
+const sortedPosts = allPosts.sort((a, b) => {
+	const aDate = new Date(a.frontmatter.pubDate);
+	const bDate = new Date(b.frontmatter.pubDate);
 
+	return bDate.getTime() - aDate.getTime();
+});
 const PageTitle = "創作展 - ここから広がる無限の創造";
 ---
 
@@ -23,6 +28,12 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 		<title>{PageTitle}</title>
 		<!-- cssを読み込む -->
 		<link rel="icon" type="image/png" href="/favicon.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Kiwi+Maru&family=Kosugi+Maru&family=Reggae+One&display=swap"
+			rel="stylesheet"
+		/>
 	</head>
 
 	<body>
@@ -105,15 +116,13 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 					</p>
 				</a>
 
-				<div class="nav-card disabled">
+				<a class="nav-card" href="page/exhibits/">
 					<span class="nav-icon">🖼️</span>
 					<h3 class="nav-title">出展団体紹介</h3>
 					<p class="nav-description">
 						各クラス・部活動の展示の内容をご覧いただけます。
 					</p>
-
-					<div class="preparing-badge">準備中</div>
-				</div>
+				</a>
 				<!-- <a class="nav-card" href="page/exhibits/">
 					<span class="nav-icon">🖼️</span>
 					<h3 class="nav-title">出展団体紹介</h3>
@@ -163,13 +172,15 @@ const PageTitle = "創作展 - ここから広がる無限の創造";
 					</div>
 				</div> -->
 				{
-					allPosts.map((post) => (
-						<NewsList
-							title={post.frontmatter.title}
-							date={post.frontmatter.pubDate}
-							description={post.frontmatter.description}
-						/>
-					))
+					sortedPosts
+						.slice(0, 3)
+						.map((post) => (
+							<NewsList
+								title={post.frontmatter.title}
+								date={post.frontmatter.pubDate}
+								description={post.frontmatter.description}
+							/>
+						))
 				}
 				<!-- もっと見る -->
 				<a href="page/news/" class="more-notice"> もっと見る </a>

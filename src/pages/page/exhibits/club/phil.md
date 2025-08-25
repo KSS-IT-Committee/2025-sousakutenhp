@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+poster: "/posters/phil.jpg"
 ---
 
 私たちフィルの創作展では、毎年恒例の
