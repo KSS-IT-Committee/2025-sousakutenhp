@@ -1,0 +1,93 @@
+/* Time Schedule Table Styles */
+.schedule {
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    font-size: 0.9rem;
+    margin: 2rem 0;
+}
+
+.schedule th, 
+.schedule td {
+    border: 1px solid #333;
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.schedule th {
+    background: #f5f5f5;
+    font-weight: bold;
+    color: #333;
+}
+
+.schedule td {
+    background: #fff;
+}
+
+/* Event blocks styling */
+.schedule td[rowspan] {
+    background: #4a5568;
+    color: white;
+    font-weight: bold;
+}
+
+/* Lunch break styling */
+.lunch-break {
+    background: #fed7d7;
+    color: #c53030;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Time column styling */
+.schedule td:first-child {
+    background: #f7fafc;
+    font-weight: bold;
+    color: #2d3748;
+    width: 80px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .schedule {
+        font-size: 0.8rem;
+    }
+    
+    .schedule th, 
+    .schedule td {
+        padding: 6px;
+    }
+}
+
+@media (max-width: 480px) {
+    .schedule {
+        font-size: 0.7rem;
+    }
+    
+    .schedule th, 
+    .schedule td {
+        padding: 4px;
+    }
+}
+
+/* Schedule Notes Styles */
+.schedule-notes {
+    margin-top: 3rem;
+    padding: 2rem;
+    background: #fff3cd;
+    border-radius: 8px;
+    border: 1px solid #ffeaa7;
+}
+
+.schedule-notes h3 {
+    color: #856404;
+    margin-bottom: 1rem;
+}
+
+.schedule-notes ul {
+    color: #856404;
+}
+
+.schedule-notes li {
+    margin-bottom: 0.5rem;
+}
