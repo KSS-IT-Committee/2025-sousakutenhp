@@ -781,7 +781,7 @@ body {
 .transport-button {
     display: inline-block;
     background: #4A90E2;
-    color: white;
+    color: white !important;
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
     text-decoration: none;
