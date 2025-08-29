@@ -1,11 +1,37 @@
+/* Time Schedule Table Container */
+.schedule-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    max-height: 80vh;
+    overflow-y: auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
 /* Time Schedule Table Styles */
 .schedule {
     border-collapse: collapse;
     width: 100%;
     text-align: center;
     font-size: 0.9rem;
-    margin: 2rem auto;
-    max-width: 1200px;
+}
+
+/* Sticky header for schedule table */
+.schedule thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: #f5f5f5;
+}
+
+.schedule thead th {
+    background: #f5f5f5;
+    border: 1px solid #333;
+    padding: 8px;
+    vertical-align: middle;
+    font-weight: bold;
+    color: #333;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .schedule th, 
