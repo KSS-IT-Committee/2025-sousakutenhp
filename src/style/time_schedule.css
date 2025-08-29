@@ -31,6 +31,22 @@
     font-weight: bold;
 }
 
+/* Always available activities styling */
+.schedule-always-ok {
+    background: #c6f6d5;
+    color: #22543d;
+    font-weight: bold;
+    font-size: 0.85rem;
+    border: 2px solid #68d391;
+    position: relative;
+}
+
+.schedule-always-ok::before {
+    content: "🕒";
+    margin-right: 4px;
+    font-size: 0.8rem;
+}
+
 /* Lunch break styling */
 .lunch-break {
     background: #fed7d7;
