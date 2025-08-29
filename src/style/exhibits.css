@@ -108,7 +108,7 @@
 .section-description-caution a:hover {
     color: #1f7ac0;
     text-decoration: underline;
-    
+
 }
 
 .section-badge {
@@ -743,5 +743,10 @@
 
 .exhibits-detail-poster img {
     width: 280px;
+    margin: 1rem auto;
+}
+
+.exhibits-detail-comment {
+    width: 60%;
     margin: 1rem auto;
 }
