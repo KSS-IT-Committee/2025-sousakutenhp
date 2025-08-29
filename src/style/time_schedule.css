@@ -27,7 +27,7 @@
 
 /* Event blocks styling */
 .schedule td[rowspan] {
-    background: #4a5568;
+    background: linear-gradient(135deg, #111b2d 0%, #4a5568 100%);
     color: white;
     font-weight: bold;
 }
