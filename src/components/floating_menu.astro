@@ -63,30 +63,34 @@
         );
     }
 
-    // スクロール時のメニュー表示制御
-    function handleScroll(): void {
-        const scrollPosition = window.scrollY;
-        const triggerHeight = window.innerHeight; // 画面の高さ分スクロールしたらメニューを表示
+    let activityTimeout: ReturnType<typeof setTimeout> | null = null;
 
+    // ユーザーアクティビティを検出してメニューを表示
+    function showMenuOnActivity(): void {
         const floatingMenu = document.querySelector(".floating-menu");
         const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
 
         if (floatingMenu && mobileMenuToggle) {
-            if (isTopPage()) {
-                // トップページの場合のみスクロールで表示制御
-                if (scrollPosition > triggerHeight) {
-                    floatingMenu.classList.add("show");
-                    mobileMenuToggle.classList.add("show");
-                } else {
-                    floatingMenu.classList.remove("show");
-                    mobileMenuToggle.classList.remove("show");
-                }
-            } else {
-                // トップページ以外は常に表示
-                floatingMenu.classList.add("show");
-                mobileMenuToggle.classList.add("show");
+            // メニューを表示
+            floatingMenu.classList.add("show");
+            mobileMenuToggle.classList.add("show");
+            
+            // 既存のタイマーをクリア
+            if (activityTimeout) {
+                clearTimeout(activityTimeout);
             }
+            
+            // 2秒後にメニューを隠す
+            activityTimeout = setTimeout(() => {
+                floatingMenu.classList.remove("show");
+                mobileMenuToggle.classList.remove("show");
+            }, 2000);
         }
+    }
+
+    // スクロール時のメニュー表示制御
+    function handleScroll(): void {
+        showMenuOnActivity();
     }
 
     // 初期化時にメニューを表示
@@ -95,16 +99,19 @@
         const mobileMenuToggle = document.querySelector(".mobile-menu-toggle");
         //console.log(isTopPage());
 
-        if (floatingMenu && mobileMenuToggle && !isTopPage()) {
-            // トップページ以外は最初から表示
-            //console.log('show');
-            floatingMenu.classList.add("show");
-            mobileMenuToggle.classList.add("show");
+        if (floatingMenu && mobileMenuToggle) {
+            // 初期状態では非表示
+            floatingMenu.classList.remove("show");
+            mobileMenuToggle.classList.remove("show");
         }
     }
 
-    // スクロールイベントリスナーを追加
-    window.addEventListener("scroll", handleScroll);
+    // ユーザーアクティビティを検出するイベントリスナーを追加
+    window.addEventListener("scroll", showMenuOnActivity);
+    window.addEventListener("mousemove", showMenuOnActivity);
+    window.addEventListener("click", showMenuOnActivity);
+    window.addEventListener("keydown", showMenuOnActivity);
+    window.addEventListener("touchstart", showMenuOnActivity);
 
     document.addEventListener("click", function (event: MouseEvent) {
         const menu = document.getElementById("mobileMenu");
