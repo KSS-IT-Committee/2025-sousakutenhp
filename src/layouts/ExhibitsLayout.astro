@@ -77,6 +77,15 @@ const { frontmatter } = Astro.props;
                             </div>
                         ) : null
                     }
+                    {
+                        frontmatter.comment ? (
+                            <div class="exhibits-detail-comment">
+                                <span class="comment-text">
+                                    {frontmatter.comment}
+                                </span>
+                            </div>
+                        ) : null
+                    }
                     <!-- Footer Section -->
                     <div class="exhibits-detail-footer">
                         <div class="exhibits-detail-actions">
