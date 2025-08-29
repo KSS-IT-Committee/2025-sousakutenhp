@@ -63,6 +63,44 @@
         );
     }
 
+    // ページがタイムスケジュールページかどうかを判定
+    function isTimeSchedulePage(): boolean {
+        return window.location.pathname === "/page/time_schedule/";
+    }
+
+    // スケジュールテーブルとの重複をチェック
+    function checkScheduleTableOverlap(): boolean {
+        const scheduleTable = document.querySelector('.schedule');
+        const floatingMenu = document.querySelector('.floating-menu');
+        
+        if (!scheduleTable || !floatingMenu) return false;
+        
+        const tableRect = scheduleTable.getBoundingClientRect();
+        const menuRect = floatingMenu.getBoundingClientRect();
+        
+        // メニューがテーブルと重複するかチェック
+        return !(menuRect.right < tableRect.left || 
+                menuRect.left > tableRect.right || 
+                menuRect.bottom < tableRect.top || 
+                menuRect.top > tableRect.bottom);
+    }
+
+    // メニューのサイズを調整
+    function adjustMenuSize(): void {
+        const floatingMenu = document.querySelector('.floating-menu');
+        if (!floatingMenu) return;
+        
+        if (isTimeSchedulePage() && checkScheduleTableOverlap()) {
+            // スケジュールテーブルと重複する場合は小さくする
+            floatingMenu.classList.add('compact');
+            floatingMenu.classList.remove('expanded');
+        } else {
+            // 重複しない場合は大きくする
+            floatingMenu.classList.add('expanded');
+            floatingMenu.classList.remove('compact');
+        }
+    }
+
     // スクロール時のメニュー表示制御
     function handleScroll(): void {
         const scrollPosition = window.scrollY;
@@ -86,6 +124,9 @@
                 floatingMenu.classList.add("show");
                 mobileMenuToggle.classList.add("show");
             }
+            
+            // メニューサイズを調整
+            adjustMenuSize();
         }
     }
 
@@ -100,11 +141,17 @@
             //console.log('show');
             floatingMenu.classList.add("show");
             mobileMenuToggle.classList.add("show");
+            
+            // メニューサイズを調整
+            adjustMenuSize();
         }
     }
 
     // スクロールイベントリスナーを追加
     window.addEventListener("scroll", handleScroll);
+    
+    // リサイズイベントリスナーを追加
+    window.addEventListener("resize", adjustMenuSize);
 
     document.addEventListener("click", function (event: MouseEvent) {
         const menu = document.getElementById("mobileMenu");
