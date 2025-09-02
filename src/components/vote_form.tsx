@@ -2,10 +2,18 @@ import { useState, useEffect } from "react";
 import { supabase } from "../lib/supabaseClient"; // Supabaseクライアントのインポート
 import { CookiesProvider, useCookies } from "react-cookie";
 
+type ApiResponse =
+    | { success: true }
+    | { success: false; error: string };
+
+type CheckUserResponse =
+    | { success: true; exists: true }
+    | { success: true; exists: false }
+    | { success: false; error: string };
 
 
 export default function VoteForm() {
-    const [selectedClass, setSelectedClass] = useState([0, 0, 0, 0]);
+    const [selectedClass, setSelectedClass] = useState(["0", "0", "0", "0", "0", "0"]);
     const [message, setMessage] = useState("");
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setuserID] = useState("");
@@ -15,8 +23,8 @@ export default function VoteForm() {
 
     useEffect(() => {
         if (cookies.userID != null) {
-            setuserID(cookies.userID);
             setInputUserID(cookies.userID);
+            checkUserID();
         }
         if (cookies.selectedClass != null) {
             try {
@@ -34,91 +42,148 @@ export default function VoteForm() {
         }
     }, [cookies.userID, cookies.selectedClass]);
 
-    
-    const handleVote = async () => {
 
-        for (let i = 0; i < selectedClass.length; i++) {
-            //すでに投票されているか確認
-            const { data, error } = await supabase
-                .from("votes")
-                .select('user_id')
-                .eq('user_id', cookies.userID ? Number(cookies.userID) : userID)
-                .eq('category_id', i + 1)
-                .limit(1);
-            console.log(`部門${i + 1}のSELECT結果:`, data);
-            setMessage(""); // メッセージをリセット
-            if (error) {
-                setMessage(`部門${i + 1}のSELECT時にエラーが発生しました: ${error.message}`);
-            }
-            else if (data && data.length > 0) {
-                if (selectedClass[i] == 0) {
-                    //投票を削除
-                    const { res, error } = await supabase.from("votes").delete().eq('user_id', Number(userID)).eq('category_id', i + 1);
-                    if (error) {
-                        setMessage(`部門${i + 1}のDELETE時にエラーが発生しました: ${error.message}`);
-                    } else {
-                        setMessage("投票DELETE完了しました！");
-                    }
+    // const handleVote = async () => {
+
+    //     for (let i = 0; i < selectedClass.length; i++) {
+    //         //すでに投票されているか確認
+    //         const { data, error } = await supabase
+    //             .from("votes")
+    //             .select('user_id')
+    //             .eq('user_id', cookies.userID ? Number(cookies.userID) : userID)
+    //             .eq('category_id', i + 1)
+    //             .limit(1);
+    //         console.log(`部門${i + 1}のSELECT結果:`, data);
+    //         setMessage(""); // メッセージをリセット
+    //         if (error) {
+    //             setMessage(`部門${i + 1}のSELECT時にエラーが発生しました: ${error.message}`);
+    //         }
+    //         else if (data && data.length > 0) {
+    //             if (selectedClass[i] == 0) {
+    //                 //投票を削除
+    //                 const { res, error } = await supabase.from("votes").delete().eq('user_id', Number(userID)).eq('category_id', i + 1);
+    //                 if (error) {
+    //                     setMessage(`部門${i + 1}のDELETE時にエラーが発生しました: ${error.message}`);
+    //                 } else {
+    //                     setMessage("投票DELETE完了しました！");
+    //                 }
+    //             }
+    //             else {
+
+    //                 // 投票を更新
+    //                 const { res, error } = await supabase.from("votes").update({
+    //                     class_id: selectedClass[i],
+    //                     category_id: i + 1,
+    //                     user_id: userID,
+    //                 }).eq('user_id', Number(userID)).eq('category_id', i + 1);
+
+    //                 if (error) {
+    //                     setMessage(`部門${i + 1}のUPDATE時にエラーが発生しました: ${error.message}`);
+    //                 } else {
+    //                     setMessage("投票UPDATE完了しました！");
+    //                 }
+    //             }
+
+    //         }
+    //         else {
+    //             if (selectedClass[i] != 0) {
+    //                 //新たに行を追加
+    //                 const res = await supabase.from("votes").insert({
+    //                     class_id: selectedClass[i],
+    //                     category_id: i + 1,
+    //                     user_id: userID,
+    //                 });
+    //                 if (res.error) {
+    //                     setMessage(`部門${i + 1}のINSERT時にエラーが発生しました: ${res.error.message}`);
+    //                 } else {
+    //                     setMessage("投票INSERT完了しました！");
+    //                 }
+    //             }
+
+    //         }
+
+    //         setCookie("selectedClass", selectedClass, { path: "/" });
+
+    //     }
+
+
+    // };
+
+    async function submitVote() {
+        if (!userID) {
+            alert("投票IDが未登録です");
+            return;
+        }
+        try {
+            for (let i = 0; i < selectedClass.length; i++) {
+                const res = await fetch("/api/vote", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ userId: userID, categoryId: i + 1, classId: selectedClass[i] }),
+                });
+
+                const data = (await res.json()) as ApiResponse;
+
+                if (data.success) {
+                    alert("投票が完了しました！");
+                } else {
+                    alert("投票に失敗しました：" + data.error);
                 }
-                else {
-
-                    // 投票を更新
-                    const { res, error } = await supabase.from("votes").update({
-                        class_id: selectedClass[i],
-                        category_id: i + 1,
-                        user_id: userID,
-                    }).eq('user_id', Number(userID)).eq('category_id', i + 1);
-
-                    if (error) {
-                        setMessage(`部門${i + 1}のUPDATE時にエラーが発生しました: ${error.message}`);
-                    } else {
-                        setMessage("投票UPDATE完了しました！");
-                    }
-                }
-
             }
-            else {
-                if (selectedClass[i] != 0) {
-                    //新たに行を追加
-                    const res = await supabase.from("votes").insert({
-                        class_id: selectedClass[i],
-                        category_id: i + 1,
-                        user_id: userID,
-                    });
-                    if (res.error) {
-                        setMessage(`部門${i + 1}のINSERT時にエラーが発生しました: ${res.error.message}`);
-                    } else {
-                        setMessage("投票INSERT完了しました！");
-                    }
-                }
-
-            }
-
             setCookie("selectedClass", selectedClass, { path: "/" });
-
+        } catch (err) {
+            console.error(err);
+            alert("サーバーエラーです");
         }
+    }
 
+    // const updateUserID = async (newUserID: string) => {
+    //     const { data, error } = await supabase
+    //         .from("users")
+    //         .select('user_id')
+    //         .eq('user_id', Number(newUserID))
+    //         .limit(1);
 
-    };
+    //     if (error) {
+    //         setMessage(`エラーが発生しました: ${error.message}`);
+    //     } else if (data && data.length > 0) {
+    //         setuserID(newUserID);
+    //         setCookie("userID", newUserID, { path: "/" });
+    //         setMessage("投票IDが登録されました！");
+    //     } else {
+    //         setMessage(`この投票ID：${newUserID}は登録されていません。`);
+    //     }
+    // };
 
+    async function checkUserID() {
+        try {
+            const res = await fetch("/api/checkUser", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ inputUserID }),
+            });
 
-    const updateUserID = async (newUserID) => {
-        const { data, error } = await supabase
-            .from("users")
-            .select('user_id')
-            .eq('user_id', Number(newUserID))
-            .limit(1);
+            const data = (await res.json()) as CheckUserResponse;
 
-        if (error) {
-            setMessage(`エラーが発生しました: ${error.message}`);
-        } else if (data && data.length > 0) {
-            setuserID(newUserID);
-            setCookie("userID", newUserID, { path: "/" });
-            setMessage("投票IDが登録されました！");
-        } else {
-            setMessage(`この投票ID：${newUserID}は登録されていません。`);
+            if (data.success) {
+                if (data.exists) {
+                    setuserID(inputUserID);
+                    setCookie("userID", inputUserID, { path: "/" });
+                    setMessage("投票IDが登録されました！");
+                } else {
+                    setMessage(`この投票ID：${inputUserID}は登録されていません。`);
+                }
+            } else {
+                setMessage("エラー: " + data.error);
+            }
+        } catch (err) {
+            console.error(err);
+            setMessage("サーバーエラーです");
         }
-    };
+    }
+
 
     return (
         <div>
@@ -135,7 +200,7 @@ export default function VoteForm() {
                     />
                     <button
                         className="ml-2 px-2 py-1 bg-green-600 text-white rounded"
-                        onClick={() => updateUserID(inputUserID)}
+                        onClick={checkUserID}
                     >
                         ID登録
                     </button>
@@ -150,7 +215,7 @@ export default function VoteForm() {
                         value={selectedClass[0]}
                         onChange={(e) => {
                             const newArr = [...selectedClass];
-                            newArr[0] = Number(e.target.value);
+                            newArr[0] = e.target.value;
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
@@ -174,7 +239,7 @@ export default function VoteForm() {
                         value={selectedClass[1]}
                         onChange={(e) => {
                             const newArr = [...selectedClass];
-                            newArr[1] = Number(e.target.value);
+                            newArr[1] = e.target.value;
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
@@ -198,7 +263,7 @@ export default function VoteForm() {
                         value={selectedClass[2]}
                         onChange={(e) => {
                             const newArr = [...selectedClass];
-                            newArr[2] = Number(e.target.value);
+                            newArr[2] = e.target.value;
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
@@ -216,13 +281,13 @@ export default function VoteForm() {
 
                 </div>
                 <div>
-                    <h3>光庭パネル部門</h3>
-                    <p>1～6年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                    <h3>光庭パネル立志部門</h3>
+                    <p>1～2年生の中で最も光庭パネルがよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[3]}
                         onChange={(e) => {
                             const newArr = [...selectedClass];
-                            newArr[3] = Number(e.target.value);
+                            newArr[3] = e.target.value;
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
@@ -236,6 +301,22 @@ export default function VoteForm() {
                         <option value="6">2年B組</option>
                         <option value="7">2年C組</option>
                         <option value="8">2年D組</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h3>光庭パネル開拓部門</h3>
+                    <p>3～4年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                    <select
+                        value={selectedClass[4]}
+                        onChange={(e) => {
+                            const newArr = [...selectedClass];
+                            newArr[4] = e.target.value;
+                            setSelectedClass(newArr);
+                        }}
+                        className="mt-2 p-1 border"
+                    >
+                        <option value="">選んでください</option>
                         <option value="9">3年A組</option>
                         <option value="10">3年B組</option>
                         <option value="11">3年C組</option>
@@ -244,6 +325,22 @@ export default function VoteForm() {
                         <option value="14">4年B組</option>
                         <option value="15">4年C組</option>
                         <option value="16">4年D組</option>
+                    </select>
+                </div>
+
+                <div>
+                    <h3>光庭パネル創作部門</h3>
+                    <p>5・6年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                    <select
+                        value={selectedClass[5]}
+                        onChange={(e) => {
+                            const newArr = [...selectedClass];
+                            newArr[5] = e.target.value;
+                            setSelectedClass(newArr);
+                        }}
+                        className="mt-2 p-1 border"
+                    >
+                        <option value="">選んでください</option>
                         <option value="17">5年A組</option>
                         <option value="18">5年B組</option>
                         <option value="19">5年C組</option>
@@ -253,12 +350,11 @@ export default function VoteForm() {
                         <option value="23">6年C組</option>
                         <option value="24">6年D組</option>
                     </select>
-
                 </div>
 
 
                 <button
-                    onClick={handleVote}
+                    onClick={submitVote}
                     className="mt-3 px-4 py-1 bg-blue-600 text-white rounded"
                 >
                     投票する

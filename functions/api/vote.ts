@@ -6,6 +6,12 @@ type VoteRequest = {
   categoryId: string;
 };
 
+type CheckUserResponse =
+  | { success: true; exists: true }
+  | { success: true; exists: false }
+  | { success: false; error: string };
+
+  
 export const onRequestPost: PagesFunction<{
   SUPABASE_URL: string;
   SUPABASE_SERVICE_ROLE_KEY: string;
