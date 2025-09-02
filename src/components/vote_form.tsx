@@ -61,7 +61,7 @@ export default function VoteForm() {
                 const data = (await res.json()) as ApiResponse;
 
                 if (data.success) {
-                    alert("投票が完了しました！");
+                    // alert("投票が完了しました！");
                 } else {
                     alert("投票に失敗しました：" + data.error);
                 }
