@@ -30,12 +30,13 @@ export const onRequestPost: PagesFunction<{
     // Supabaseクライアント作成
     const supabase = createClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_ANON_KEY);
     // UPSERTで「同じuserIdなら更新、それ以外は新規挿入」
-    if (classId === "0") {
+    if (classId == "0") {
       const { error } = await supabase
         .from("votes")
         .delete()
         .eq("user_id", userId)
         .eq("category_id", categoryId);
+      console.log("delete", userId, categoryId);
       if (error) {
         return new Response(
           JSON.stringify({ success: false, error: error.message }),

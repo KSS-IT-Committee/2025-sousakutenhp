@@ -66,6 +66,7 @@ export default function VoteForm() {
                     alert("投票に失敗しました：" + data.error);
                 }
             }
+            alert("投票に成功しました！");
             setCookie("selectedClass", selectedClass, { path: "/" });
         } catch (err) {
             console.error(err);
