@@ -11,10 +11,10 @@ type CheckUserResponse =
   | { success: true; exists: false }
   | { success: false; error: string };
 
-  
+
 export const onRequestPost: PagesFunction<{
-  SUPABASE_URL: string;
-  SUPABASE_SERVICE_ROLE_KEY: string;
+  PUBLIC_SUPABASE_URL: string;
+  PUBLIC_SUPABASE_ANON_KEY: string;
 }> = async (context) => {
   try {
     const { request, env } = context;
@@ -28,7 +28,7 @@ export const onRequestPost: PagesFunction<{
     }
 
     // Supabaseクライアント作成
-    const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY);
+    const supabase = createClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_ANON_KEY);
 
     // UPSERTで「同じuserIdなら更新、それ以外は新規挿入」
     const { error } = await supabase
