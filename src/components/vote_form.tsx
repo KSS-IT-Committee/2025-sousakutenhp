@@ -162,7 +162,7 @@ export default function VoteForm() {
             const res = await fetch("/api/checkUser", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ inputUserID }),
+                body: JSON.stringify({ userId: inputUserID }),
             });
 
             const data = (await res.json()) as CheckUserResponse;
