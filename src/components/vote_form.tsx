@@ -40,74 +40,8 @@ export default function VoteForm() {
                 // パース失敗時は何もしない
             }
         }
-    }, [cookies.userID, cookies.selectedClass]);
+    }, []);
 
-
-    // const handleVote = async () => {
-
-    //     for (let i = 0; i < selectedClass.length; i++) {
-    //         //すでに投票されているか確認
-    //         const { data, error } = await supabase
-    //             .from("votes")
-    //             .select('user_id')
-    //             .eq('user_id', cookies.userID ? Number(cookies.userID) : userID)
-    //             .eq('category_id', i + 1)
-    //             .limit(1);
-    //         console.log(`部門${i + 1}のSELECT結果:`, data);
-    //         setMessage(""); // メッセージをリセット
-    //         if (error) {
-    //             setMessage(`部門${i + 1}のSELECT時にエラーが発生しました: ${error.message}`);
-    //         }
-    //         else if (data && data.length > 0) {
-    //             if (selectedClass[i] == 0) {
-    //                 //投票を削除
-    //                 const { res, error } = await supabase.from("votes").delete().eq('user_id', Number(userID)).eq('category_id', i + 1);
-    //                 if (error) {
-    //                     setMessage(`部門${i + 1}のDELETE時にエラーが発生しました: ${error.message}`);
-    //                 } else {
-    //                     setMessage("投票DELETE完了しました！");
-    //                 }
-    //             }
-    //             else {
-
-    //                 // 投票を更新
-    //                 const { res, error } = await supabase.from("votes").update({
-    //                     class_id: selectedClass[i],
-    //                     category_id: i + 1,
-    //                     user_id: userID,
-    //                 }).eq('user_id', Number(userID)).eq('category_id', i + 1);
-
-    //                 if (error) {
-    //                     setMessage(`部門${i + 1}のUPDATE時にエラーが発生しました: ${error.message}`);
-    //                 } else {
-    //                     setMessage("投票UPDATE完了しました！");
-    //                 }
-    //             }
-
-    //         }
-    //         else {
-    //             if (selectedClass[i] != 0) {
-    //                 //新たに行を追加
-    //                 const res = await supabase.from("votes").insert({
-    //                     class_id: selectedClass[i],
-    //                     category_id: i + 1,
-    //                     user_id: userID,
-    //                 });
-    //                 if (res.error) {
-    //                     setMessage(`部門${i + 1}のINSERT時にエラーが発生しました: ${res.error.message}`);
-    //                 } else {
-    //                     setMessage("投票INSERT完了しました！");
-    //                 }
-    //             }
-
-    //         }
-
-    //         setCookie("selectedClass", selectedClass, { path: "/" });
-
-    //     }
-
-
-    // };
 
     async function submitVote() {
         if (!userID) {
@@ -139,23 +73,6 @@ export default function VoteForm() {
         }
     }
 
-    // const updateUserID = async (newUserID: string) => {
-    //     const { data, error } = await supabase
-    //         .from("users")
-    //         .select('user_id')
-    //         .eq('user_id', Number(newUserID))
-    //         .limit(1);
-
-    //     if (error) {
-    //         setMessage(`エラーが発生しました: ${error.message}`);
-    //     } else if (data && data.length > 0) {
-    //         setuserID(newUserID);
-    //         setCookie("userID", newUserID, { path: "/" });
-    //         setMessage("投票IDが登録されました！");
-    //     } else {
-    //         setMessage(`この投票ID：${newUserID}は登録されていません。`);
-    //     }
-    // };
 
     async function checkUserID() {
         try {
@@ -220,7 +137,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="1">1年A組</option>
                         <option value="2">1年B組</option>
                         <option value="3">1年C組</option>
@@ -244,7 +161,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="9">3年A組</option>
                         <option value="10">3年B組</option>
                         <option value="11">3年C組</option>
@@ -268,7 +185,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="17">5年A組</option>
                         <option value="18">5年B組</option>
                         <option value="19">5年C組</option>
@@ -292,7 +209,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="1">1年A組</option>
                         <option value="2">1年B組</option>
                         <option value="3">1年C組</option>
@@ -316,7 +233,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="9">3年A組</option>
                         <option value="10">3年B組</option>
                         <option value="11">3年C組</option>
@@ -340,7 +257,7 @@ export default function VoteForm() {
                         }}
                         className="mt-2 p-1 border"
                     >
-                        <option value="">選んでください</option>
+                        <option value="0">選んでください</option>
                         <option value="17">5年A組</option>
                         <option value="18">5年B組</option>
                         <option value="19">5年C組</option>

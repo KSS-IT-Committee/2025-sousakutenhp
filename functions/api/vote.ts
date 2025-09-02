@@ -29,7 +29,6 @@ export const onRequestPost: PagesFunction<{
 
     // Supabaseクライアント作成
     const supabase = createClient(env.PUBLIC_SUPABASE_URL, env.PUBLIC_SUPABASE_ANON_KEY);
-
     // UPSERTで「同じuserIdなら更新、それ以外は新規挿入」
     const { error } = await supabase
       .from("votes")
