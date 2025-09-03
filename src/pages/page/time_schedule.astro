@@ -5,32 +5,25 @@ const PageTitle = "タイムスケジュール";
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-  <div class="time-schedule-explanation">
-    <p>ここでは、各クラスの公演や体験活動の時間割を表示しています。</p>
-    <p>各体験の詳細ページが存在する場合、テーブル上の名前をクリックしていただくと閲覧していただけます。</p>
-    <p>体験によって、1日目のみ、2日目のみ、両日開催のものがございますので、ご注意ください。</p>
-    <p>※携帯電話でこのページを閲覧される場合、横画面にすることをお勧めします。</p>
-  </div>
-  <div class="schedule-container">
-    <table class="schedule">
+  <table class="schedule">
   <thead>
     <tr>
       <th>時間</th>
-      <th><a href="/page/exhibits#kaitaku">開拓(3/4年生)</a></th>
-      <th><a href="/page/exhibits#sousaku">創作(5/6年生)</a></th>
+      <th>開拓(3/4年生)</th>
+      <th>創作(5/6年生)</th>
       <th></th>
-      <th><a href="/page/exhibits/club/suibu">吹奏楽</a></th>
-      <th><a href="/page/exhibits/club/sadou">茶道</a></th>
-      <th><a href="/page/exhibits/club/phil">フィル</a></th>
-      <th><a>行運</a></th>
-      <th><a href="/page/exhibits/club/karuta">かるた</a></th>
-      <th><a href="/page/exhibits/club/quiz">クイズ</a></th>
-      <th><a href="/page/exhibits/club/kadou">華道</a></th>
-      <th><a href="/page/exhibits/club/cooking">料理</a></th>
-      <th><a href="/page/exhibits/club/chorus">音楽</a></th>
-      <th><a href="/page/exhibits/club/drama">演劇</a></th>
-      <th><a href="/page/exhibits/club/jazz">軽音楽</a></th>
-      <th><a href="/page/exhibits/club/chemistry">化学</a></th>
+      <th>吹奏楽</th>
+      <th>茶道</th>
+      <th>フィル</th>
+      <th>行運</th>
+      <th>かるた</th>
+      <th>クイズ</th>
+      <th>華道</th>
+      <th>料理</th>
+      <th>音楽</th>
+      <th>演劇</th>
+      <th>軽音楽</th>
+      <th>化学</th>
       <!-- 他の列 -->
     </tr>
   </thead>
@@ -89,6 +82,9 @@ const PageTitle = "タイムスケジュール";
       <td>2日目</td>
       <td>両日</td>
     </tr>
+    <!--
+    TODO: 該当するサイトへ飛ばすかどうかは検討、、
+    -->
     <tr class="schedule-time" id="schedule-time-830">
       <td>8:30</td>
       <td></td>
@@ -1056,6 +1052,5 @@ const PageTitle = "タイムスケジュール";
     </tr>
   </tbody>
  </table>
-  </div>
 
 </SubPageLayout>
