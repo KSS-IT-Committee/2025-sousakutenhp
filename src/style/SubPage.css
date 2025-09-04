@@ -80,6 +80,7 @@ body {
     padding-bottom: 0.3em;
     margin-bottom: 1.2em;
     /* background: linear-gradient(90deg, #e0f7fa 0%, #fff 100%); */
+    -webkit-box-decoration-break: clone;
     box-decoration-break: clone;
     width: 200px;
 }
@@ -269,4 +270,90 @@ a {
 
 a:hover {
     color: #0077b6;
+}
+
+/* タイムスケジュールページ用スタイル */
+.time-schedule {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background: #f8f9fa;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.time-schedule h2 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid #0077b6;
+    padding-bottom: 0.5rem;
+}
+
+.schedule-description {
+    line-height: 1.6;
+}
+
+.schedule-description p {
+    margin-bottom: 1rem;
+    color: #4a5568;
+    font-size: 1.1rem;
+}
+
+.schedule-description .note {
+    font-size: 0.95rem;
+    color: #718096;
+    font-style: italic;
+    padding: 0.5rem;
+    background: #e2e8f0;
+    border-radius: 6px;
+    border-left: 4px solid #0077b6;
+}
+
+.time-schedule-content {
+    text-align: center;
+}
+
+/* タイムスケジュールページ用 レスポンシブ対応 */
+@media (max-width: 768px) {
+    .time-schedule {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+    
+    .time-schedule h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .schedule-description p {
+        font-size: 1rem;
+    }
+    
+    .schedule-description .note {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .time-schedule {
+        margin: 0.5rem;
+        padding: 1rem;
+    }
+    
+    .time-schedule h2 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+    }
+    
+    .schedule-description p {
+        font-size: 0.95rem;
+    }
+    
+    .schedule-description .note {
+        font-size: 0.85rem;
+        padding: 0.4rem;
+    }
 }

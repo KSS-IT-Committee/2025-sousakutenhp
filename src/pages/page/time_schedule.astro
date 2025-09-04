@@ -1,11 +1,56 @@
 ---
 import SubPageLayout from "../../layouts/SubPageLayout.astro";
+import TimeScheduleTable from "../../components/time_schedule_table.astro";
+
 const PageTitle = "タイムスケジュール";
+
+// サンプルスケジュールデータ
+const kaitakuSchedules = [
+  { time: "09:30 〜 10:00", event: "3A班発表", location: "3A教室" },
+  { time: "10:00", event: "3B班発表", location: "3B教室" },
+  { time: "10:30", event: "3C班発表", location: "3C教室" },
+  { time: "11:00", event: "3D班発表", location: "3D教室" },
+  { time: "11:30", event: "4A班発表", location: "4A教室" },
+  { time: "12:00", event: "4B班発表", location: "4B教室" },
+  { time: "12:30", event: "4C班発表", location: "4C教室" },
+  { time: "13:00", event: "4D班発表", location: "4D教室" }
+];
+
+const sousakuSchedules = [
+  { time: "13:30", event: "5A班発表", location: "5A教室" },
+  { time: "14:00", event: "5B班発表", location: "5B教室" },
+  { time: "14:30", event: "5C班発表", location: "5C教室" },
+  { time: "15:00", event: "5D班発表", location: "5D教室" },
+  { time: "15:30", event: "6A班発表", location: "6A教室" },
+  { time: "16:00", event: "6B班発表", location: "6B教室" },
+  { time: "16:30", event: "6C班発表", location: "6C教室" },
+  { time: "17:00", event: "6D班発表", location: "6D教室" }
+];
+
+const specialEvents = [
+  { time: "09:00", event: "開会式", location: "体育館", description: "校長先生の挨拶、来賓紹介", category: "式典" },
+  { time: "12:00", event: "昼食休憩", location: "食堂", description: "昼食と休憩時間", category: "休憩" },
+  { time: "17:30", event: "閉会式", location: "体育館", description: "表彰式、閉会の挨拶", category: "式典" }
+];
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-  <div class="time_schedule_note">
-
+  <div class="time-schedule">
+    <div class="schedule-description">
+      <p class="time-schedule-content">以下は、開拓部門、創作部門の公演のタイムスケジュールです。</p>
+      <p class="note">それ以外の部活動等のタイムスケジュールは、各団体のページをご覧ください。</p>
+    </div>
   </div>
 
+  <!-- 開拓部門のスケジュール -->
+  <TimeScheduleTable 
+    title="開拓部門タイムスケジュール" 
+    schedules={kaitakuSchedules} 
+  />
+
+  <!-- 創作部門のスケジュール -->
+  <TimeScheduleTable 
+    title="創作部門タイムスケジュール" 
+    schedules={sousakuSchedules} 
+  />
 </SubPageLayout>
