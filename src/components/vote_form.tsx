@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useCookies } from "react-cookie";
+import { c, s } from "framer-motion/dist/types.d-Cjd591yU";
 
 type ApiResponse =
     | { success: true }
@@ -34,12 +35,17 @@ export default function VoteForm() {
     useEffect(() => {
         if (!turnstileLoaded || !turnstileRef.current) return;
 
+        const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string;
+        if (!siteKey) {
+            console.error("Turnstile sitekey が未定義です");
+            return;
+        }
+        console.log(siteKey);
+
         (window as any).turnstile.render(turnstileRef.current, {
-            sitekey: import.meta.env.PUBLIC_TURNSTILE_SITE_KEY,
+            sitekey: siteKey,
             size: "invisible",
-            callback: (token: string) => {
-                setTurnstileToken(token);
-            },
+            callback: (token: string) => setTurnstileToken(token),
         });
     }, [turnstileLoaded]);
 
@@ -54,7 +60,7 @@ export default function VoteForm() {
                 let arr = cookies.selectedClass;
                 if (typeof arr === "string") arr = JSON.parse(arr);
                 if (Array.isArray(arr)) setSelectedClass(arr);
-            } catch {}
+            } catch { }
         }
     }, []);
 
