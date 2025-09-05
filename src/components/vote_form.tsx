@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useCookies } from "react-cookie";
-import { c, s } from "framer-motion/dist/types.d-Cjd591yU";
 
 type ApiResponse =
     | { success: true }
