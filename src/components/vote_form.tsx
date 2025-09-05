@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { supabase } from "../lib/supabaseClient"; // Supabaseクライアントのインポート
 import { CookiesProvider, useCookies } from "react-cookie";
 
@@ -20,6 +20,30 @@ export default function VoteForm() {
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
     // TODO: UserIDが設定された後にのみ投票できるようにする
     // TODO: SelectedClassをcookieに保存して、ページリロード後も選択を保持する
+    const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const tokenExpireTimer = useRef<NodeJS.Timeout | null>(null);
+
+
+    useEffect(() => {
+        // Cloudflare Turnstile script を読み込み
+        const script = document.createElement("script");
+        script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+        script.async = true;
+        document.body.appendChild(script);
+
+        // Invisible モードで埋め込み
+        const widget = document.createElement("div");
+        widget.className = "cf-turnstile";
+        widget.setAttribute("data-sitekey", import.meta.env.PUBLIC_TURNSTILE_SITE_KEY);
+        widget.setAttribute("data-callback", "onTurnstileSuccess");
+        widget.setAttribute("data-size", "invisible");
+        document.body.appendChild(widget);
+
+        // グローバルコールバックを定義
+        (window as any).onTurnstileSuccess = (token: string) => {
+            setTurnstileToken(token);
+        };
+    }, []);
 
     useEffect(() => {
         if (cookies.userID != null) {
@@ -40,12 +64,20 @@ export default function VoteForm() {
                 // パース失敗時は何もしない
             }
         }
+
+        return () => {
+            if (tokenExpireTimer.current) clearTimeout(tokenExpireTimer.current);
+        };
     }, []);
 
 
     async function submitVote() {
         if (!userID) {
             alert("投票IDが未登録です");
+            return;
+        }
+        if (!turnstileToken) {
+            alert("認証トークン取得中です。しばらくお待ちください。");
             return;
         }
         try {
@@ -55,7 +87,7 @@ export default function VoteForm() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({ userId: userID, categoryId: i + 1, classId: selectedClass[i] }),
+                    body: JSON.stringify({ userId: userID, categoryId: i + 1, classId: selectedClass[i], turnstileToken }),
                 });
 
                 const data = (await res.json()) as ApiResponse;
@@ -76,11 +108,15 @@ export default function VoteForm() {
 
 
     async function checkUserID() {
+        if (!turnstileToken) {
+            alert("認証トークン取得中です。しばらくお待ちください。");
+            return;
+        }
         try {
             const res = await fetch("/api/checkUser", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: inputUserID }),
+                body: JSON.stringify({ userId: inputUserID, turnstileToken }),
             });
 
             const data = (await res.json()) as CheckUserResponse;
