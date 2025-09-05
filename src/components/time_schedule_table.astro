@@ -1,0 +1,205 @@
+---
+export interface Props {
+  title?: string;
+  schedules: Array<{
+    time: string;
+    event: string;
+    location?: string;
+    description?: string;
+    category?: string;
+  }>;
+  showLocation?: boolean;
+  showDescription?: boolean;
+  showCategory?: boolean;
+  className?: string;
+}
+
+const {
+  title = "タイムスケジュール",
+  schedules,
+  showLocation = true,
+  showDescription = false,
+  showCategory = false,
+  className = ""
+} = Astro.props;
+---
+
+<div class={`time-schedule-table ${className}`}>
+  {title && <h3 class="schedule-title">{title}</h3>}
+  
+  <div class="schedule-container">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th class="time-header">時間</th>
+          <th class="event-header">イベント</th>
+          {showLocation && <th class="location-header">場所</th>}
+          {showDescription && <th class="description-header">詳細</th>}
+          {showCategory && <th class="category-header">カテゴリ</th>}
+        </tr>
+      </thead>
+      <tbody>
+        {schedules.map((schedule) => (
+          <tr class="schedule-row">
+            <td class="time-cell">{schedule.time}</td>
+            <td class="event-cell">{schedule.event}</td>
+            {showLocation && <td class="location-cell">{schedule.location || "-"}</td>}
+            {showDescription && <td class="description-cell">{schedule.description || "-"}</td>}
+            {showCategory && <td class="category-cell">{schedule.category || "-"}</td>}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<style>
+  .time-schedule-table {
+    margin: 2rem 0;
+  }
+
+  .schedule-title {
+    color: #2c3e50;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+    border-bottom: 2px solid #0077b6;
+    padding-bottom: 0.5rem;
+  }
+
+  .schedule-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 0.95rem;
+  }
+
+  .schedule-table th {
+    background: #f8f9fa;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 1rem 0.75rem;
+    text-align: left;
+    border-bottom: 2px solid #e2e8f0;
+    white-space: nowrap;
+  }
+
+  .schedule-table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  .time-header,
+  .time-cell {
+    width: 120px;
+    font-weight: 600;
+    color: #0077b6;
+  }
+
+  .event-header,
+  .event-cell {
+    min-width: 200px;
+    font-weight: 500;
+  }
+
+  .location-header,
+  .location-cell {
+    min-width: 150px;
+  }
+
+  .description-header,
+  .description-cell {
+    min-width: 250px;
+    color: #4a5568;
+  }
+
+  .category-header,
+  .category-cell {
+    min-width: 100px;
+    text-align: center;
+  }
+
+  .schedule-row:hover {
+    background: #f8f9fa;
+  }
+
+  .schedule-row:last-child td {
+    border-bottom: none;
+  }
+
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .schedule-table {
+      font-size: 0.9rem;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 0.6rem 0.5rem;
+    }
+
+    .time-header,
+    .time-cell {
+      width: 100px;
+    }
+
+    .event-header,
+    .event-cell {
+      min-width: 150px;
+    }
+
+    .location-header,
+    .location-cell {
+      min-width: 120px;
+    }
+
+    .description-header,
+    .description-cell {
+      min-width: 200px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .schedule-title {
+      font-size: 1.3rem;
+      margin-bottom: 1rem;
+    }
+
+    .schedule-table {
+      font-size: 0.85rem;
+    }
+
+    .schedule-table th,
+    .schedule-table td {
+      padding: 0.5rem 0.4rem;
+    }
+
+    .time-header,
+    .time-cell {
+      width: 80px;
+    }
+
+    .event-header,
+    .event-cell {
+      min-width: 120px;
+    }
+
+    .location-header,
+    .location-cell {
+      min-width: 100px;
+    }
+
+    .description-header,
+    .description-cell {
+      min-width: 150px;
+    }
+  }
+</style>
