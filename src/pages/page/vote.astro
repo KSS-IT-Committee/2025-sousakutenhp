@@ -2,8 +2,9 @@
 import SubPageLayout from "../../layouts/SubPageLayout.astro";
 import VoteWrapper from "../../components/VoteWrapper";
 const PageTitle = "投票";
+const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-    <VoteWrapper client:only="react" />
+    <VoteWrapper client:only="react" sitekey={sitekey} />
 </SubPageLayout>

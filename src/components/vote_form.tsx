@@ -11,7 +11,7 @@ type CheckUserResponse =
     | { success: true; exists: false }
     | { success: false; error: string };
 
-export default function VoteForm() {
+export default function VoteForm({ sitekey }: { sitekey: string }) {
     const [selectedClass, setSelectedClass] = useState(["0", "0", "0", "0", "0", "0"]);
     const [message, setMessage] = useState("");
     const [inputUserID, setInputUserID] = useState("");
@@ -34,15 +34,14 @@ export default function VoteForm() {
     useEffect(() => {
         if (!turnstileLoaded || !turnstileRef.current) return;
 
-        const siteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY as string;
-        if (!siteKey) {
+        if (!sitekey) {
             console.error("Turnstile sitekey が未定義です");
             return;
         }
-        console.log(siteKey);
+        console.log(sitekey);
 
         (window as any).turnstile.render(turnstileRef.current, {
-            sitekey: siteKey,
+            sitekey: sitekey,
             size: "invisible",
             callback: (token: string) => setTurnstileToken(token),
         });
