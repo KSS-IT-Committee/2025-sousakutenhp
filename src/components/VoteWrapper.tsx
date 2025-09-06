@@ -5,7 +5,7 @@ import VoteForm from "./vote_form";
 export default function VoteWrapper({ sitekey }: { sitekey: string }) {
   return (
     <CookiesProvider>
-      <VoteForm sitekey={sitekey} />
+      <VoteForm />
     </CookiesProvider>
   );
 }
