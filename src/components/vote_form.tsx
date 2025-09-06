@@ -101,7 +101,7 @@ export default function VoteForm() {
             <div className="p-4 border rounded">
                 <p>{message}</p>
                 <Turnstile
-                    sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY}
+                    sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim()}
                     onVerify={(token) => setTurnstileToken(token)}
                 />
                 <div>
