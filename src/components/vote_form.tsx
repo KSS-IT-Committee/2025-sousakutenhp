@@ -104,7 +104,7 @@ export default function VoteForm() {
             console.error(err);
             setMessage("Turnstile 認証またはサーバーエラーです");
         } finally {
-            
+
             setTurnstileToken(null); // トークンは使い切り
         }
     }
@@ -337,6 +337,9 @@ export default function VoteForm() {
                 <button
                     onClick={handleSubmitVote}
                     className="mt-3 px-4 py-1 bg-blue-600 text-white rounded"
+                    disabled={
+                        !userID
+                    }
                 >
                     投票する
                 </button>
