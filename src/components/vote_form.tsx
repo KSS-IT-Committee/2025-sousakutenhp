@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useCookies } from "react-cookie";
-import Turnstile from "react-turnstile";
 
 type ApiResponse =
     | { success: true }
@@ -11,6 +10,16 @@ type CheckUserResponse =
     | { success: true; exists: false }
     | { success: false; error: string };
 
+declare global {
+    interface Window {
+        turnstile: {
+            render: (element: string | HTMLElement, options: any) => number;
+            execute: (widgetId: number) => void;
+            reset: (widgetId: number) => void;
+        };
+    }
+}
+
 export default function VoteForm() {
     const [selectedClass, setSelectedClass] = useState(["0", "0", "0", "0", "0", "0"]);
     const [message, setMessage] = useState("");
@@ -18,12 +27,15 @@ export default function VoteForm() {
     const [userID, setUserID] = useState("");
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+    const turnstileWidgetId = useRef<number | null>(null);
+    const turnstileRef = useRef<HTMLDivElement>(null);
+    const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim();
 
     // Cookie から復元
     useEffect(() => {
         if (cookies.userID) {
             setInputUserID(cookies.userID);
-            checkUserID();
+            // ユーザーIDは投票時にチェック
         }
         if (cookies.selectedClass) {
             try {
@@ -34,50 +46,49 @@ export default function VoteForm() {
         }
     }, []);
 
-    // 投票送信
-    async function submitVote() {
-        if (!userID) return alert("投票IDが未登録です");
-        if (!turnstileToken) return alert("まず認証してください");
-
-        try {
-            for (let i = 0; i < selectedClass.length; i++) {
-                const res = await fetch("/api/vote", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        userId: userID,
-                        categoryId: i + 1,
-                        classId: selectedClass[i],
-                        turnstileToken,
-                    }),
-                });
-                const data = (await res.json()) as ApiResponse;
-                if (!data.success) {
-                    alert("投票に失敗しました：" + data.error);
-                    return;
-                }
-            }
-            alert("投票に成功しました！");
-            setCookie("selectedClass", selectedClass, { path: "/" });
-            setTurnstileToken(null); // token は使い切り
-        } catch (err) {
-            console.error(err);
-            alert("Turnstile 認証またはサーバーエラーです");
+    // Turnstile をレンダリング
+    useEffect(() => {
+        console.log(window.turnstile, turnstileRef.current, sitekey);
+        if (window.turnstile && turnstileRef.current && sitekey) {
+            turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+                sitekey,
+                callback: (token: string) => setTurnstileToken(token),
+            });
         }
-    }
 
-    // ユーザーIDチェック
-    async function checkUserID() {
-        if (!turnstileToken) return alert("まず認証してください");
+    }, [sitekey]);
+
+    // Turnstile トークンを取得してからユーザーIDチェック
+    async function handleCheckUserID() {
+        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
+        setMessage("検証中...");
+        // execute でトークン発行
+        window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
+        setTurnstileToken(null);
+        window.turnstile.execute(turnstileWidgetId.current);
+
+        // トークンがセットされるのを待つ
+        const waitToken = () =>
+            new Promise<string>((resolve, reject) => {
+                const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
+                const interval = setInterval(() => {
+                    if (turnstileToken) {
+                        clearTimeout(timeout);
+                        clearInterval(interval);
+                        resolve(turnstileToken);
+                    }
+                }, 100);
+            });
 
         try {
+            const token = await waitToken();
+            setMessage("サーバーと通信中...");
             const res = await fetch("/api/checkUser", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: inputUserID, turnstileToken }),
+                body: JSON.stringify({ userId: inputUserID, turnstileToken: token }),
             });
             const data = (await res.json()) as CheckUserResponse;
-
             if (data.success) {
                 if (data.exists) {
                     setUserID(inputUserID);
@@ -89,21 +100,71 @@ export default function VoteForm() {
             } else {
                 setMessage("エラー: " + data.error);
             }
-            setTurnstileToken(null); // token は使い切り
         } catch (err) {
             console.error(err);
             setMessage("Turnstile 認証またはサーバーエラーです");
+        } finally {
+            
+            setTurnstileToken(null); // トークンは使い切り
         }
     }
 
+    // 投票送信
+    async function handleSubmitVote() {
+        if (!userID) return alert("投票IDが未登録です");
+        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
+        setMessage("検証中...");
+        // execute でトークン発行
+        window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
+        setTurnstileToken(null);
+        window.turnstile.execute(turnstileWidgetId.current);
+
+        const waitToken = () =>
+            new Promise<string>((resolve, reject) => {
+                const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
+                const interval = setInterval(() => {
+                    if (turnstileToken) {
+                        clearTimeout(timeout);
+                        clearInterval(interval);
+                        resolve(turnstileToken);
+                    }
+                }, 100);
+            });
+
+        try {
+            const token = await waitToken();
+            setMessage("サーバーと通信中...");
+            for (let i = 0; i < selectedClass.length; i++) {
+                const res = await fetch("/api/vote", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        userId: userID,
+                        categoryId: i + 1,
+                        classId: selectedClass[i],
+                        turnstileToken: token,
+                    }),
+                });
+                const data = (await res.json()) as ApiResponse;
+                if (!data.success) {
+                    setMessage("投票に失敗しました：" + data.error);
+                    return;
+                }
+            }
+            setMessage("投票に成功しました！");
+            setCookie("selectedClass", selectedClass, { path: "/" });
+        } catch (err) {
+            console.error(err);
+            setMessage("Turnstile 認証またはサーバーエラーです");
+        } finally {
+            setTurnstileToken(null); // トークンは使い切り
+        }
+    }
     return (
         <div>
+            <div ref={turnstileRef}></div>
             <div className="p-4 border rounded">
                 <p>{message}</p>
-                <Turnstile
-                    sitekey={import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim()}
-                    onVerify={(token) => setTurnstileToken(token)}
-                />
                 <div>
                     <h2>投票ID</h2>
                     <input
@@ -114,7 +175,7 @@ export default function VoteForm() {
                     />
                     <button
                         className="ml-2 px-2 py-1 bg-green-600 text-white rounded"
-                        onClick={checkUserID}
+                        onClick={handleCheckUserID}
                     >
                         ID登録
                     </button>
@@ -133,6 +194,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="1">1年A組</option>
@@ -157,6 +219,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="9">3年A組</option>
@@ -181,6 +244,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="17">5年A組</option>
@@ -205,6 +269,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="1">1年A組</option>
@@ -229,6 +294,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="9">3年A組</option>
@@ -253,6 +319,7 @@ export default function VoteForm() {
                             setSelectedClass(newArr);
                         }}
                         className="mt-2 p-1 border"
+                        disabled={!userID}
                     >
                         <option value="0">選んでください</option>
                         <option value="17">5年A組</option>
@@ -268,7 +335,7 @@ export default function VoteForm() {
 
 
                 <button
-                    onClick={submitVote}
+                    onClick={handleSubmitVote}
                     className="mt-3 px-4 py-1 bg-blue-600 text-white rounded"
                 >
                     投票する
