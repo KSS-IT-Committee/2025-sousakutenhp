@@ -26,7 +26,7 @@ award: ""
 
 <br><br>
 
-## 演奏スケジュール
+## 演奏スケジュール(一日目のみ)
 
 <div class="time-schedule-table">
   <div class="schedule-container">
