@@ -58,6 +58,11 @@
   font-weight: 500;
 }
 
+.schedule-row-always {
+  font-weight: 500;
+  color: #b60000 !important;
+}
+
 .location-header,
 .location-cell {
   min-width: 150px;
