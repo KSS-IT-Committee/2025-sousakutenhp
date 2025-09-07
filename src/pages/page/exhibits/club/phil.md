@@ -22,3 +22,34 @@ poster: "/posters/phil.jpg"
 を行います。入退場自由です！　ぜひ気
 
 軽に足をお運びください。
+
+
+<br><br>
+
+## 演奏スケジュール
+
+<div class="time-schedule-table">
+  <div class="schedule-container">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th class="time-header">時間</th>
+          <th class="event-header">イベント</th>
+          <th class="location-header">場所</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="schedule-row">
+          <td class="time-cell">9:00-11:20</td>
+          <td class="event-cell">演奏</td>
+          <td class="location-cell">剣道場・柔道場</td>
+        </tr>
+        <tr class="schedule-row">
+          <td class="time-cell">12:30-15:15</td>
+          <td class="event-cell">演奏</td>
+          <td class="location-cell">剣道場・柔道場</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
