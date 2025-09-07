@@ -23,3 +23,34 @@ award: ""
 13時から音楽室でお待ちしています！私
 
 たちの歌が皆様の心に響きますように…
+
+
+<br><br>
+
+## 演奏スケジュール
+
+<div class="time-schedule-table">
+  <div class="schedule-container">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th class="time-header">時間</th>
+          <th class="event-header">イベント</th>
+          <th class="location-header">場所</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="schedule-row">
+          <td class="time-cell">10:00-10:30</td>
+          <td class="event-cell">合唱</td>
+          <td class="location-cell">音楽室</td>
+        </tr>
+        <tr class="schedule-row">
+          <td class="time-cell">13:00-13:30</td>
+          <td class="event-cell">合唱</td>
+          <td class="location-cell">音楽室</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
