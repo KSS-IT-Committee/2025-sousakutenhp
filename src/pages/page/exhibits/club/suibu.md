@@ -35,29 +35,24 @@ award: ""
         <tr>
           <th class="time-header">時間</th>
           <th class="event-header">曲目</th>
-          <th class="location-header">備考</th>
+          <th class="location-header">場所</th>
         </tr>
       </thead>
       <tbody>
         <tr class="schedule-row">
-          <td class="time-cell">10:00-10:15</td>
-          <td class="event-cell">オープニング演奏</td>
-          <td class="location-cell">歓迎の演奏</td>
+          <td class="time-cell">10:25-11:05</td>
+          <td class="event-cell">演奏</td>
+          <td class="location-cell">剣道場</td>
         </tr>
         <tr class="schedule-row">
-          <td class="time-cell">11:30-11:45</td>
-          <td class="event-cell">メイン演奏</td>
-          <td class="location-cell">ダイナミックな振り付け</td>
+          <td class="time-cell">12:35-13:15</td>
+          <td class="event-cell">演奏</td>
+          <td class="location-cell">剣道場</td>
         </tr>
         <tr class="schedule-row">
-          <td class="time-cell">14:00-14:15</td>
-          <td class="event-cell">アンコール演奏</td>
-          <td class="location-cell">リクエスト受付中</td>
-        </tr>
-        <tr class="schedule-row">
-          <td class="time-cell">15:30-15:45</td>
-          <td class="event-cell">フィナーレ演奏</td>
-          <td class="location-cell">最後の演奏</td>
+          <td class="time-cell">14:00-14:40</td>
+          <td class="event-cell">演奏</td>
+          <td class="location-cell">剣道場</td>
         </tr>
       </tbody>
     </table>
