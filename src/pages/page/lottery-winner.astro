@@ -1,0 +1,56 @@
+---
+import SubPageLayout from "../../layouts/SubPageLayout.astro";
+import "../../style/lottery.css";
+const PageTitle = "抽選について";
+import winners from "./gaibu_accepted.json";
+import LottereySearch from "../../components/lottery_search";
+const classes = ["5A", "5B", "5C", "5D", "6A", "6B", "6C", "6D"];
+const slots = ["1", "2", "3", "4", "5", "6", "7", "8"];
+
+/** 型注釈（任意） */
+const winnersMap = winners as Record<string, Record<string, string[]>>;
+---
+
+<SubPageLayout PageTitle={PageTitle}>
+    <div class="content-container fade-in">
+        <section class="lottery-section">
+            <div class="lottery-winner-intro">
+                <p>
+                    創作部門の劇の観覧の抽選結果です。<br />
+                    4桁の<b>抽選番号</b>を公演ごとに表示しています。<br />
+                    以下の検索ボックスからすぐに確認することもできます。
+                </p>
+            </div>
+            <LottereySearch client:load />
+            {
+                classes.map((className) => (
+                    <details class="lottery-class-details">
+                        <summary class="lottery-class-summary">
+                            {className}
+                        </summary>
+
+                        {slots.map((slot) => {
+                            const names = winnersMap?.[className]?.[slot] ?? [];
+                            return (
+                                <div class="lottery-winner-slot">
+                                    <h3>
+                                        {Math.floor(
+                                            (parseInt(slot) - 1) / 4 + 1,
+                                        )}
+                                        日目 第{((parseInt(slot) - 1) % 4) + 1}
+                                        公演
+                                    </h3>
+                                    <ul>
+                                        {names.map((name) => (
+                                            <li>{name}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            );
+                        })}
+                    </details>
+                ))
+            }
+        </section>
+    </div>
+</SubPageLayout>

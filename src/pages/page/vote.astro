@@ -4,9 +4,9 @@ import VoteWrapper from "../../components/VoteWrapper";
 import "../../style/voteform.css";
 
 const PageTitle = "投票";
-const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
+
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-    <VoteWrapper client:only="react" sitekey={sitekey} />
+    <VoteWrapper client:only="react"/>
 </SubPageLayout>

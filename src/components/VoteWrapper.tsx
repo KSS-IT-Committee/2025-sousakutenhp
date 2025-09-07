@@ -2,7 +2,7 @@
 import { CookiesProvider } from "react-cookie";
 import VoteForm from "./vote_form";
 
-export default function VoteWrapper({ sitekey }: { sitekey: string }) {
+export default function VoteWrapper() {
   return (
     <CookiesProvider>
       <VoteForm />
