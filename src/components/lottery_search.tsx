@@ -19,7 +19,7 @@ export default function LotterySearch() {
         const applicant = applicantList.find((applicant) => applicant.uid === inputID);
 
         if (applicant) {
-            setResult(applicant.uid + " さんは " + applicant.status);
+            setResult(`${applicant.uid}：${applicant.status}`);
         } else {
             setResult(`「${inputID}」は存在しません。`);
         }
