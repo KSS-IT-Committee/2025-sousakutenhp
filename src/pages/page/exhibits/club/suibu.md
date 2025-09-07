@@ -22,3 +22,43 @@ award: ""
 ること間違いなし。涼しい剣道場で楽し
 
 い演奏が皆さんをお待ちしています！
+
+
+<br><br>
+## 演奏スケジュール
+
+<div class="time-schedule-table">
+  <div class="schedule-container">
+    <table class="schedule-table">
+      <thead>
+        <tr>
+          <th class="time-header">時間</th>
+          <th class="event-header">曲目</th>
+          <th class="location-header">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="schedule-row">
+          <td class="time-cell">10:00-10:15</td>
+          <td class="event-cell">オープニング演奏</td>
+          <td class="location-cell">歓迎の演奏</td>
+        </tr>
+        <tr class="schedule-row">
+          <td class="time-cell">11:30-11:45</td>
+          <td class="event-cell">メイン演奏</td>
+          <td class="location-cell">ダイナミックな振り付け</td>
+        </tr>
+        <tr class="schedule-row">
+          <td class="time-cell">14:00-14:15</td>
+          <td class="event-cell">アンコール演奏</td>
+          <td class="location-cell">リクエスト受付中</td>
+        </tr>
+        <tr class="schedule-row">
+          <td class="time-cell">15:30-15:45</td>
+          <td class="event-cell">フィナーレ演奏</td>
+          <td class="location-cell">最後の演奏</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
