@@ -25,7 +25,8 @@ award: ""
 
 <br><br>
 
-## ライブスケジュール(2日目のみ)
+## ライブスケジュール
+## (2日目のみ)
 
 <div class="time-schedule-table">
   <div class="schedule-container">

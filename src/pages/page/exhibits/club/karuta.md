@@ -23,7 +23,8 @@ award: ""
 
 <br><br>
 
-## イベントスケジュール(1日目のみ)
+## イベントスケジュール
+## (1日目のみ)
 
 <div class="time-schedule-table">
   <div class="schedule-container">

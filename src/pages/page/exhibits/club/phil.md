@@ -26,7 +26,8 @@ poster: "/posters/phil.jpg"
 
 <br><br>
 
-## 演奏スケジュール(2日目のみ)
+## 演奏スケジュール
+## (2日目のみ)
 
 <div class="time-schedule-table">
   <div class="schedule-container">
