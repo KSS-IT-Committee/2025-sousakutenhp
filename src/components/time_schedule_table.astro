@@ -20,13 +20,13 @@ const {
   showLocation = true,
   showDescription = false,
   showCategory = false,
-  className = ""
+  className = "",
 } = Astro.props;
 ---
 
 <div class={`time-schedule-table ${className}`}>
-  {title && <h3 class="schedule-title">{title}</h3>}
-  
+  {title && <h3 class="schedule-title" set:html={title} />}
+
   <div class="schedule-container">
     <table class="schedule-table">
       <thead>
@@ -39,15 +39,23 @@ const {
         </tr>
       </thead>
       <tbody>
-        {schedules.map((schedule) => (
-          <tr class="schedule-row">
-            <td class="time-cell">{schedule.time}</td>
-            <td class="event-cell">{schedule.event}</td>
-            {showLocation && <td class="location-cell">{schedule.location || "-"}</td>}
-            {showDescription && <td class="description-cell">{schedule.description || "-"}</td>}
-            {showCategory && <td class="category-cell">{schedule.category || "-"}</td>}
-          </tr>
-        ))}
+        {
+          schedules.map((schedule) => (
+            <tr class="schedule-row">
+              <td class="time-cell">{schedule.time}</td>
+              <td class="event-cell">{schedule.event}</td>
+              {showLocation && (
+                <td class="location-cell">{schedule.location || "-"}</td>
+              )}
+              {showDescription && (
+                <td class="description-cell">{schedule.description || "-"}</td>
+              )}
+              {showCategory && (
+                <td class="category-cell">{schedule.category || "-"}</td>
+              )}
+            </tr>
+          ))
+        }
       </tbody>
     </table>
   </div>
@@ -69,7 +77,7 @@ const {
   }
 
   .schedule-title::after {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -91,7 +99,7 @@ const {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    font-size: 1.00rem;
+    font-size: 1rem;
     table-layout: fixed;
   }
 
