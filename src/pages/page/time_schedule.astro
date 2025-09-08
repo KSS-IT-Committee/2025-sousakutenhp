@@ -13,53 +13,62 @@ const kaitakuSchedules = [
   { time: "12:30 〜 13:00", event: "公演", location: "各クラス" },
   { time: "13:15 〜 13:45", event: "公演", location: "各クラス" },
   { time: "14:00 〜 14:30", event: "公演", location: "各クラス" },
-  { time: "14:45 〜 15:15", event: "公演", location: "各クラス" }
+  { time: "14:45 〜 15:15", event: "公演", location: "各クラス" },
 ];
 
 const sousakuSchedules = [
-{ time: "08:45 〜 10:00", event: "公演", location: "各クラス" },
-{ time: "10:20 〜 11:35", event: "公演", location: "各クラス" },
-{ time: "12:30 〜 13:45", event: "公演", location: "各クラス" },
-{ time: "14:05 〜 15:20", event: "公演", location: "各クラス" },
+  { time: "08:45 〜 10:00", event: "公演", location: "各クラス" },
+  { time: "10:20 〜 11:35", event: "公演", location: "各クラス" },
+  { time: "12:30 〜 13:45", event: "公演", location: "各クラス" },
+  { time: "14:05 〜 15:20", event: "公演", location: "各クラス" },
 ];
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
-  <div class="time-schedule">
-    <div class="schedule-description">
-      <p class="time-schedule-content">以下は、開拓部門、創作部門の公演のタイムスケジュールです。</p>
-      <div class="note">
-        <p>それ以外の部活動等のタイムスケジュールは、各団体のページをご覧ください。</p>
-        以下の団体は、それぞれの時間で公演や体験会などを行っております。
-        <ul>
-          <li><a href="/page/exhibits/club/suibu">吹奏楽部</a></li>
-          <li><a href="/page/exhibits/club/sadou">茶道部</a></li>
-          <li><a href="/page/exhibits/club/phil">フィルハーモニーオーケストラ部</a></li>
-          <li><a href="/page/exhibits/others/gyoun">行事運営委員会</a></li>
-          <li><a href="/page/exhibits/club/karuta">かるた部</a></li>
-          <li><a href="/page/exhibits/club/quiz">将棋チェス部クイズ班</a></li>
-          <li><a href="/page/exhibits/club/kadou">華道部</a></li>
-          <li><a href="/page/exhibits/club/cooking">料理研究会</a></li>
-          <li><a href="/page/exhibits/club/chorus">音楽研究会</a></li>
-          <li><a href="/page/exhibits/club/drama">演劇部</a></li>
-          <li><a href="/page/exhibits/club/jazz">軽音楽研究会</a></li>
-          <li><a href="/page/exhibits/club/chemistry">化学研究会</a></li>
-        </ul>
+  <div class="content-container fade-in">
+    <div class="time-schedule">
+      <div class="schedule-description">
+        <p class="time-schedule-content">
+          以下は、開拓部門、創作部門の公演のタイムスケジュールです。
+        </p>
+        <div class="note">
+          <p>
+            それ以外の部活動等のタイムスケジュールは、各団体のページをご覧ください。
+          </p>
+          以下の団体は、それぞれの時間で公演や体験会などを行っております。
+          <ul>
+            <li><a href="/page/exhibits/club/suibu">吹奏楽部</a></li>
+            <li><a href="/page/exhibits/club/sadou">茶道部</a></li>
+            <li>
+              <a href="/page/exhibits/club/phil"
+                >フィルハーモニーオーケストラ部</a>
+            </li>
+            <li><a href="/page/exhibits/others/gyoun">行事運営委員会</a></li>
+            <li><a href="/page/exhibits/club/karuta">かるた部</a></li>
+            <li><a href="/page/exhibits/club/quiz">将棋チェス部クイズ班</a></li>
+            <li><a href="/page/exhibits/club/kadou">華道部</a></li>
+            <li><a href="/page/exhibits/club/cooking">料理研究会</a></li>
+            <li><a href="/page/exhibits/club/chorus">音楽研究会</a></li>
+            <li><a href="/page/exhibits/club/drama">演劇部</a></li>
+            <li><a href="/page/exhibits/club/jazz">軽音楽研究会</a></li>
+            <li><a href="/page/exhibits/club/chemistry">化学研究会</a></li>
+          </ul>
+        </div>
       </div>
     </div>
+
+    <!-- 開拓部門のスケジュール -->
+    <TimeScheduleTable
+      title="開拓部門タイムスケジュール"
+      schedules={kaitakuSchedules}
+    />
+
+    <!-- 創作部門のスケジュール -->
+    <TimeScheduleTable
+      title="創作部門タイムスケジュール"
+      schedules={sousakuSchedules}
+    />
   </div>
-
-  <!-- 開拓部門のスケジュール -->
-  <TimeScheduleTable 
-    title="開拓部門タイムスケジュール" 
-    schedules={kaitakuSchedules} 
-  />
-
-  <!-- 創作部門のスケジュール -->
-  <TimeScheduleTable 
-    title="創作部門タイムスケジュール" 
-    schedules={sousakuSchedules} 
-  />
 </SubPageLayout>
 
 <style>
@@ -67,7 +76,7 @@ const sousakuSchedules = [
     list-style: none;
     padding-left: 0;
   }
-  
+
   .note li {
     list-style: none;
   }
