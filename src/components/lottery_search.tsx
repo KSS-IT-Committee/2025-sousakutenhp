@@ -19,7 +19,7 @@ export default function LotterySearch() {
         const applicant = applicantList.find((applicant) => applicant.uid === inputID);
 
         if (applicant) {
-            setResult(`${applicant.uid}：${applicant.status}`);
+            setResult(`【${applicant.uid}】<br/>${applicant.status}`);
         } else {
             setResult(`「${inputID}」は存在しません。`);
         }
@@ -38,8 +38,7 @@ export default function LotterySearch() {
                     検索
                 </div>
             </div>
-            <div className="lottery-search-result">{result}
-            </div>
+            <div className="lottery-search-result" dangerouslySetInnerHTML={{ __html: result }} />
         </div>
     );
 }
