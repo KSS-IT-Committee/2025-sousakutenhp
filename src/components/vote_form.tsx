@@ -164,7 +164,7 @@ export default function VoteForm() {
         <div className="vote-container">
             <div ref={turnstileRef} className="turnstile-container"></div>
             <div className="user-id-section">
-                <p className="message-text">{message}</p>
+                {/* <p className="message-text">{message}</p> */}
                 <div className="user-id-input-group">
                     <h2>投票ID</h2>
                     <div>
