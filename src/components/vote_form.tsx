@@ -167,18 +167,20 @@ export default function VoteForm() {
                 <p className="message-text">{message}</p>
                 <div className="user-id-input-group">
                     <h2>投票ID</h2>
-                    <input
-                        type="text"
-                        value={inputUserID}
-                        onChange={(e) => setInputUserID(e.target.value)}
-                        className="user-id-input"
-                    />
-                    <button
-                        className="user-id-button"
-                        onClick={handleCheckUserID}
-                    >
-                        ID登録
-                    </button>
+                    <div>
+                        <input
+                            type="text"
+                            value={inputUserID}
+                            onChange={(e) => setInputUserID(e.target.value)}
+                            className="user-id-input"
+                        />
+                        <button
+                            className="user-id-button"
+                            onClick={handleCheckUserID}
+                        >
+                            ID登録
+                        </button>
+                    </div>
                 </div>
             </div>
             <div className="voting-section">
