@@ -162,7 +162,7 @@ export default function VoteForm() {
     }
     return (
         <div>
-            <div ref={turnstileRef}></div>
+
             <div className="p-4 border rounded">
                 <p>{message}</p>
                 <div>
@@ -344,6 +344,7 @@ export default function VoteForm() {
                     投票する
                 </button>
             </div>
+            <div ref={turnstileRef}></div>
         </div>
     );
 }
