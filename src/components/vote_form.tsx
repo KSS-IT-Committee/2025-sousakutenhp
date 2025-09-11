@@ -342,7 +342,7 @@ export default function VoteForm() {
                     投票する
                 </button>
             </div>
-            <div ref={turnstileRef} className="turnstile-container">ご協力ありがとうございました</div>
+            <div ref={turnstileRef} className="turnstile-container"></div>
         </div>
     );
 }

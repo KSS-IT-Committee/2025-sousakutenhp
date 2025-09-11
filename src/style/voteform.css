@@ -12,14 +12,11 @@
 
 /* Turnstile Container */
 .turnstile-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    padding: 1rem;
-    background: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
 }
 
 /* User ID Registration Section */
