@@ -113,7 +113,7 @@ export default function VoteForm() {
     // 投票送信
     async function handleSubmitVote() {
         if (!userID) return alert("投票IDが未登録です");
-        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
+        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です。しばらくお待ち下さい。");
         setMessage("検証中...");
         // execute でトークン発行
         window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
@@ -215,6 +215,8 @@ export default function VoteForm() {
                 </div>
             </div>
             <div className="voting-section">
+                <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。</p>
+                <p className="voting-title">一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。</p>
                 <p className="voting-title">それぞれの部門でよいと思ったクラスを選んでください</p>
                 <div className="category-section">
                     <h3 className="category-title">立志外装部門</h3>
