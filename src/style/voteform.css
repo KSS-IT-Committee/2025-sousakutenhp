@@ -14,6 +14,7 @@
 .turnstile-container {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
     margin-bottom: 2rem;
     padding: 1rem;
     background: rgba(255, 255, 255, 0.8);
