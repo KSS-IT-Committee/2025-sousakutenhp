@@ -152,6 +152,7 @@ export default function VoteForm() {
                     return;
                 }
             }
+            console.log("Vote submission successful, setting voteSubmitted to true");
             setMessage("投票に成功しました！");
             setVoteSubmitted(true);
             setCookie("selectedClass", selectedClass, { path: "/" });
@@ -164,6 +165,7 @@ export default function VoteForm() {
     }
 
     // 投票完了画面
+    console.log("VoteForm render - voteSubmitted:", voteSubmitted);
     if (voteSubmitted) {
         return (
             <div className="vote-container">
