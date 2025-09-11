@@ -265,7 +265,9 @@
     box-shadow: 0 8px 25px rgba(30, 41, 59, 0.3);
 }
 
+.submit-button,
 .submit-btn {
+    margin-top: 2rem;
     padding: 1rem 3rem;
     background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
     color: white;
@@ -282,6 +284,7 @@
     overflow: hidden;
 }
 
+.submit-button::before,
 .submit-btn::before {
     content: '';
     position: absolute;
@@ -293,19 +296,23 @@
     transition: left 0.5s;
 }
 
+.submit-button:hover::before,
 .submit-btn:hover::before {
     left: 100%;
 }
 
+.submit-button:hover,
 .submit-btn:hover {
     transform: translateY(-3px);
     box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
 }
 
+.submit-button:active,
 .submit-btn:active {
     transform: translateY(-1px);
 }
 
+.submit-button:disabled,
 .submit-btn:disabled {
     background: #94a3b8;
     cursor: not-allowed;
@@ -313,6 +320,7 @@
     box-shadow: none;
 }
 
+.submit-button:disabled::before,
 .submit-btn:disabled::before {
     display: none;
 }
@@ -347,6 +355,7 @@
         font-size: 1.1rem;
     }
     
+    .submit-button,
     .submit-btn {
         padding: 0.875rem 2rem;
         font-size: 1rem;
@@ -431,6 +440,7 @@
 
 /* Focus styles for accessibility */
 .register-btn:focus,
+.submit-button:focus,
 .submit-btn:focus,
 .user-id-input:focus,
 .category-select:focus {
@@ -457,6 +467,7 @@
 @media (prefers-reduced-motion: reduce) {
     .voting-category,
     .register-btn,
+    .submit-button,
     .submit-btn,
     .user-id-input,
     .category-select {
