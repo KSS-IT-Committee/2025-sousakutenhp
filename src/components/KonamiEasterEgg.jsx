@@ -64,34 +64,46 @@ export default function KonamiEasterEgg() {
     };
 
     const handleTouchStart = (e) => {
+      e.preventDefault();
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
+      console.log("Touch start:", touchStartX, touchStartY);
     };
 
     const handleTouchEnd = (e) => {
+      e.preventDefault();
       touchEndX = e.changedTouches[0].clientX;
       touchEndY = e.changedTouches[0].clientY;
       
       const deltaX = touchEndX - touchStartX;
       const deltaY = touchEndY - touchStartY;
-      const minSwipeDistance = 50;
+      const minSwipeDistance = 30; // Reduced threshold
+      
+      console.log("Touch end:", touchEndX, touchEndY, "Delta:", deltaX, deltaY);
       
       // Check if it's a swipe or tap
       if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
         // It's a tap - handle b/a sequence
         tapCount++;
+        console.log("Tap detected, count:", tapCount);
         
         if (tapCount === 1) {
           input.push("b");
+          console.log("Added 'b', input:", input);
           tapTimer = setTimeout(() => {
             tapCount = 0;
-          }, 500);
+          }, 800); // Increased timeout
         } else if (tapCount === 2) {
           clearTimeout(tapTimer);
           input.push("a");
+          console.log("Added 'a', input:", input);
           tapCount = 0;
         }
       } else {
+        // Reset tap count if swiping
+        tapCount = 0;
+        if (tapTimer) clearTimeout(tapTimer);
+        
         // It's a swipe - determine direction
         let direction = "";
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -102,18 +114,23 @@ export default function KonamiEasterEgg() {
           direction = deltaY > 0 ? "ArrowDown" : "ArrowUp";
         }
         input.push(direction);
+        console.log("Swipe detected:", direction, "input:", input);
       }
       
       if (input.length > konami.length) input.shift();
 
+      console.log("Current sequence:", input.join(","));
+      console.log("Target sequence:", konami.join(","));
+
       if (input.join(",").toLowerCase() === konami.join(",").toLowerCase()) {
+        console.log("KONAMI CODE TRIGGERED!");
         triggerEasterEgg();
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("touchstart", handleTouchStart, { passive: true });
-    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd, { passive: false });
     
     return () => {
       window.removeEventListener("keydown", onKeyDown);
