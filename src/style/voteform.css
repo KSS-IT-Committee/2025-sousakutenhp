@@ -186,6 +186,46 @@
     margin: 0;
 }
 
+/* Voting Title */
+.voting-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1e293b;
+    text-align: center;
+    margin: 1rem 0;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #e0f2fe 100%);
+    border: 2px solid #0ea5e9;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+    position: relative;
+    overflow: hidden;
+    line-height: 1.5;
+    letter-spacing: 0.3px;
+    transition: all 0.3s ease;
+}
+
+.voting-title::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+    transition: left 0.6s ease;
+}
+
+.voting-title:hover::before {
+    left: 100%;
+}
+
+.voting-title:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(14, 165, 233, 0.2);
+    border-color: #0284c7;
+}
+
 /* Voting Categories */
 .voting-categories {
     display: grid;
@@ -359,6 +399,14 @@
     .submit-btn {
         padding: 0.875rem 2rem;
         font-size: 1rem;
+    }
+
+    /* Mobile voting title styles */
+    .voting-title {
+        font-size: 1.1rem;
+        padding: 0.875rem 1.25rem;
+        margin: 0.75rem 0;
+        letter-spacing: 0.2px;
     }
 
     /* Success screen mobile styles */
@@ -599,7 +647,8 @@
     .submit-button,
     .submit-btn,
     .user-id-input,
-    .category-select {
+    .category-select,
+    .voting-title {
         transition: none;
         animation: none;
     }

@@ -215,9 +215,9 @@ export default function VoteForm() {
                 </div>
             </div>
             <div className="voting-section">
-                <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。</p>
-                <p className="voting-title">一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。</p>
-                <p className="voting-title">それぞれの部門でよいと思ったクラスを選んでください</p>
+                <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。
+                <br/>一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。
+                <br/>それぞれの部門でよいと思ったクラスを選んでください</p>
                 <div className="category-section">
                     <h3 className="category-title">立志外装部門</h3>
                     <p className="category-description">1・2年生の中で最も外装がよかったクラスを選んでください</p>
