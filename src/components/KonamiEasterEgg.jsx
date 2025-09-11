@@ -64,14 +64,12 @@ export default function KonamiEasterEgg() {
     };
 
     const handleTouchStart = (e) => {
-      e.preventDefault();
       touchStartX = e.touches[0].clientX;
       touchStartY = e.touches[0].clientY;
       console.log("Touch start:", touchStartX, touchStartY);
     };
 
     const handleTouchEnd = (e) => {
-      e.preventDefault();
       touchEndX = e.changedTouches[0].clientX;
       touchEndY = e.changedTouches[0].clientY;
       
@@ -80,6 +78,11 @@ export default function KonamiEasterEgg() {
       const minSwipeDistance = 30; // Reduced threshold
       
       console.log("Touch end:", touchEndX, touchEndY, "Delta:", deltaX, deltaY);
+      
+      // Only prevent default for swipes, not for normal scrolling
+      if (Math.abs(deltaX) >= minSwipeDistance || Math.abs(deltaY) >= minSwipeDistance) {
+        e.preventDefault();
+      }
       
       // Check if it's a swipe or tap
       if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
@@ -129,7 +132,7 @@ export default function KonamiEasterEgg() {
     };
 
     window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("touchstart", handleTouchStart, { passive: false });
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
     window.addEventListener("touchend", handleTouchEnd, { passive: false });
     
     return () => {
