@@ -162,7 +162,6 @@ export default function VoteForm() {
     }
     return (
         <div className="vote-container">
-            <div ref={turnstileRef} className="turnstile-container"></div>
             <div className="user-id-section">
                 {/* <p className="message-text">{message}</p> */}
                 <div className="user-id-input-group">
@@ -343,6 +342,7 @@ export default function VoteForm() {
                     投票する
                 </button>
             </div>
+            <div ref={turnstileRef} className="turnstile-container"></div>
         </div>
     );
 }
