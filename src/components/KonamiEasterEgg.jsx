@@ -20,41 +20,107 @@ export default function KonamiEasterEgg() {
     ];
     let input = [];
     let idCounter = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    let touchEndX = 0;
+    let touchEndY = 0;
+    let tapCount = 0;
+    let tapTimer = null;
+
+    const triggerEasterEgg = () => {
+      const newId = idCounter++;
+      const newBottom = Math.floor(Math.random() * 250) + 50;
+      const animDuration = Math.max(2, (windowWidth / 1000) * 4);
+
+      // 初期位置は -150px
+      setActive((prev) => [
+        ...prev,
+        { id: newId, bottom: newBottom, right: -150, moving: false }
+      ]);
+
+      // 次のフレームで移動開始
+      setTimeout(() => {
+        setActive((prev) =>
+          prev.map((item) =>
+            item.id === newId ? { ...item, moving: true } : item
+          )
+        );
+      }, 50);
+
+      setTimeout(() => {
+        setActive((prev) => prev.filter((item) => item.id !== newId));
+      }, animDuration * 1000);
+
+      input = [];
+    };
 
     const onKeyDown = (e) => {
       input.push(e.key);
       if (input.length > konami.length) input.shift();
 
       if (input.join(",").toLowerCase() === konami.join(",").toLowerCase()) {
-        const newId = idCounter++;
-        const newBottom = Math.floor(Math.random() * 250) + 50;
-        const animDuration = Math.max(2, (windowWidth / 1000) * 4);
+        triggerEasterEgg();
+      }
+    };
 
-        // 初期位置は -150px
-        setActive((prev) => [
-          ...prev,
-          { id: newId, bottom: newBottom, right: -150, moving: false }
-        ]);
+    const handleTouchStart = (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    };
 
-        // 次のフレームで移動開始
-        setTimeout(() => {
-          setActive((prev) =>
-            prev.map((item) =>
-              item.id === newId ? { ...item, moving: true } : item
-            )
-          );
-        }, 50);
+    const handleTouchEnd = (e) => {
+      touchEndX = e.changedTouches[0].clientX;
+      touchEndY = e.changedTouches[0].clientY;
+      
+      const deltaX = touchEndX - touchStartX;
+      const deltaY = touchEndY - touchStartY;
+      const minSwipeDistance = 50;
+      
+      // Check if it's a swipe or tap
+      if (Math.abs(deltaX) < minSwipeDistance && Math.abs(deltaY) < minSwipeDistance) {
+        // It's a tap - handle b/a sequence
+        tapCount++;
+        
+        if (tapCount === 1) {
+          input.push("b");
+          tapTimer = setTimeout(() => {
+            tapCount = 0;
+          }, 500);
+        } else if (tapCount === 2) {
+          clearTimeout(tapTimer);
+          input.push("a");
+          tapCount = 0;
+        }
+      } else {
+        // It's a swipe - determine direction
+        let direction = "";
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          // Horizontal swipe
+          direction = deltaX > 0 ? "ArrowRight" : "ArrowLeft";
+        } else {
+          // Vertical swipe
+          direction = deltaY > 0 ? "ArrowDown" : "ArrowUp";
+        }
+        input.push(direction);
+      }
+      
+      if (input.length > konami.length) input.shift();
 
-        setTimeout(() => {
-          setActive((prev) => prev.filter((item) => item.id !== newId));
-        }, animDuration * 1000);
-
-        input = [];
+      if (input.join(",").toLowerCase() === konami.join(",").toLowerCase()) {
+        triggerEasterEgg();
       }
     };
 
     window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
+    window.addEventListener("touchstart", handleTouchStart, { passive: true });
+    window.addEventListener("touchend", handleTouchEnd, { passive: true });
+    
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("touchstart", handleTouchStart);
+      window.removeEventListener("touchend", handleTouchEnd);
+      if (tapTimer) clearTimeout(tapTimer);
+    };
   }, [windowWidth]);
 
   const animationDuration = Math.max(2, (windowWidth / 1000) * 4);
