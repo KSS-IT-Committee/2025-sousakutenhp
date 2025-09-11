@@ -25,6 +25,7 @@ export default function VoteForm() {
     const [message, setMessage] = useState("");
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setUserID] = useState("");
+    const [voteSubmitted, setVoteSubmitted] = useState(false);
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
     const turnstileWidgetId = useRef<number | null>(null);
@@ -152,6 +153,7 @@ export default function VoteForm() {
                 }
             }
             setMessage("投票に成功しました！");
+            setVoteSubmitted(true);
             setCookie("selectedClass", selectedClass, { path: "/" });
         } catch (err) {
             console.error(err);
@@ -160,6 +162,34 @@ export default function VoteForm() {
             setTurnstileToken(null); // トークンは使い切り
         }
     }
+
+    // 投票完了画面
+    if (voteSubmitted) {
+        return (
+            <div className="vote-container">
+                <div className="vote-success-screen">
+                    <div className="success-icon">✅</div>
+                    <h1 className="success-title">投票完了！</h1>
+                    <p className="success-message">
+                        投票が正常に送信されました。<br/>
+                        ご協力ありがとうございました！<br/>
+                        投票結果は適切に処理し、後日本校のイベントにて使用致します。
+                    </p>
+                    <div className="success-details">
+                        <p><strong>投票ID:</strong> {userID}</p>
+                        <p><strong>投票日時:</strong> {new Date().toLocaleString('ja-JP')}</p>
+                    </div>
+                    <button 
+                        className="back-button"
+                        onClick={() => setVoteSubmitted(false)}
+                    >
+                        投票画面に戻る
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="vote-container">
             <div className="user-id-section">
