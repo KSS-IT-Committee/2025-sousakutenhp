@@ -177,7 +177,7 @@ export default function VoteForm() {
                             className="user-id-button"
                             onClick={handleCheckUserID}
                         >
-                            ID登録
+                            IDを認証する
                         </button>
                     </div>
                 </div>
