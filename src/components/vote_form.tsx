@@ -161,31 +161,33 @@ export default function VoteForm() {
         }
     }
     return (
-        <div>
-
-            <div className="p-4 border rounded">
-                <p>{message}</p>
-                <div>
+        <div className="vote-container">
+            <div ref={turnstileRef} className="turnstile-container"></div>
+            <div className="user-id-section">
+                {/* <p className="message-text">{message}</p> */}
+                <div className="user-id-input-group">
                     <h2>投票ID</h2>
-                    <input
-                        type="text"
-                        value={inputUserID}
-                        onChange={(e) => setInputUserID(e.target.value)}
-                        className="mt-2 p-1 border"
-                    />
-                    <button
-                        className="ml-2 px-2 py-1 bg-green-600 text-white rounded"
-                        onClick={handleCheckUserID}
-                    >
-                        ID登録
-                    </button>
+                    <div>
+                        <input
+                            type="text"
+                            value={inputUserID}
+                            onChange={(e) => setInputUserID(e.target.value)}
+                            className="user-id-input"
+                        />
+                        <button
+                            className="user-id-button"
+                            onClick={handleCheckUserID}
+                        >
+                            ID登録
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div>
-                <p className="text-lg font-bold">それぞれの部門でよいと思ったクラスを選んでください</p>
-                <div>
-                    <h3>立志外装部門</h3>
-                    <p>1・2年生の中で最も外装がよかったクラスを選んでください</p>
+            <div className="voting-section">
+                <p className="voting-title">それぞれの部門でよいと思ったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">立志外装部門</h3>
+                    <p className="category-description">1・2年生の中で最も外装がよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[0]}
                         onChange={(e) => {
@@ -193,7 +195,7 @@ export default function VoteForm() {
                             newArr[0] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -208,9 +210,9 @@ export default function VoteForm() {
                     </select>
 
                 </div>
-                <div>
-                    <h3>開拓外装部門</h3>
-                    <p>3・4年生の中で最も外装がよかったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">開拓外装部門</h3>
+                    <p className="category-description">3・4年生の中で最も外装がよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[1]}
                         onChange={(e) => {
@@ -218,7 +220,7 @@ export default function VoteForm() {
                             newArr[1] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -233,9 +235,9 @@ export default function VoteForm() {
                     </select>
 
                 </div>
-                <div>
-                    <h3>創作外装部門</h3>
-                    <p>5・6年生の中で最も外装がよかったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">創作外装部門</h3>
+                    <p className="category-description">5・6年生の中で最も外装がよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[2]}
                         onChange={(e) => {
@@ -243,7 +245,7 @@ export default function VoteForm() {
                             newArr[2] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -258,9 +260,9 @@ export default function VoteForm() {
                     </select>
 
                 </div>
-                <div>
-                    <h3>光庭パネル立志部門</h3>
-                    <p>1～2年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">光庭パネル立志部門</h3>
+                    <p className="category-description">1～2年生の中で最も光庭パネルがよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[3]}
                         onChange={(e) => {
@@ -268,7 +270,7 @@ export default function VoteForm() {
                             newArr[3] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -283,9 +285,9 @@ export default function VoteForm() {
                     </select>
                 </div>
 
-                <div>
-                    <h3>光庭パネル開拓部門</h3>
-                    <p>3～4年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">光庭パネル開拓部門</h3>
+                    <p className="category-description">3～4年生の中で最も光庭パネルがよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[4]}
                         onChange={(e) => {
@@ -293,7 +295,7 @@ export default function VoteForm() {
                             newArr[4] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -308,9 +310,9 @@ export default function VoteForm() {
                     </select>
                 </div>
 
-                <div>
-                    <h3>光庭パネル創作部門</h3>
-                    <p>5・6年生の中で最も光庭パネルがよかったクラスを選んでください</p>
+                <div className="category-section">
+                    <h3 className="category-title">光庭パネル創作部門</h3>
+                    <p className="category-description">5・6年生の中で最も光庭パネルがよかったクラスを選んでください</p>
                     <select
                         value={selectedClass[5]}
                         onChange={(e) => {
@@ -318,7 +320,7 @@ export default function VoteForm() {
                             newArr[5] = e.target.value;
                             setSelectedClass(newArr);
                         }}
-                        className="mt-2 p-1 border"
+                        className="category-select"
                         disabled={!userID}
                     >
                         <option value="0">選んでください</option>
@@ -333,13 +335,10 @@ export default function VoteForm() {
                     </select>
                 </div>
 
-
                 <button
                     onClick={handleSubmitVote}
-                    className="mt-3 px-4 py-1 bg-blue-600 text-white rounded"
-                    disabled={
-                        !userID
-                    }
+                    className="submit-button"
+                    disabled={!userID}
                 >
                     投票する
                 </button>
