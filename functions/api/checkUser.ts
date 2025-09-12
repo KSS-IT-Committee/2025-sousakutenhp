@@ -2,7 +2,6 @@ import { createClient } from "@supabase/supabase-js";
 
 type CheckUserRequest = {
   userId: string;
-  turnstileToken: string;
 };
 
 type CheckUserResponse =
@@ -16,26 +15,26 @@ export const onRequestPost: PagesFunction<{
   TURNSTILE_SECRET_KEY: string;
 }> = async ({ request, env }) => {
   try {
-    const { userId, turnstileToken } = (await request.json()) as CheckUserRequest;
-    if (!turnstileToken) {
-      return new Response(
-        JSON.stringify({ success: false, error: "No turnstile token" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    const { userId} = (await request.json()) as CheckUserRequest;
+    // if (!turnstileToken) {
+    //   return new Response(
+    //     JSON.stringify({ success: false, error: "No turnstile token" }),
+    //     { status: 400, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
     // Turnstile検証
-    const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${env.TURNSTILE_SECRET_KEY}&response=${turnstileToken}`,
-    });
-    const verifyData = await verifyRes.json() as { success: boolean; [key: string]: any };
-    if (!verifyData.success) {
-      return new Response(
-        JSON.stringify({ success: false, error: "認証に失敗しました" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    // const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   body: `secret=${env.TURNSTILE_SECRET_KEY}&response=${turnstileToken}`,
+    // });
+    // const verifyData = await verifyRes.json() as { success: boolean; [key: string]: any };
+    // if (!verifyData.success) {
+    //   return new Response(
+    //     JSON.stringify({ success: false, error: "認証に失敗しました" }),
+    //     { status: 401, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
     if (!userId) {
       return new Response(
         JSON.stringify({ success: false, error: "userIdが未指定です" }),

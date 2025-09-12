@@ -10,6 +10,7 @@
     <!-- <a href="/page/schedule/" class="floating-menu-item">タイムスケジュール</a> -->
     <a href="/page/lottery/" class="floating-menu-item">抽選申し込み</a>
     <a href="/page/notice/" class="floating-menu-item">来校時のご注意</a>
+    <a href="/page/vote/" class="floating-menu-item">投票</a>
 </div>
 
 <!-- モバイルメニュー -->
@@ -21,6 +22,7 @@
     <!-- <a href="/page/schedule/" class="mobile-menu-item">タイムスケジュール</a> -->
     <a href="/page/lottery/" class="mobile-menu-item">抽選申し込み</a>
     <a href="/page/notice/" class="mobile-menu-item">来校時のご注意</a>
+    <a href="/page/vote/" class="mobile-menu-item">投票</a>
 </div>
 
 <script>
@@ -74,12 +76,12 @@
             // メニューを表示
             floatingMenu.classList.add("show");
             mobileMenuToggle.classList.add("show");
-            
+
             // 既存のタイマーをクリア
             if (activityTimeout) {
                 clearTimeout(activityTimeout);
             }
-            
+
             // 2秒後にメニューを隠す
             activityTimeout = setTimeout(() => {
                 floatingMenu.classList.remove("show");
