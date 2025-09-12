@@ -25,6 +25,7 @@ export default function VoteForm() {
     const [message, setMessage] = useState("");
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setUserID] = useState("");
+    const [voteSubmitted, setVoteSubmitted] = useState(false);
     const [cookies, setCookie] = useCookies(["userID", "selectedClass"]);
     const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
     const turnstileWidgetId = useRef<number | null>(null);
@@ -48,14 +49,31 @@ export default function VoteForm() {
 
     // Turnstile をレンダリング
     useEffect(() => {
-        console.log(window.turnstile, turnstileRef.current, sitekey);
-        if (window.turnstile && turnstileRef.current && sitekey) {
-            turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-                sitekey,
-                callback: (token: string) => setTurnstileToken(token),
-            });
-        }
-
+        console.log('Turnstile debug:', { 
+            turnstile: window.turnstile, 
+            ref: turnstileRef.current, 
+            sitekey: sitekey,
+            sitekeLength: sitekey?.length 
+        });
+        
+        const initTurnstile = () => {
+            if (window.turnstile && turnstileRef.current && sitekey) {
+                console.log('Initializing Turnstile widget');
+                turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+                    sitekey,
+                    callback: (token: string) => {
+                        console.log('Turnstile token received:', token.substring(0, 20) + '...');
+                        setTurnstileToken(token);
+                    },
+                });
+                console.log('Turnstile widget ID:', turnstileWidgetId.current);
+            } else {
+                console.log('Turnstile not ready, retrying in 100ms');
+                setTimeout(initTurnstile, 100);
+            }
+        };
+        
+        initTurnstile();
     }, [sitekey]);
 
     // Turnstile トークンを取得してからユーザーIDチェック
@@ -112,7 +130,7 @@ export default function VoteForm() {
     // 投票送信
     async function handleSubmitVote() {
         if (!userID) return alert("投票IDが未登録です");
-        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
+        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です。しばらくお待ち下さい。");
         setMessage("検証中...");
         // execute でトークン発行
         window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
@@ -151,7 +169,9 @@ export default function VoteForm() {
                     return;
                 }
             }
+            console.log("Vote submission successful, setting voteSubmitted to true");
             setMessage("投票に成功しました！");
+            setVoteSubmitted(true);
             setCookie("selectedClass", selectedClass, { path: "/" });
         } catch (err) {
             console.error(err);
@@ -160,9 +180,37 @@ export default function VoteForm() {
             setTurnstileToken(null); // トークンは使い切り
         }
     }
+
+    // 投票完了画面
+    console.log("VoteForm render - voteSubmitted:", voteSubmitted);
+    if (voteSubmitted) {
+        return (
+            <div className="vote-container">
+                <div className="vote-success-screen">
+                    <div className="success-icon">✅</div>
+                    <h1 className="success-title">投票完了！</h1>
+                    <p className="success-message">
+                        投票が正常に送信されました。<br/>
+                        ご協力ありがとうございました！<br/>
+                        投票結果は適切に処理し、後日本校のイベントにて使用致します。
+                    </p>
+                    <div className="success-details">
+                        <p><strong>投票ID:</strong> {userID}</p>
+                        <p><strong>投票日時:</strong> {new Date().toLocaleString('ja-JP')}</p>
+                    </div>
+                    <button 
+                        className="back-button"
+                        onClick={() => setVoteSubmitted(false)}
+                    >
+                        投票画面に戻る
+                    </button>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="vote-container">
-            <div ref={turnstileRef} className="turnstile-container"></div>
             <div className="user-id-section">
                 {/* <p className="message-text">{message}</p> */}
                 <div className="user-id-input-group">
@@ -178,13 +226,15 @@ export default function VoteForm() {
                             className="user-id-button"
                             onClick={handleCheckUserID}
                         >
-                            ID登録
+                            IDを認証する
                         </button>
                     </div>
                 </div>
             </div>
             <div className="voting-section">
-                <p className="voting-title">それぞれの部門でよいと思ったクラスを選んでください</p>
+                <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。
+                <br/>一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。
+                <br/>それぞれの部門でよいと思ったクラスを選んでください</p>
                 <div className="category-section">
                     <h3 className="category-title">立志外装部門</h3>
                     <p className="category-description">1・2年生の中で最も外装がよかったクラスを選んでください</p>
@@ -343,7 +393,7 @@ export default function VoteForm() {
                     投票する
                 </button>
             </div>
-            <div ref={turnstileRef}></div>
+            <div ref={turnstileRef} className="turnstile-container"></div>
         </div>
     );
 }
