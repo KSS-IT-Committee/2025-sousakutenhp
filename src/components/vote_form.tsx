@@ -256,8 +256,10 @@ export default function VoteForm() {
             </div>
             <div className="voting-section">
                 <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。
+                <br/>IDを認証していただくと、投票するクラスを選べるようになります。
                 <br/>一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。
-                <br/>それぞれの部門で良いと思ったクラスを1位、2位、3位の順で選んでください</p>
+                <br/>それぞれの部門で良いと思ったクラスを1位、2位、3位の順で選んでください
+                <br/>同じ部門の投票について、同じクラスを複数の順位に選ぶと、投票が無効になります。ご注意下さい。</p>
                 <div className="category-section">
                     <h3 className="category-title">立志外装部門</h3>
                     <p className="category-description">1・2年生の中で外装がよかったクラスを1位、2位、3位の順で選んでください</p>
@@ -718,6 +720,7 @@ export default function VoteForm() {
                 >
                     投票する
                 </button>
+                <p className="voting-title">投票にはお時間がかかる場合がございます。ボタンを押して画面が変わるまでしばらくお待ち下さい。</p>
             </div>
             <div ref={turnstileRef} className="turnstile-container"></div>
         </div>
