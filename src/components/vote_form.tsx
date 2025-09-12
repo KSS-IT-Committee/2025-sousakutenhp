@@ -491,7 +491,7 @@ export default function VoteForm() {
                 </div>
                 <div className="category-section">
                     <h3 className="category-title">光庭パネル立志部門</h3>
-                    <p className="category-description">1～2年生の中で光庭パネルがよかったクラスを1位、2位、3位の順で選んでください</p>
+                    <p className="category-description">1・2年生の中で光庭パネルがよかったクラスを1位、2位、3位の順で選んでください</p>
                     <div className="ranking-container">
                         <div className="rank-select">
                             <label>1位</label>
@@ -567,7 +567,7 @@ export default function VoteForm() {
 
                 <div className="category-section">
                     <h3 className="category-title">光庭パネル開拓部門</h3>
-                    <p className="category-description">3～4年生の中で光庭パネルがよかったクラスを1位、2位、3位の順で選んでください</p>
+                    <p className="category-description">3・4年生の中で光庭パネルがよかったクラスを1位、2位、3位の順で選んでください</p>
                     <div className="ranking-container">
                         <div className="rank-select">
                             <label>1位</label>
