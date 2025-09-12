@@ -30,6 +30,7 @@ export default function VoteForm() {
         { first: "0", second: "0", third: "0" }
     ]);
     const [message, setMessage] = useState("");
+    const [idMessage, setIdMessage] = useState("");
     const [inputUserID, setInputUserID] = useState("");
     const [userID, setUserID] = useState("");
     const [voteSubmitted, setVoteSubmitted] = useState(false);
@@ -38,6 +39,7 @@ export default function VoteForm() {
     const turnstileWidgetId = useRef<number | null>(null);
     const turnstileRef = useRef<HTMLDivElement>(null);
     const sitekey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY?.trim();
+    const [loading, setLoading] = useState(false);
 
     // Cookie から復元
     useEffect(() => {
@@ -61,110 +63,112 @@ export default function VoteForm() {
         }
     }, []);
 
-    // Turnstile をレンダリング
-    useEffect(() => {
-        console.log('Turnstile debug:', { 
-            turnstile: window.turnstile, 
-            ref: turnstileRef.current, 
-            sitekey: sitekey,
-            sitekeLength: sitekey?.length 
-        });
-        
-        const initTurnstile = () => {
-            if (window.turnstile && turnstileRef.current && sitekey) {
-                console.log('Initializing Turnstile widget');
-                turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-                    sitekey,
-                    callback: (token: string) => {
-                        console.log('Turnstile token received:', token.substring(0, 20) + '...');
-                        setTurnstileToken(token);
-                    },
-                });
-                console.log('Turnstile widget ID:', turnstileWidgetId.current);
-            } else {
-                console.log('Turnstile not ready, retrying in 100ms');
-                setTimeout(initTurnstile, 100);
-            }
-        };
-        
-        initTurnstile();
-    }, [sitekey]);
+    // // Turnstile をレンダリング
+    // useEffect(() => {
+    //     console.log('Turnstile debug:', { 
+    //         turnstile: window.turnstile, 
+    //         ref: turnstileRef.current, 
+    //         sitekey: sitekey,
+    //         sitekeLength: sitekey?.length 
+    //     });
+
+    //     const initTurnstile = () => {
+    //         if (window.turnstile && turnstileRef.current && sitekey) {
+    //             console.log('Initializing Turnstile widget');
+    //             turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+    //                 sitekey,
+    //                 callback: (token: string) => {
+    //                     console.log('Turnstile token received:', token.substring(0, 20) + '...');
+    //                     setTurnstileToken(token);
+    //                 },
+    //             });
+    //             console.log('Turnstile widget ID:', turnstileWidgetId.current);
+    //         } else {
+    //             console.log('Turnstile not ready, retrying in 100ms');
+    //             setTimeout(initTurnstile, 100);
+    //         }
+    //     };
+
+    //     initTurnstile();
+    // }, [sitekey]);
 
     // Turnstile トークンを取得してからユーザーIDチェック
     async function handleCheckUserID() {
-        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
-        setMessage("検証中...");
-        // execute でトークン発行
-        window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
-        setTurnstileToken(null);
-        window.turnstile.execute(turnstileWidgetId.current);
+        // if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です");
+        // setMessage("検証中...");
+        // // execute でトークン発行
+        // window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
+        // setTurnstileToken(null);
+        // window.turnstile.execute(turnstileWidgetId.current);
 
         // トークンがセットされるのを待つ
-        const waitToken = () =>
-            new Promise<string>((resolve, reject) => {
-                const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
-                const interval = setInterval(() => {
-                    if (turnstileToken) {
-                        clearTimeout(timeout);
-                        clearInterval(interval);
-                        resolve(turnstileToken);
-                    }
-                }, 100);
-            });
+        // const waitToken = () =>
+        //     new Promise<string>((resolve, reject) => {
+        //         const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
+        //         const interval = setInterval(() => {
+        //             if (turnstileToken) {
+        //                 clearTimeout(timeout);
+        //                 clearInterval(interval);
+        //                 resolve(turnstileToken);
+        //             }
+        //         }, 100);
+        //     });
 
         try {
-            const token = await waitToken();
-            setMessage("サーバーと通信中...");
+            // const token = await waitToken();
+            setIdMessage("サーバーと通信中...");
             const res = await fetch("/api/checkUser", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ userId: inputUserID, turnstileToken: token }),
+                body: JSON.stringify({ userId: inputUserID }),
             });
             const data = (await res.json()) as CheckUserResponse;
             if (data.success) {
                 if (data.exists) {
                     setUserID(inputUserID);
                     setCookie("userID", inputUserID, { path: "/" });
-                    setMessage("投票IDが登録されました！");
+                    setIdMessage("投票IDが認証されました！");
+                    setLoading(false);
                 } else {
-                    setMessage(`この投票ID：${inputUserID}は登録されていません。`);
+                    setIdMessage(`この投票ID：${inputUserID}は登録されていません。`);
                 }
             } else {
                 setMessage("エラー: " + data.error);
             }
         } catch (err) {
             console.error(err);
-            setMessage("Turnstile 認証またはサーバーエラーです");
+            setIdMessage("サーバーエラーです");
         } finally {
 
-            setTurnstileToken(null); // トークンは使い切り
+            // setTurnstileToken(null); // トークンは使い切り
         }
     }
 
     // 投票送信
     async function handleSubmitVote() {
         if (!userID) return alert("投票IDが未登録です");
-        if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です。しばらくお待ち下さい。");
-        setMessage("検証中...");
-        // execute でトークン発行
-        window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
-        setTurnstileToken(null);
-        window.turnstile.execute(turnstileWidgetId.current);
+        setLoading(true);
+        // if (!turnstileWidgetId.current) return alert("Turnstile が未初期化です。しばらくお待ち下さい。");
+        // setMessage("検証中...");
+        // // execute でトークン発行
+        // window.turnstile.reset(turnstileWidgetId.current); // 念のためリセット
+        // setTurnstileToken(null);
+        // window.turnstile.execute(turnstileWidgetId.current);
 
-        const waitToken = () =>
-            new Promise<string>((resolve, reject) => {
-                const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
-                const interval = setInterval(() => {
-                    if (turnstileToken) {
-                        clearTimeout(timeout);
-                        clearInterval(interval);
-                        resolve(turnstileToken);
-                    }
-                }, 100);
-            });
+        // const waitToken = () =>
+        //     new Promise<string>((resolve, reject) => {
+        //         const timeout = setTimeout(() => reject("Turnstile タイムアウト"), 10000);
+        //         const interval = setInterval(() => {
+        //             if (turnstileToken) {
+        //                 clearTimeout(timeout);
+        //                 clearInterval(interval);
+        //                 resolve(turnstileToken);
+        //             }
+        //         }, 100);
+        //     });
 
         try {
-            const token = await waitToken();
+            // const token = await waitToken();
             setMessage("サーバーと通信中...");
             for (let i = 0; i < selectedClass.length; i++) {
                 const rankings = [
@@ -182,7 +186,6 @@ export default function VoteForm() {
                             categoryId: i + 1,
                             classId: ranking.classId,
                             rank: ranking.rank,
-                            turnstileToken: token,
                         }),
                     });
                     const data = (await res.json()) as ApiResponse;
@@ -198,9 +201,9 @@ export default function VoteForm() {
             setCookie("selectedClass", selectedClass, { path: "/" });
         } catch (err) {
             console.error(err);
-            setMessage("Turnstile 認証またはサーバーエラーです");
+            setMessage("サーバーエラーです");
         } finally {
-            setTurnstileToken(null); // トークンは使い切り
+            // setTurnstileToken(null); // トークンは使い切り
         }
     }
 
@@ -213,15 +216,15 @@ export default function VoteForm() {
                     <div className="success-icon">✅</div>
                     <h1 className="success-title">投票完了！</h1>
                     <p className="success-message">
-                        投票が正常に送信されました。<br/>
-                        ご協力ありがとうございました！<br/>
+                        投票が正常に送信されました。<br />
+                        ご協力ありがとうございました！<br />
                         投票結果は適切に処理し、後日本校のイベントにて使用致します。
                     </p>
                     <div className="success-details">
                         <p><strong>投票ID:</strong> {userID}</p>
                         <p><strong>投票日時:</strong> {new Date().toLocaleString('ja-JP')}</p>
                     </div>
-                    <button 
+                    <button
                         className="back-button"
                         onClick={() => setVoteSubmitted(false)}
                     >
@@ -254,12 +257,13 @@ export default function VoteForm() {
                     </div>
                 </div>
             </div>
+            <p>{idMessage}</p>
             <div className="voting-section">
                 <p className="voting-title">上記に受付にて配布されたID10桁をご入力下さい。
-                <br/>IDを認証していただくと、投票するクラスを選べるようになります。
-                <br/>一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。
-                <br/>それぞれの部門で良いと思ったクラスを1位、2位、3位の順で選んでください
-                <br/>同じ部門の投票について、同じクラスを複数の順位に選ぶと、投票が無効になります。ご注意下さい。</p>
+                    <br />IDを認証していただくと、投票するクラスを選べるようになります。
+                    <br />一度にすべての項目を埋める必要はございません。複数回にわたってご入力いただくことが可能です。
+                    <br />それぞれの部門で良いと思ったクラスを1位、2位、3位の順で選んでください
+                    <br />同じ部門の投票について、同じクラスを複数の順位に選ぶと、投票が無効になります。ご注意下さい。</p>
                 <div className="category-section">
                     <h3 className="category-title">立志外装部門</h3>
                     <p className="category-description">1・2年生の中で外装がよかったクラスを1位、2位、3位の順で選んでください</p>
@@ -716,13 +720,14 @@ export default function VoteForm() {
                 <button
                     onClick={handleSubmitVote}
                     className="submit-button"
-                    disabled={!userID}
+                    disabled={!userID || loading}
                 >
                     投票する
                 </button>
+                <p>{message}</p>
                 <p className="voting-title">投票にはお時間がかかる場合がございます。ボタンを押して画面が変わるまでしばらくお待ち下さい。</p>
             </div>
-            <div ref={turnstileRef} className="turnstile-container"></div>
+            {/* <div ref={turnstileRef} className="turnstile-container"></div> */}
         </div>
     );
 }

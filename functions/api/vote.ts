@@ -5,7 +5,6 @@ type VoteRequest = {
   classId: string;
   categoryId: string;
   rank: number;
-  turnstileToken?: string;
 };
 
 type CheckUserResponse =
@@ -21,26 +20,26 @@ export const onRequestPost: PagesFunction<{
 }> = async (context) => {
   try {
     const { request, env } = context;
-    const { userId, classId, categoryId, rank, turnstileToken } = (await request.json()) as VoteRequest;
-    if (!turnstileToken) {
-      return new Response(
-        JSON.stringify({ success: false, error: "No turnstile token" }),
-        { status: 400, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    const { userId, classId, categoryId, rank} = (await request.json()) as VoteRequest;
+    // if (!turnstileToken) {
+    //   return new Response(
+    //     JSON.stringify({ success: false, error: "No turnstile token" }),
+    //     { status: 400, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
     // Turnstile検証
-    const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${env.TURNSTILE_SECRET_KEY}&response=${turnstileToken}`,
-    });
-    const verifyData = await verifyRes.json() as { success: boolean; [key: string]: any };
-    if (!verifyData.success) {
-      return new Response(
-        JSON.stringify({ success: false, error: "認証に失敗しました" }),
-        { status: 401, headers: { "Content-Type": "application/json" } }
-      );
-    }
+    // const verifyRes = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //   body: `secret=${env.TURNSTILE_SECRET_KEY}&response=${turnstileToken}`,
+    // });
+    // const verifyData = await verifyRes.json() as { success: boolean; [key: string]: any };
+    // if (!verifyData.success) {
+    //   return new Response(
+    //     JSON.stringify({ success: false, error: "認証に失敗しました" }),
+    //     { status: 401, headers: { "Content-Type": "application/json" } }
+    //   );
+    // }
 
 
     if (!userId || !classId || !categoryId || !rank) {
