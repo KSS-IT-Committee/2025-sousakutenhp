@@ -720,6 +720,7 @@ export default function VoteForm() {
                 >
                     投票する
                 </button>
+                <p className="voting-title">投票にはお時間がかかる場合がございます。ボタンを押して画面が変わるまでしばらくお待ち下さい。</p>
             </div>
             <div ref={turnstileRef} className="turnstile-container"></div>
         </div>
