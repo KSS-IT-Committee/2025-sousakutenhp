@@ -4,6 +4,7 @@ type VoteRequest = {
   userId: string;
   classId: string;
   categoryId: string;
+  rank: number;
   turnstileToken?: string;
 };
 
@@ -20,7 +21,7 @@ export const onRequestPost: PagesFunction<{
 }> = async (context) => {
   try {
     const { request, env } = context;
-    const { userId, classId, categoryId, turnstileToken } = (await request.json()) as VoteRequest;
+    const { userId, classId, categoryId, rank, turnstileToken } = (await request.json()) as VoteRequest;
     if (!turnstileToken) {
       return new Response(
         JSON.stringify({ success: false, error: "No turnstile token" }),
@@ -42,7 +43,7 @@ export const onRequestPost: PagesFunction<{
     }
 
 
-    if (!userId || !classId || !categoryId) {
+    if (!userId || !classId || !categoryId || !rank) {
       return new Response(
         JSON.stringify({ success: false, error: "Invalid input" }),
         { status: 400, headers: { "Content-Type": "application/json" } }
@@ -57,8 +58,9 @@ export const onRequestPost: PagesFunction<{
         .from("votes")
         .delete()
         .eq("user_id", userId)
-        .eq("category_id", categoryId);
-      console.log("delete", userId, categoryId);
+        .eq("category_id", categoryId)
+        .eq("rank", rank);
+      console.log("delete", userId, categoryId, rank);
       if (error) {
         return new Response(
           JSON.stringify({ success: false, error: error.message }),
@@ -68,7 +70,7 @@ export const onRequestPost: PagesFunction<{
     } else {
       const { error } = await supabase
         .from("votes")
-        .upsert([{ user_id: userId, class_id: classId, category_id: categoryId }], { onConflict: "user_id,category_id" });
+        .upsert([{ user_id: userId, class_id: classId, category_id: categoryId, rank: rank }], { onConflict: "user_id,category_id,rank" });
 
       if (error) {
         return new Response(
