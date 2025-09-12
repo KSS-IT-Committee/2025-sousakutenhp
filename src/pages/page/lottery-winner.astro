@@ -9,6 +9,12 @@ const slots = ["1", "2", "3", "4", "5", "6", "7", "8"];
 
 /** 型注釈（任意） */
 const winnersMap = winners as Record<string, Record<string, string[]>>;
+const sousakuSchedules = [
+    { time: "8:45 〜 10:00", event: "公演", location: "各クラス" },
+    { time: "10:20 〜 11:35", event: "公演", location: "各クラス" },
+    { time: "12:30 〜 13:45", event: "公演", location: "各クラス" },
+    { time: "14:05 〜 15:20", event: "公演", location: "各クラス" },
+];
 ---
 
 <SubPageLayout PageTitle={PageTitle}>
@@ -21,7 +27,12 @@ const winnersMap = winners as Record<string, Record<string, string[]>>;
                     以下の検索ボックスからすぐに確認することもできます。
                 </p>
             </div>
+
             <LottereySearch client:load />
+            <p class="important-notice">
+                当選されたみなさまは、必ず公演開始5分前までに当選クラスの受付までお越しください。<br
+                />
+            </p>
             {
                 classes.map((className) => (
                     <details class="lottery-class-details">
@@ -36,7 +47,17 @@ const winnersMap = winners as Record<string, Record<string, string[]>>;
                                     <h3>
                                         {Math.floor(
                                             (parseInt(slot) - 1) / 4 + 1,
-                                        )}日目 第{((parseInt(slot) - 1) % 4) + 1}公演
+                                        )}
+                                        日目 第{((parseInt(slot) - 1) % 4) + 1}
+                                        公演
+                                    </h3>
+                                    {/* 時間 */}
+                                    <h3>
+                                        {
+                                            sousakuSchedules[
+                                                (parseInt(slot) - 1) % 4
+                                            ].time
+                                        }
                                     </h3>
                                     <ul>
                                         {names.map((name) => (
