@@ -49,14 +49,31 @@ export default function VoteForm() {
 
     // Turnstile をレンダリング
     useEffect(() => {
-        console.log(window.turnstile, turnstileRef.current, sitekey);
-        if (window.turnstile && turnstileRef.current && sitekey) {
-            turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
-                sitekey,
-                callback: (token: string) => setTurnstileToken(token),
-            });
-        }
-
+        console.log('Turnstile debug:', { 
+            turnstile: window.turnstile, 
+            ref: turnstileRef.current, 
+            sitekey: sitekey,
+            sitekeLength: sitekey?.length 
+        });
+        
+        const initTurnstile = () => {
+            if (window.turnstile && turnstileRef.current && sitekey) {
+                console.log('Initializing Turnstile widget');
+                turnstileWidgetId.current = window.turnstile.render(turnstileRef.current, {
+                    sitekey,
+                    callback: (token: string) => {
+                        console.log('Turnstile token received:', token.substring(0, 20) + '...');
+                        setTurnstileToken(token);
+                    },
+                });
+                console.log('Turnstile widget ID:', turnstileWidgetId.current);
+            } else {
+                console.log('Turnstile not ready, retrying in 100ms');
+                setTimeout(initTurnstile, 100);
+            }
+        };
+        
+        initTurnstile();
     }, [sitekey]);
 
     // Turnstile トークンを取得してからユーザーIDチェック
