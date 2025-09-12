@@ -2,7 +2,7 @@
 layout: "../../../../layouts/ExhibitsLayout.astro"
 title: "小石川クイズラリー"
 name: "行事運営委員会"
-room: "多目的室・小会議室"
+room: "アリーナほか"
 map: ""
 sns:
   twitter: ""
@@ -43,12 +43,12 @@ award: ""
         <tr class="schedule-row">
           <td class="time-cell">9:00-11:35</td>
           <td class="event-cell">小石川クイズラリー</td>
-          <td class="location-cell">多目的・小会議室</td>
+          <td class="location-cell">アリーナほか</td>
         </tr>
         <tr class="schedule-row">
           <td class="time-cell">12:15-15:00</td>
           <td class="event-cell">小石川クイズラリー</td>
-          <td class="location-cell">多目的・小会議室</td>
+          <td class="location-cell">アリーナほか</td>
         </tr>
       </tbody>
     </table>
