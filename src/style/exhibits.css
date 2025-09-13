@@ -906,3 +906,68 @@
     width: 60%;
     margin: 1rem auto;
 }
+
+/* Floor information and map link styles */
+.floor-info {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+.floor-separator {
+    color: #666;
+    font-weight: normal;
+}
+
+.floor-text {
+    color: #0077b6;
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.exhibits-detail-map-link {
+    margin-top: 0.5rem;
+}
+
+.map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, #0077b6 0%, #00a8e6 100%);
+    color: white;
+    text-decoration: none;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 119, 182, 0.2);
+}
+
+.map-link:hover {
+    background: linear-gradient(135deg, #005f8a 0%, #0088cc 100%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 119, 182, 0.3);
+    color: white;
+}
+
+.map-icon {
+    font-size: 1rem;
+}
+
+.map-text {
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .map-link {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+    }
+    
+    .floor-text {
+        font-size: 0.9rem;
+    }
+}
