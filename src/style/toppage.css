@@ -1498,3 +1498,58 @@
 .notice-content a:hover {
     text-decoration: underline;
 }
+
+
+
+/* cautionセクション（注意喚起）の強調デザイン */
+.caution {
+    background: linear-gradient(90deg, #ffb5b5 0%, #fff0f0 100%);
+    border: 3px solid #d60000;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(214,0,0,0.12);
+    padding: 2rem 1rem;
+    margin: 2.5rem auto;
+    max-width: 540px;
+    text-align: center;
+    position: relative;
+    animation: caution-pop 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+}
+
+@media (max-width: 480px) {
+    .caution {
+        max-width: 90%;
+        padding: 1.5rem 1rem;
+    }
+}
+
+@keyframes caution-pop {
+    0% { transform: scale(0.95); opacity: 0.5; }
+    70% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); }
+}
+
+.caution h3 {
+    font-size: 2rem;
+    color: #d60000;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    letter-spacing: 0.1em;
+    text-shadow: 0 2px 8px #fff0f0;
+}
+
+.caution p {
+    font-size: 1.25rem;
+    color: #b30000;
+    font-weight: bold;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.caution::before {
+    content: "⚠️";
+    font-size: 2.5rem;
+    position: absolute;
+    left: 1.2rem;
+    top: 1.2rem;
+    filter: drop-shadow(0 2px 4px #fff0f0);
+}
