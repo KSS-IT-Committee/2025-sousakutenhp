@@ -9,6 +9,7 @@ sns:
   instagram: ""
 award: ""
 poster: "/posters/phil.jpg"
+floor: 1
 ---
 
 私たちフィルの創作展では、毎年恒例の

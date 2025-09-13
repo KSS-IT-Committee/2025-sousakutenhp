@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 3
 ---
 
 物理研究会は「好きなことを、好きなだ

@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 3
 ---
 
 花材をよく見る目と、自由な発想で、今

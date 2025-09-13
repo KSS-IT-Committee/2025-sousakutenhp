@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 4
 ---
 
 私たち天文研究会は、化石班と天文班の

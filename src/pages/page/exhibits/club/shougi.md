@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 2
 ---
 
 将棋道場、今年もやります！大会で優勝

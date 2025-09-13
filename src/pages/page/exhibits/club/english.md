@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 3
 ---
 
 今年の英研はいつもと一味違います！今

@@ -9,6 +9,7 @@ sns:
   instagram: ""
 award: ""
 poster: "/posters/shodou.jpg"
+floor: 4
 ---
 
 皆さんこんにちは、初出展の昨年度に続

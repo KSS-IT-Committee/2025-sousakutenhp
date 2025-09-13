@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 1
 ---
 
 こんにちは、競技かるた部です！午前は

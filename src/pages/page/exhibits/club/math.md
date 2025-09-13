@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 3
 ---
 
 こんにちは、数学研究会です！普段の活

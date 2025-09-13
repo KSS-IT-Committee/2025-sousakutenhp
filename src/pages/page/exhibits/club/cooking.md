@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 3
 ---
 
 料理研究会では今年もお菓子の販売をし

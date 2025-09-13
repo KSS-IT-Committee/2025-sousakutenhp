@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 4
 ---
 
 ようこそ、創造されたゲームの世界へ。

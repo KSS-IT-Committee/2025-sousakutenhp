@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 4
 ---
 
 こんにちは。化研こと小石川化学研究会

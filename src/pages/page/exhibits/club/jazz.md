@@ -8,6 +8,7 @@ sns:
   twitter: ""
   instagram: ""
 award: ""
+floor: 4
 ---
 
 華やかなビッグバンドのサウンドで皆様
