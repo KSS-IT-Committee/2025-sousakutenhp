@@ -56,21 +56,21 @@ const { frontmatter } = Astro.props;
                             >
                                 <span class="room-icon">📍</span>
                                 <span class="room-text">{frontmatter.room}</span>
-                                {frontmatter.floor && (
+                                <!-- {frontmatter.floor && (
                                     <span class="floor-info">
                                         <span class="floor-separator">・</span>
                                         <span class="floor-text">{frontmatter.floor}階</span>
                                     </span>
-                                )}
+                                )} -->
                             </div>
-                            {frontmatter.floor && (
+                            <!-- {frontmatter.floor && (
                                 <div class="exhibits-detail-map-link" style="margin-top:0.5rem;">
                                     <a href={`/page/map/#floor-${frontmatter.floor}`} class="map-link">
                                         <span class="map-icon">🗺️</span>
                                         <span class="map-text">校内地図で確認</span>
                                     </a>
                                 </div>
-                            )}
+                            )} -->
                         </div>
                     </div>
 
